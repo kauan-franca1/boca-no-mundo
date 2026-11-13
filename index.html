@@ -113,6 +113,43 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .hero-txt p.sub{max-width:30ch;font-size:1.05rem}
 }
 
+/* ---------- PRÓXIMOS EVENTOS ---------- */
+.eventos{background:var(--creme);color:var(--vinho);padding:clamp(48px,7vw,90px) 20px}
+.eventos[hidden]{display:none}
+.ev-topo{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.ev-topo .label{color:var(--laranja);order:2}
+.ev-topo h2{font-size:clamp(2.4rem,6vw,4.4rem)}
+.ev-lista{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr))}
+.evento{position:relative;display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,36px);align-items:center;background:#fff;border:3px solid var(--vinho);border-radius:10px;padding:clamp(18px,3vw,30px);box-shadow:8px 8px 0 var(--vinho)}
+.ev-data{width:clamp(96px,12vw,128px);aspect-ratio:1;border-radius:8px;background:var(--vinho);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ev-data b{font:400 clamp(2.8rem,6vw,3.8rem)/.9 "Lilita One",sans-serif}
+.ev-data span{font:800 .72rem/1 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ocre);margin-top:6px}
+.ev-corpo h3{font-size:clamp(1.7rem,2.6vw,2.5rem);line-height:1;display:flex;align-items:center;gap:.3em;flex-wrap:wrap}
+.ev-hoje{font:800 .7rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;background:var(--laranja);color:#fff;padding:.6em .8em;border-radius:999px;animation:pulsa 1.6s ease-in-out infinite}
+@keyframes pulsa{50%{transform:scale(1.08)}}
+.ev-onde{font:800 .78rem/1.3 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja);margin:.5em 0 .9em}
+.ev-horas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ev-horas span{white-space:nowrap;display:inline-flex;align-items:center;gap:.5em;font-weight:800;font-size:.95rem;border:2px solid var(--vinho);border-radius:999px;padding:.45em .9em}
+.ev-horas small{font:800 .66rem/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja)}
+.ev-desc{font-weight:700;color:#5c1a2c;max-width:56ch}
+.ev-desc strong{color:var(--vinho)}
+.ev-icone{position:absolute;right:18px;bottom:16px;width:clamp(58px,5.6vw,76px);color:var(--laranja);pointer-events:none}
+.ev-icone svg{display:block;width:100%}
+.ev-lobo{position:absolute;left:34%;top:34%;width:32%;aspect-ratio:559/760;background:currentColor;-webkit-mask:var(--lobo19) center/contain no-repeat;mask:var(--lobo19) center/contain no-repeat}
+.ev-icone .vapor{animation:vapor 2.4s ease-in-out infinite;transform-origin:center bottom}
+.ev-icone .vapor:nth-child(2){animation-delay:.4s}.ev-icone .vapor:nth-child(3){animation-delay:.8s}
+@keyframes vapor{0%,100%{opacity:.25;transform:translateY(2px)}50%{opacity:1;transform:translateY(-3px)}}
+.ev-avisar{margin-top:14px;display:inline-flex;align-items:center;gap:.45em;font:800 .66rem/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--vinho);text-decoration:none;border:2px solid var(--vinho);border-radius:999px;padding:.6em .85em;background:#fff;transition:background .2s,color .2s}
+.ev-avisar:hover{background:var(--vinho);color:#fff}
+.ev-avisar svg{width:1.3em;height:1.3em}
+@media (max-width:700px){
+  .evento{grid-template-columns:auto 1fr;box-shadow:5px 5px 0 var(--vinho)}
+  .ev-icone{display:none}
+  .ev-data{width:84px}
+}
+@media (max-width:420px){.evento{grid-template-columns:1fr}.ev-data{width:100%;aspect-ratio:auto;flex-direction:row;gap:.5em;padding:12px}.ev-data span{margin:0}}
+@media (prefers-reduced-motion:reduce){.ev-hoje,.ev-icone .vapor{animation:none}}
+
 /* ---------- MANIFESTO ---------- */
 .manifesto{position:relative;padding:clamp(72px,10vw,140px) 20px;overflow:hidden}
 .manifesto .rosto{position:absolute;right:-60px;bottom:-90px;width:min(46vw,520px);aspect-ratio:440/500;background:#fff;opacity:.07;-webkit-mask:var(--face) center/contain no-repeat;mask:var(--face) center/contain no-repeat}
@@ -511,6 +548,13 @@ footer .redes{margin:0}
   </div>
 </header>
 
+
+<section class="eventos" id="eventos" aria-labelledby="e-t" hidden>
+  <div class="wrap">
+    <div class="ev-topo"><span class="label">Agenda da chapa</span><h2 id="e-t">Próximos eventos</h2></div>
+    <div class="ev-lista" id="ev-lista"></div>
+  </div>
+</section>
 
 <section class="manifesto" aria-labelledby="m-t">
   <div class="rosto" aria-hidden="true"></div>
@@ -958,6 +1002,54 @@ function uivo(){
   let visivel=false,timer=null;
   const ciclo=()=>{if(document.hidden||!visivel)return;troca(quadros[0]);setTimeout(()=>troca(quadros[1]),700)};
   new IntersectionObserver(es=>{visivel=es[0].isIntersecting;if(visivel&&!timer)timer=setInterval(ciclo,10000);else if(!visivel&&timer){clearInterval(timer);timer=null}},{threshold:.15}).observe(sec);
+})();
+
+// ---------- próximos eventos (some sozinho depois que o evento passa) ----------
+(function(){
+  // para incluir um evento novo, acrescente um item aqui (fim = quando ele some do site, horário de Brasília)
+  const EVENTOS=[
+    {titulo:'Marmitaço',dia:16,mes:11,ano:2026,onde:'Nos dois campi',
+     horas:[['Almoço','a partir das 11h'],['Janta','a partir das 17h30']],
+     desc:'Entrega de marmitas, com <strong>opção vegetariana</strong>. Até nossos estoques acabarem!',
+     zap:'Marmitaço da Chapa 2 · Boca no Mundo\n16/11, nos dois campi\nAlmoço a partir das 11h · Janta a partir das 17h30\nEntrega de marmitas, com opção vegetariana. Até os estoques acabarem!',
+     icone:'marmita'},
+    {titulo:'Silkagem',dia:17,mes:11,ano:2026,onde:'Nos dois campi',
+     horas:[['São Bernardo','a partir do meio-dia'],['Santo André','a partir das 19h']],
+     desc:'',
+     zap:'Silkagem da Chapa 2 · Boca no Mundo\n17/11\nSão Bernardo: a partir do meio-dia\nSanto André: a partir das 19h',
+     icone:'camiseta'},
+    {titulo:'Culto ao Giba',dia:18,mes:11,ano:2026,onde:'Bar Bonsucesso',
+     horas:[['Quarta','21h']],
+     desc:'',
+     zap:'Culto ao Giba · Chapa 2 Boca no Mundo\nQuarta, 18/11, 21h\nBar Bonsucesso',
+     icone:'musica'},
+    {titulo:'Agacaiu com Chapa 2 + Convidados',dia:19,mes:11,ano:2026,onde:'Ponto do Fretado',
+     horas:[['Quinta pré-feriado','23h']],
+     desc:'',
+     zap:'Agacaiu com Chapa 2 + Convidados\nQuinta pré-feriado, 19/11, 23h\nPonto do Fretado',
+     icone:'musica'}
+  ];
+  const sec=document.getElementById('eventos'), lista=document.getElementById('ev-lista');if(!sec)return;
+  const MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'], SEMANA=['dom','seg','ter','qua','qui','sex','sáb'];
+  const ICONES={marmita:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="vapor" d="M24 14c-2-3 2-5 0-8"/><path class="vapor" d="M32 14c-2-3 2-5 0-8"/><path class="vapor" d="M40 14c-2-3 2-5 0-8"/><rect x="8" y="26" width="48" height="26" rx="6"/><path d="M8 34h48M4 30h4M56 30h4M22 20h20a4 4 0 0 1 4 4v2H18v-2a4 4 0 0 1 4-4z"/></svg>',
+    camiseta:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 8l-15 8 6 12 6-3v31h24V25l6 3 6-12-15-8c-1 4-5 7-9 7s-8-3-9-7z"/></svg><span class="ev-lobo"></span>',
+    musica:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 28h30v24a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4z"/><path d="M39 32h5a6 6 0 0 1 6 6v6a6 6 0 0 1-6 6h-5"/><path d="M8 28c-2-6 3-10 8-8 2-5 10-5 12 0 4-3 11 0 10 8"/><path d="M17 36v12M24 36v12M31 36v12"/><g class="vapor"><path d="M54 4v14"/><path d="M54 4l6 2"/><circle cx="50.5" cy="18" r="3.5" fill="currentColor"/></g></svg>'};
+  const zapIco='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.3A8.6 8.6 0 1 1 8 19.3z"/></svg>';
+  // "agora" no fuso de Brasília (UTC-3)
+  const hojeBR=()=>{const d=new Date(Date.now()-3*3600e3);return {a:d.getUTCFullYear(),m:d.getUTCMonth()+1,d:d.getUTCDate()}};
+  const n=o=>o.a*10000+o.m*100+o.d;
+  const h=hojeBR(), hoje=n(h);
+  const ativos=EVENTOS.filter(e=>n({a:e.ano,m:e.mes,d:e.dia})>=hoje).sort((a,b)=>n({a:a.ano,m:a.mes,d:a.dia})-n({a:b.ano,m:b.mes,d:b.dia}));
+  if(!ativos.length)return;
+  lista.innerHTML=ativos.map(e=>{
+    const dt=new Date(Date.UTC(e.ano,e.mes-1,e.dia,12)), eHoje=n({a:e.ano,m:e.mes,d:e.dia})===hoje;
+    return '<article class="evento"><div class="ev-data" aria-label="'+e.dia+' de '+MESES[e.mes-1]+'"><b>'+e.dia+'</b><span>'+MESES[e.mes-1]+' · '+SEMANA[dt.getUTCDay()]+'</span></div>'+
+      '<div class="ev-corpo"><h3>'+e.titulo+(eHoje?' <span class="ev-hoje">É hoje</span>':'')+'</h3><p class="ev-onde">'+e.onde+'</p>'+
+      '<div class="ev-horas">'+e.horas.map(([q,v])=>'<span><small>'+q+'</small>'+v+'</span>').join('')+'</div>'+
+      (e.desc?'<p class="ev-desc">'+e.desc+'</p>':'')+'<a class="ev-avisar" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(e.zap+'\n\nhttps://boca-no-mundo.vercel.app/#eventos')+'" aria-label="Avisar a galera sobre o '+e.titulo+' no WhatsApp">'+zapIco+'Avisar a galera</a></div>'+(ICONES[e.icone]?'<div class="ev-icone">'+ICONES[e.icone]+'</div>':'')+
+      '</article>';
+  }).join('');
+  sec.hidden=false;
 })();
 </script>
 </body>
