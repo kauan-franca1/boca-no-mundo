@@ -1,0 +1,8 @@
+# não publicar no site (ficam só no repositório)
+supabase/
+tools/
+refs/
+assets/
+src.html
+DOCUMENTACAO.md
+.gitignore

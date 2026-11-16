@@ -1,6 +1,6 @@
 // Ajudantes compartilhados pelas funções da API (arquivos com "_" não viram rota na Vercel).
-// Banco: Supabase (tabelas e funções em supabase/schema.sql). A conexão vem das variáveis
-// SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY, criadas pela integração Supabase da Vercel.
+// Banco: Supabase (tabelas e funções em supabase/schema.sql + supabase/002-seguranca.sql).
+// A conexão vem das variáveis SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY, criadas pela integração Supabase da Vercel.
 const crypto = require('crypto');
 
 const SB_URL = (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/$/, '');
@@ -27,36 +27,51 @@ const banco = {
     const linhas = await rpc('cb2_listar', { p_status: status }) || [];
     return linhas.map(l => ({ id: l.id, texto: l.texto, campus: l.campus, criada: Date.parse(l.criada), curtidas: Number(l.curtidas) }));
   },
-  async curtir(id, cliente, curtir) { return Number(await rpc('cb2_curtir', { p_id: id, p_cliente: cliente, p_curtir: curtir })); },
-  async moderar(id, acao) { return !!(await rpc('cb2_moderar', { p_id: id, p_acao: acao })); }
+  // -1 = ideia não publicada; -2 = esta rede já deu o máximo de curtidas nesta ideia
+  async curtir(id, cliente, conexao, curtir, maxRede) {
+    return Number(await rpc('cb2_curtir', { p_id: id, p_cliente: cliente, p_conexao: conexao, p_curtir: curtir, p_max_rede: maxRede }));
+  },
+  async moderar(id, acao) { return !!(await rpc('cb2_moderar', { p_id: id, p_acao: acao })); },
+  async adminEspera(conexao) { return Number(await rpc('cb2_admin_espera', { p_conexao: conexao }) || 0); },
+  async adminTentativa(conexao, ok) { return Number(await rpc('cb2_admin_tentativa', { p_conexao: conexao, p_ok: ok }) || 0); }
 };
 
 // Teste local: o servidor de testes troca o banco por um de memória (ver tools/banco-memoria.js).
 if (process.env.CB2_BANCO_MEMORIA) Object.assign(banco, require(process.env.CB2_BANCO_MEMORIA));
 
 // IP vira um código irreversível: serve para limitar abuso sem guardar o IP de ninguém.
+// Na Vercel, x-forwarded-for é definido pela própria plataforma (o valor enviado pelo visitante é descartado).
 function idConexao(req) {
   const ip = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '').split(',')[0].trim();
   return crypto.createHash('sha256').update('boca-no-mundo:' + ip).digest('hex').slice(0, 24);
 }
 
+function pedidoInvalido() { const e = new Error('pedido inválido'); e.status = 400; return e; }
+
+// Lê o corpo JSON; corpo quebrado vira erro 400 (e não 500)
 function corpo(req) {
-  if (req.body && typeof req.body === 'object') return req.body;
-  try { return JSON.parse(req.body || '{}'); } catch { return {}; }
+  let b;
+  try { b = req.body; } catch { throw pedidoInvalido(); }      // na Vercel, ler req.body com JSON quebrado lança erro
+  if (b && typeof b === 'object') return b;
+  if (b == null || b === '') return {};
+  try { const o = JSON.parse(b); if (o && typeof o === 'object') return o; } catch {}
+  throw pedidoInvalido();
 }
 
 function responde(res, status, dados) {
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
   res.end(JSON.stringify(dados));
 }
 
+const MENSAGENS = { 400: 'Pedido inválido', 503: 'As ideias da galera ainda não foram ativadas.' };
 async function protege(res, fn) {
   try { await fn(); }
   catch (e) {
-    if (e.status !== 503) console.error(e);
-    responde(res, e.status || 500, { erro: e.status === 503 ? 'As ideias da galera ainda não foram ativadas.' : 'Algo deu errado. Tente de novo.' });
+    if (!MENSAGENS[e.status]) console.error(e);
+    responde(res, e.status || 500, { erro: MENSAGENS[e.status] || 'Algo deu errado. Tente de novo.' });
   }
 }
 

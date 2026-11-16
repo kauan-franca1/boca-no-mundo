@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapa 2 · Boca no Mundo</title>
+<meta name="description" content="Chapa 2 Boca no Mundo: propostas para a UFABC. Votação para o DCE em 25 e 26 de novembro.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Chapa 2 · Boca no Mundo">
+<meta property="og:title" content="Chapa 2 · Boca no Mundo · DCE UFABC">
+<meta property="og:description" content="Propostas para a gente estudar, comer, pesquisar e viver melhor na UFABC. Votação: 25 e 26 de novembro.">
+<meta property="og:url" content="https://boca-no-mundo.vercel.app/">
+<meta property="og:image" content="https://boca-no-mundo.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fachada da UFABC em laranja e preto com o lobo Boca no Mundo">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#90002e">
+<link rel="icon" href="{{favicon}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Lilita+One&family=Montserrat:wght@600;700;800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#90002e; --laranja:#c75d01; --ocre:#e28e1b; --oliva:#8c8d28; --vermelho:#d41b1c;
+  --creme:#fbf6ec; --tinta:#141414;
+  --pattern:url({{pattern}});--wm:url({{wordmark}});--face:url({{face}});--wolf:url({{wolf}});--lobo19:url({{lobo19}});--laranja-claro:#e5803a;--tinta-quente:#1a0a06;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--vinho);color:#fff;font:600 17px/1.45 Montserrat,system-ui,sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Lilita One",Montserrat,sans-serif;font-weight:400;line-height:.95;letter-spacing:.005em}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--ocre);outline-offset:3px;border-radius:6px}
+.label{font:800 .8rem/1 Montserrat,sans-serif;letter-spacing:.28em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* fundo estampado */
+.estampa{background:var(--laranja) var(--pattern) 0 0/460px auto repeat}
+
+/* pétalas vinho nos cantos */
+.petalas{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.petalas i{position:absolute;background:var(--vinho);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;padding:96px 20px 72px;overflow:hidden}
+.hero .p1{width:30vmax;height:13vmax;left:-8vmax;top:-3vmax;transform:rotate(58deg)}
+.hero .p2{width:26vmax;height:11vmax;left:-11vmax;top:15vmax;transform:rotate(22deg)}
+.hero .p3{width:30vmax;height:12vmax;left:-9vmax;bottom:-4vmax;transform:rotate(-50deg)}
+.hero .p4{width:34vmax;height:12vmax;right:-14vmax;top:4vmax;transform:rotate(68deg)}
+.hero .p5{width:24vmax;height:13vmax;right:-8vmax;bottom:-2vmax;transform:rotate(-30deg)}
+.hero .p6{width:14vmax;height:9vmax;left:20vmax;top:-6vmax;transform:rotate(-10deg)}
+.hero-in{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;max-width:880px}
+.marca{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,24px);flex-wrap:wrap}
+.lobo{width:clamp(150px,22vw,280px);aspect-ratio:330/370;position:relative;transform-origin:50% 80%}
+.lobo img{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 0 rgba(80,0,20,.25))}
+.lobo.uiva{animation:uiva 1.9s cubic-bezier(.3,.7,.3,1)}
+@keyframes uiva{0%{transform:rotate(0)}12%{transform:rotate(-9deg) translateY(-6px)}70%{transform:rotate(-7deg) translateY(-4px)}100%{transform:rotate(0)}}
+.ondas{position:absolute;right:-22%;top:4%;width:42%;opacity:0}
+.lobo.uiva .ondas{animation:ondas 1.9s ease-out}
+@keyframes ondas{0%{opacity:0;transform:translate(-10px,10px) scale(.7)}15%{opacity:1}75%{opacity:1;transform:translate(10px,-8px) scale(1.15)}100%{opacity:0;transform:translate(16px,-12px) scale(1.2)}}
+.wordmark{width:clamp(250px,40vw,520px);aspect-ratio:415/265;background:#fff;-webkit-mask:var(--wm) center/contain no-repeat;mask:var(--wm) center/contain no-repeat}
+.hero p.sub{font-weight:700;font-size:clamp(1.05rem,2vw,1.35rem);max-width:30ch}
+.cta{display:inline-flex;align-items:center;gap:.6em;margin-top:6px;background:var(--vinho);color:#fff;text-decoration:none;font:400 1.35rem/1 "Lilita One",sans-serif;padding:.75em 1.3em .7em;border-radius:999px;transition:transform .2s,background .2s}
+.cta:hover{transform:translateY(-3px) rotate(-1.5deg);background:#a5003a}
+.cta svg{width:1em;height:1em}
+/* abertura: fachada retramada em duotone */
+.hero.hero-fachada{display:block;min-height:0;padding:0;background:var(--vinho);overflow:hidden}
+.cena{position:relative;width:100%;height:var(--cena-h,56.25vw);cursor:pointer;outline-offset:-4px}
+.cena canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.camada{position:absolute;inset:0;visibility:hidden}
+.camada.ativa,.camada.saindo{visibility:visible}
+.camada canvas{z-index:0}
+.ceu{position:absolute;inset:0;z-index:0;pointer-events:none;background:url({{ceu}}) 0 0/380px auto repeat;opacity:.55;
+  -webkit-mask-image:linear-gradient(105deg,transparent 0%,#000 22%,#000 48%,transparent 70%);mask-image:linear-gradient(105deg,transparent 0%,#000 22%,#000 48%,transparent 70%);
+  -webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;animation:puxada 16s cubic-bezier(.45,0,.55,1) infinite alternate}
+@keyframes puxada{from{-webkit-mask-position:69% 0;mask-position:69% 0}to{-webkit-mask-position:-18% 0;mask-position:-18% 0}}
+@media (prefers-reduced-motion:reduce){.ceu{animation:none;-webkit-mask-image:none;mask-image:none;opacity:.12}}
+.cena canvas.transicao{z-index:1;display:none;pointer-events:none}
+.camada .fachada{z-index:2;transition:opacity .35s ease}
+.camada.saindo .fachada,.camada.entrando .fachada{opacity:0}
+.hero-fachada.pronto .f-lobo.f-claro,.f-lobo.f-claro{background:#fbf6ec}
+.campus-nome{position:absolute;left:clamp(14px,2.5vw,32px);bottom:clamp(14px,2.5vw,28px);z-index:3;background:var(--vinho);color:#fbf6ec;font:800 .72rem/1 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;padding:.75em 1em;border-radius:999px;pointer-events:none}
+.fachada{position:absolute;inset:0;pointer-events:none;filter:url(#boil)}
+.f-lobo{position:absolute;left:0;top:0;transform-origin:0 0;background:#fbf6ec;transition:background-color .55s ease .35s}
+.f-lobo{-webkit-mask:var(--lobo19) 0 0/100% 100% no-repeat;mask:var(--lobo19) 0 0/100% 100% no-repeat}
+.hero-fachada.pronto .f-lobo{background:var(--tinta-quente)}
+.cena.uiva{animation:tremor 1s cubic-bezier(.3,.7,.3,1)}
+@keyframes tremor{0%,100%{transform:none}12%{transform:translate(-3px,1px)}24%{transform:translate(3px,-1px)}36%{transform:translate(-2px,0)}50%{transform:translate(1px,1px)}}
+.hero-txt{position:absolute;right:max(24px,5vw);top:clamp(28px,7vw,110px);z-index:2;max-width:min(30ch,32vw);text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:14px;opacity:0;transform:translateY(10px);transition:opacity .6s ease .9s,transform .6s ease .9s}
+.hero-fachada.pronto .hero-txt{opacity:1;transform:none}
+.hero-txt .label{color:var(--laranja-claro)}
+.hero-txt p.sub{font-weight:700;font-size:clamp(1rem,1.5vw,1.3rem);line-height:1.35;color:#fff;text-shadow:0 1px 0 rgba(26,10,6,.6),0 0 14px rgba(26,10,6,.55)}
+.hero-txt .cta{margin-top:4px;background:var(--laranja-claro);color:var(--tinta-quente)}
+.hero-txt .cta:hover{background:#fff}
+.redes{display:flex;gap:10px;margin-top:2px}
+.redes a{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:2px solid var(--laranja-claro);color:var(--laranja-claro);transition:background .2s,color .2s,transform .2s}
+.redes a:hover{background:var(--laranja-claro);color:var(--tinta-quente);transform:translateY(-2px) rotate(-6deg)}
+.redes svg{width:22px;height:22px}
+/* campus São Bernardo: o texto fica sobre o prédio, então troca as cores (sem caixa) */
+.hero-txt .label,.hero-txt p.sub,.redes a{transition:color .4s,border-color .4s,background .4s,text-shadow .4s}
+.campus-2 .hero-txt .label{color:#fff;text-shadow:0 1px 0 rgba(26,10,6,.9),0 0 10px rgba(26,10,6,.9)}
+.campus-2 .hero-txt p.sub{text-shadow:0 2px 0 rgba(26,10,6,.95),0 0 18px rgba(26,10,6,.95),0 0 4px rgba(26,10,6,.9)}
+.campus-2 .redes a{background:var(--tinta-quente);border-color:var(--tinta-quente);color:#fff}
+.campus-2 .redes a:hover{background:#fff;border-color:#fff;color:var(--tinta-quente)}
+.campus-2 .hero-txt .cta{background:var(--tinta-quente);color:#fff}
+.campus-2 .hero-txt .cta:hover{background:#fff;color:var(--tinta-quente)}
+@media (max-width:759px){.campus-2 .hero-txt .label{color:var(--laranja-claro);text-shadow:none}.campus-2 .hero-txt p.sub{text-shadow:none}.campus-2 .redes a{background:none;border-color:var(--laranja-claro);color:var(--laranja-claro)}.campus-2 .hero-txt .cta{background:var(--laranja-claro);color:var(--tinta-quente)}}
+@media (max-width:759px){
+  .hero-txt{position:relative;right:auto;top:auto;max-width:none;align-items:center;text-align:center;padding:26px 22px 40px}
+  .hero-txt p.sub{max-width:30ch;font-size:1.05rem}
+}
+
+/* ---------- PRÓXIMOS EVENTOS ---------- */
+.eventos{background:var(--creme);color:var(--vinho);padding:clamp(48px,7vw,90px) 20px}
+.eventos[hidden]{display:none}
+.ev-topo{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.ev-topo .label{color:var(--laranja);order:2}
+.ev-topo h2{font-size:clamp(2.4rem,6vw,4.4rem)}
+.ev-lista{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr))}
+.evento{position:relative;display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,36px);align-items:center;background:#fff;border:3px solid var(--vinho);border-radius:10px;padding:clamp(18px,3vw,30px);box-shadow:8px 8px 0 var(--vinho)}
+.ev-data{width:clamp(96px,12vw,128px);aspect-ratio:1;border-radius:8px;background:var(--vinho);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.ev-data b{font:400 clamp(2.8rem,6vw,3.8rem)/.9 "Lilita One",sans-serif}
+.ev-data span{font:800 .72rem/1 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ocre);margin-top:6px}
+.ev-corpo h3{font-size:clamp(1.7rem,2.6vw,2.5rem);line-height:1;display:flex;align-items:center;gap:.3em;flex-wrap:wrap}
+.ev-hoje{font:800 .7rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;background:var(--laranja);color:#fff;padding:.6em .8em;border-radius:999px;animation:pulsa 1.6s ease-in-out infinite}
+@keyframes pulsa{50%{transform:scale(1.08)}}
+.ev-onde{font:800 .78rem/1.3 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja);margin:.5em 0 .9em}
+.ev-horas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ev-horas span{white-space:nowrap;display:inline-flex;align-items:center;gap:.5em;font-weight:800;font-size:.95rem;border:2px solid var(--vinho);border-radius:999px;padding:.45em .9em}
+.ev-horas small{font:800 .66rem/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja)}
+.ev-desc{font-weight:700;color:#5c1a2c;max-width:56ch}
+.ev-desc strong{color:var(--vinho)}
+.ev-icone{position:absolute;right:18px;bottom:16px;width:clamp(58px,5.6vw,76px);color:var(--laranja);pointer-events:none}
+.ev-icone svg{display:block;width:100%}
+.ev-lobo{position:absolute;left:34%;top:34%;width:32%;aspect-ratio:559/760;background:currentColor;-webkit-mask:var(--lobo19) center/contain no-repeat;mask:var(--lobo19) center/contain no-repeat}
+.ev-icone .vapor{animation:vapor 2.4s ease-in-out infinite;transform-origin:center bottom}
+.ev-icone .vapor:nth-child(2){animation-delay:.4s}.ev-icone .vapor:nth-child(3){animation-delay:.8s}
+@keyframes vapor{0%,100%{opacity:.25;transform:translateY(2px)}50%{opacity:1;transform:translateY(-3px)}}
+.ev-avisar{margin-top:14px;display:inline-flex;align-items:center;gap:.45em;font:800 .66rem/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--vinho);text-decoration:none;border:2px solid var(--vinho);border-radius:999px;padding:.6em .85em;background:#fff;transition:background .2s,color .2s}
+.ev-avisar:hover{background:var(--vinho);color:#fff}
+.ev-avisar svg{width:1.3em;height:1.3em}
+@media (max-width:700px){
+  .evento{grid-template-columns:auto 1fr;box-shadow:5px 5px 0 var(--vinho)}
+  .ev-icone{display:none}
+  .ev-data{width:84px}
+}
+@media (max-width:420px){.evento{grid-template-columns:1fr}.ev-data{width:100%;aspect-ratio:auto;flex-direction:row;gap:.5em;padding:12px}.ev-data span{margin:0}}
+@media (prefers-reduced-motion:reduce){.ev-hoje,.ev-icone .vapor{animation:none}}
+
+/* ---------- MANIFESTO ---------- */
+.manifesto{position:relative;padding:clamp(72px,10vw,140px) 20px;overflow:hidden}
+.manifesto .rosto{position:absolute;right:-60px;bottom:-90px;width:min(46vw,520px);aspect-ratio:440/500;background:#fff;opacity:.07;-webkit-mask:var(--face) center/contain no-repeat;mask:var(--face) center/contain no-repeat}
+.wrap{max-width:1180px;margin:0 auto;position:relative}
+.manifesto h2{font-size:clamp(2.6rem,7.5vw,6.2rem);max-width:13ch}
+.manifesto h2 em{font-style:normal;color:var(--ocre)}
+.manifesto p{margin-top:28px;max-width:46ch;font-size:clamp(1.05rem,1.8vw,1.25rem);color:#f6dfe5}
+.numeros{display:flex;gap:clamp(24px,5vw,64px);margin-top:44px;flex-wrap:wrap}
+.numeros b{display:block;font:400 clamp(2.6rem,6vw,4.4rem)/1 "Lilita One",sans-serif;color:var(--ocre)}
+.numeros span{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;font-weight:800}
+
+/* ---------- PROPOSTAS ---------- */
+.propostas{background:var(--creme);color:var(--vinho);padding:clamp(64px,8vw,110px) 20px}
+.topo{display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.topo h2{font-size:clamp(3rem,8vw,6.5rem)}
+.topo .label{color:var(--laranja);display:block;margin-bottom:12px}
+.filtros{display:flex;gap:8px;flex-wrap:wrap}
+.filtros button{font:800 .78rem/1 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:.85em 1.15em;border-radius:999px;border:2px solid var(--vinho);color:var(--vinho);transition:background .2s,color .2s}
+.filtros button:hover{background:#f1e2d6}
+.filtros button[aria-pressed=true]{background:var(--vinho);color:#fff}
+.grade{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sugestao{position:relative;isolation:isolate;overflow:hidden;margin-top:18px;border-radius:6px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:clamp(28px,4vw,44px) clamp(24px,5vw,64px)}
+.sugestao .petalas{z-index:-1}
+.sugestao .petalas i:nth-child(1){width:22%;height:90%;left:-8%;top:-30%;transform:rotate(58deg)}
+.sugestao .petalas i:nth-child(2){width:18%;height:80%;right:-6%;bottom:-40%;transform:rotate(-30deg)}
+.sugestao .petalas i:nth-child(3){width:10%;height:50%;right:24%;top:-38%;transform:rotate(-12deg)}
+.sugestao .label{color:#fff;opacity:.95}
+.sugestao h3{font-size:clamp(2rem,4.4vw,3.2rem);margin:.15em 0 .1em}
+.sugestao p{font-weight:700;font-size:clamp(1rem,1.6vw,1.2rem)}
+.sugestao .sug-txt,.sugestao h3,.sugestao p,.sugestao .label{text-shadow:0 1px 0 rgba(120,40,0,.25)}
+.sug-cta{background:var(--vinho);color:#fff;flex:none}
+.sug-cta:hover{background:var(--tinta)}
+.card{position:relative;aspect-ratio:1/1;border-radius:6px;overflow:hidden;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16% 15% 14%;isolation:isolate;transition:transform .35s cubic-bezier(.3,.7,.3,1),opacity .3s}
+.card.some{display:none}
+.card.ok:hover{transform:rotate(-1.2deg) translateY(-4px)}
+.card.ok:nth-child(even):hover{transform:rotate(1.2deg) translateY(-4px)}
+.card .petalas{z-index:-1}
+.card .petalas i:nth-child(1){width:46%;height:22%;left:-16%;top:-2%;transform:rotate(62deg)}
+.card .petalas i:nth-child(2){width:38%;height:17%;left:-20%;top:30%;transform:rotate(20deg)}
+.card .petalas i:nth-child(3){width:44%;height:20%;left:-14%;bottom:-6%;transform:rotate(-48deg)}
+.card .petalas i:nth-child(4){width:52%;height:17%;right:-26%;top:10%;transform:rotate(70deg)}
+.card .petalas i:nth-child(5){width:34%;height:20%;right:-12%;bottom:4%;transform:rotate(-28deg)}
+.card .petalas i:nth-child(6){width:28%;height:14%;left:24%;top:-9%;transform:rotate(-8deg)}
+.card .label{font-size:clamp(.62rem,1vw,.74rem);margin-bottom:.9em;opacity:.95}
+.card h3{font-size:clamp(1.7rem,3.1vw,2.8rem);text-wrap:balance}
+.card p{margin-top:.75em;font-weight:700;font-size:clamp(.88rem,1.15vw,1rem);line-height:1.3;text-wrap:balance}
+.card .grito{position:absolute;right:8%;top:14%;width:13%;opacity:0;transform:scale(.5) rotate(-10deg);transition:opacity .25s,transform .35s cubic-bezier(.3,1.6,.5,1)}
+.card:hover .grito,.card:focus-within .grito,.card.ativo .grito{opacity:1;transform:none}
+.card .mini{width:21%;aspect-ratio:330/370;margin-top:auto;background:var(--wolf) center/contain no-repeat;transform-origin:50% 90%}
+.card:hover .mini{animation:latido .5s ease}
+@keyframes latido{40%{transform:rotate(-12deg) scale(1.06)}}
+.card h3,.card p,.card .label{text-shadow:0 1px 0 rgba(120,40,0,.25)}
+.compartilha{position:absolute;right:6%;bottom:6%;z-index:2;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--vinho);color:#fff;opacity:0;transform:scale(.8);transition:opacity .2s,transform .2s,background .2s}
+.compartilha svg{width:22px;height:22px}
+.card:hover .compartilha,.card:focus-within .compartilha{opacity:1;transform:none}
+.compartilha:hover{background:var(--tinta)}
+@media (hover:none){.compartilha{opacity:1;transform:none}}
+.card .top{margin-top:auto}
+
+/* ---------- OLHOS / VOTO ---------- */
+.voto{position:relative;padding:clamp(80px,12vw,160px) 20px;background:url({{eyes}}) 0 0/560px auto repeat;overflow:hidden}
+.voto .bloco{background:var(--creme);color:var(--vinho);max-width:760px;margin:0 auto;padding:clamp(32px,6vw,64px);border-radius:8px;text-align:center;position:relative;z-index:1;box-shadow:12px 12px 0 var(--tinta)}
+.voto .label{color:var(--laranja)}
+/* ---------- IDEIAS DA GALERA ---------- */
+.ideias{background:var(--creme);color:var(--vinho);padding:0 20px clamp(64px,8vw,110px)}
+.ideias-topo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,4vw,48px);align-items:end;border-top:3px solid var(--vinho);padding-top:clamp(36px,5vw,56px);margin-bottom:24px}
+.ideias-topo .label{color:var(--laranja);display:block;margin-bottom:10px}
+.ideias-topo h2{font-size:clamp(2.4rem,6vw,4.4rem)}
+.ideias-topo p{font-weight:700;color:#5c1a2c;max-width:44ch}
+.ideia-form{position:relative;isolation:isolate;overflow:hidden;border-radius:8px;padding:clamp(20px,3vw,32px);display:grid;gap:14px}
+.ideia-form .petalas{z-index:-1}
+.ideia-form .petalas i:nth-child(1){width:22%;height:70%;left:-9%;top:-30%;transform:rotate(58deg)}
+.ideia-form .petalas i:nth-child(2){width:16%;height:70%;right:-5%;bottom:-38%;transform:rotate(-30deg)}
+.ideia-form .petalas i:nth-child(3){width:9%;height:40%;right:30%;top:-30%;transform:rotate(-12deg)}
+.ideia-form textarea{width:100%;resize:vertical;min-height:96px;font:700 1.05rem/1.4 Montserrat,sans-serif;color:var(--tinta);background:var(--creme);border:3px solid var(--vinho);border-radius:10px;padding:14px 16px;box-shadow:5px 5px 0 var(--vinho)}
+.ideia-form textarea:focus{outline:3px solid var(--ocre);outline-offset:2px}
+.ideia-linha{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ideia-linha select{font:800 .78rem/1 Montserrat,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--vinho);background:var(--creme);border:2px solid var(--vinho);border-radius:999px;padding:.8em 1em}
+.ideia-conta{font:800 .74rem/1 Montserrat,sans-serif;letter-spacing:.1em;color:#fff;text-shadow:0 1px 0 rgba(120,40,0,.4);margin-right:auto}
+.ideia-form .cta{margin:0}
+.ideia-form .cta[disabled]{opacity:.6;cursor:wait}
+.ideia-msg{min-height:1.3em;font-weight:800;color:#fff;text-shadow:0 1px 0 rgba(120,40,0,.45)}
+.isca{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.ideias-barra{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:34px 0 16px}
+.ordem{display:flex;gap:8px}
+.ordem button{font:800 .74rem/1 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:.8em 1.05em;border-radius:999px;border:2px solid var(--vinho);color:var(--vinho)}
+.ordem button[aria-pressed=true]{background:var(--vinho);color:#fff}
+.ideias-total{font:800 .74rem/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.ideias-lista{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.ideia{background:#fff;border:2px solid var(--vinho);border-radius:10px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:12px;box-shadow:5px 5px 0 var(--vinho);transition:transform .25s}
+.ideia:hover{transform:translateY(-2px)}
+.ideia p{font-weight:700;font-size:1.02rem;line-height:1.4;color:#3a0a18;word-break:break-word}
+.ideia-rodape{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+.ideia-meta{font:800 .66rem/1.3 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--laranja)}
+.curtir{display:inline-flex;align-items:center;gap:.45em;font:800 .95rem/1 Montserrat,sans-serif;color:var(--vinho);border:2px solid var(--vinho);border-radius:999px;padding:.45em .85em .45em .65em;transition:background .2s,color .2s,transform .15s}
+.curtir svg{width:20px;height:20px}
+.curtir:hover{background:#f4e3dc}
+.curtir[aria-pressed=true]{background:var(--laranja);border-color:var(--laranja);color:#fff}
+.curtir.pula{animation:pula .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pula{40%{transform:scale(1.18) rotate(-6deg)}}
+.ideia.top{border-color:var(--laranja);box-shadow:5px 5px 0 var(--laranja)}
+.ideia .selo{align-self:flex-start;font:800 .62rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;background:var(--laranja);color:#fff;padding:.5em .7em;border-radius:999px}
+.ideias-vazio{font-weight:700;color:#7a3a4a;margin-top:24px}
+@media (max-width:760px){.ideias-topo{grid-template-columns:1fr}.ideia-conta{order:3;width:100%;margin:0}}
+
+/* ---------- A CHAPA DA AÇÃO ---------- */
+.em-acao{background:var(--vinho);color:#fff;padding:clamp(64px,9vw,120px) 20px;overflow:hidden}
+.em-acao .wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:clamp(32px,6vw,80px);align-items:center}
+.em-acao .label{color:var(--ocre)}
+.em-acao h2{font-size:clamp(2.8rem,7vw,5.6rem);margin:.15em 0 .25em}
+.em-acao p{font-weight:700;font-size:clamp(1.08rem,1.9vw,1.4rem);line-height:1.4;max-width:30ch;color:#f6dfe5}
+.ver-galeria{display:inline-flex;align-items:center;gap:.5em;margin-top:26px;color:var(--ocre);text-decoration:none;font:800 .82rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;border-bottom:2px solid currentColor;padding-bottom:4px}
+.ver-galeria svg{width:1.1em;height:1.1em;transition:transform .2s}
+.ver-galeria:hover{color:#fff}.ver-galeria:hover svg{transform:translateX(4px)}
+.acao-fotos{position:relative;height:clamp(300px,36vw,460px)}
+.quadro{position:absolute;display:block;width:60%;aspect-ratio:4/3;background:#fff;border:8px solid #fff;box-shadow:9px 9px 0 var(--laranja-claro);overflow:hidden;transition:transform .5s cubic-bezier(.3,.7,.3,1)}
+.quadro img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.1s ease}
+.quadro img.on{opacity:1}
+.q1{left:0;top:0;transform:rotate(-3deg);z-index:1}
+.q2{right:0;bottom:0;transform:rotate(2.5deg);z-index:2;box-shadow:9px 9px 0 var(--tinta)}
+.quadro:hover{transform:rotate(0) scale(1.02);z-index:3}
+.quadro-leg{position:absolute;left:8px;bottom:8px;z-index:2;background:var(--vinho);color:#fff;font:800 .6rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:.6em .8em;border-radius:999px;opacity:.95}
+@media (max-width:760px){
+  .em-acao .wrap{grid-template-columns:1fr}
+  .acao-fotos{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:6px 6px 10px 0}
+  .quadro{position:relative;width:100%;border-width:5px;box-shadow:5px 5px 0 var(--laranja-claro)}
+  .q2{box-shadow:5px 5px 0 var(--tinta)}
+  .q1,.q2{left:auto;right:auto;top:auto;bottom:auto}
+  .quadro-leg{display:none}
+}
+@media (prefers-reduced-motion:reduce){.quadro img{transition:none}}
+.voto canvas.olhos{position:absolute;inset:0;width:100%;height:100%;display:block}
+.voto h2{font-size:clamp(3rem,9vw,7rem);margin:.18em 0 .12em}
+.voto h2 span{color:var(--laranja)}
+.voto p{font-weight:700;max-width:34ch;margin:0 auto;color:#5c1a2c}
+.contagem{display:flex;justify-content:center;gap:clamp(8px,2vw,16px);margin:4px 0 26px}
+.contagem div{background:var(--vinho);color:#fff;border-radius:10px;min-width:clamp(62px,12vw,100px);padding:12px 6px 10px;box-shadow:5px 5px 0 var(--tinta);display:flex;flex-direction:column;align-items:center;gap:4px}
+.contagem b{font:400 clamp(2rem,6vw,3.4rem)/1 "Lilita One",sans-serif;font-variant-numeric:tabular-nums}
+.contagem span{font:800 .62rem/1 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ocre)}
+.contagem b.vira{animation:vira .35s ease}
+@keyframes vira{0%{transform:translateY(-6px);opacity:.3}100%{transform:none;opacity:1}}
+.voto .contagem-aviso{font:400 clamp(1.4rem,3.6vw,2rem)/1.1 "Lilita One",sans-serif;color:var(--vinho);margin:0 auto 18px;max-width:none}
+
+/* ---------- RODAPÉ ---------- */
+footer{padding:48px 20px 40px}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer .rosto{width:56px;aspect-ratio:440/500;background:#fff;-webkit-mask:var(--face) center/contain no-repeat;mask:var(--face) center/contain no-repeat;transition:transform .3s}
+footer .rosto:hover{transform:rotate(-10deg)}
+footer .assina{display:flex;align-items:center;gap:16px}
+footer small{font-size:.78rem;color:#f0c9d3;letter-spacing:.06em}
+footer .redes{margin:0}
+.rodape-sug{display:inline-flex;align-items:center;gap:.5em;font:800 .78rem/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ocre);text-decoration:none;border-bottom:2px solid currentColor;padding-bottom:3px}
+.rodape-sug svg{width:1em;height:1em}
+.rodape-sug:hover{color:#fff}
+.wm-mini{width:150px;aspect-ratio:415/265;background:var(--ocre);-webkit-mask:var(--wm) center/contain no-repeat;mask:var(--wm) center/contain no-repeat}
+
+/* entrada */
+.sobe{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.sobe.ok{opacity:1;transform:none}
+
+/* ---------- ABAS ---------- */
+.abas{position:sticky;top:0;z-index:20;background:var(--vinho);border-bottom:3px solid var(--tinta)}
+.abas .wrap{display:flex;align-items:center;gap:14px;padding:10px 20px;max-width:1220px}
+.abas .rosto{width:30px;aspect-ratio:440/500;background:#fff;-webkit-mask:var(--face) center/contain no-repeat;mask:var(--face) center/contain no-repeat;flex:none;margin-right:auto}
+.abas a{font:800 .76rem/1 Montserrat,sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:.85em 1.15em;border-radius:999px;border:2px solid #fff;white-space:nowrap;transition:background .2s,color .2s}
+.abas a:hover{background:rgba(255,255,255,.12)}
+.abas a[aria-current=page]{background:var(--creme);border-color:var(--creme);color:var(--vinho)}
+.abas a.rosto{border:0;padding:0;border-radius:0;background:#fff}
+.abas a.rosto:hover{background:var(--ocre)}
+.aba[hidden]{display:none}
+.so-mob{display:none}
+@media (max-width:620px){.so-desk{display:none}.so-mob{display:inline}}
+
+/* ---------- GALERIA ---------- */
+#aba-galeria{background:var(--creme);color:var(--vinho)}
+.gal-topo{position:relative;overflow:hidden;isolation:isolate;color:#fff;padding:clamp(64px,9vw,120px) 20px clamp(56px,7vw,96px)}
+.gal-topo .petalas{z-index:-1}
+.gal-topo .p1{width:30vmax;height:12vmax;left:-12vmax;top:-3vmax;transform:rotate(55deg)}
+.gal-topo .p2{width:24vmax;height:10vmax;left:-10vmax;bottom:-4vmax;transform:rotate(-30deg)}
+.gal-topo .p3{width:30vmax;height:11vmax;right:-14vmax;top:0;transform:rotate(70deg)}
+.gal-topo .p4{width:18vmax;height:10vmax;right:-6vmax;bottom:-5vmax;transform:rotate(-25deg)}
+.gal-topo h1{font-size:clamp(3rem,9vw,7rem);margin:.15em 0 .1em}
+.gal-topo p{font-weight:700;font-size:clamp(1.05rem,2vw,1.3rem)}
+.gal-topo .label,.gal-topo h1,.gal-topo p{text-shadow:0 2px 0 rgba(120,40,0,.25)}
+.gal-lista{max-width:1180px;margin:0 auto;padding:clamp(48px,7vw,90px) 20px clamp(64px,8vw,110px)}
+.acao+.acao{margin-top:clamp(56px,8vw,100px)}
+.acao-cab{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:3px solid var(--vinho);padding-bottom:14px;margin-bottom:28px}
+.acao-cab .label{color:var(--laranja);display:block;margin-bottom:10px}
+.acao-cab h2{font-size:clamp(2.4rem,6vw,4.6rem)}
+.acao-cab .n{font:800 .78rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--vinho);opacity:.75}
+.mural{columns:3 260px;column-gap:22px}
+.foto{display:block;width:100%;margin:0 0 22px;padding:0;border:0;background:none;cursor:zoom-in;break-inside:avoid;transform:rotate(var(--r,0deg));transition:transform .3s cubic-bezier(.3,.7,.3,1)}
+.foto img{display:block;width:100%;height:auto;border:7px solid #fff;box-shadow:7px 7px 0 var(--tinta);background:#e9dfd0;opacity:0;transition:opacity .5s ease}
+.foto img.ok{opacity:1}
+.foto:hover,.foto:focus-visible{transform:rotate(0) translateY(-4px)}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(26,6,12,.95);display:flex;align-items:center;justify-content:center;padding:56px 70px}
+.lb[hidden]{display:none}
+.lb figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:100%;max-height:100%}
+.lb img{max-width:min(92vw,1600px);max-height:calc(100svh - 140px);width:auto;height:auto;border:7px solid #fff;box-shadow:8px 8px 0 var(--laranja)}
+.lb figcaption{font:800 .74rem/1 Montserrat,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--ocre)}
+.lb button{position:absolute;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--laranja-claro);color:var(--tinta-quente);transition:transform .2s,background .2s}
+.lb button:hover{background:#fff;transform:scale(1.06)}
+.lb svg{width:24px;height:24px}
+.lb-x{top:14px;right:14px}
+.lb-ant{left:12px;top:50%;margin-top:-26px}
+.lb-prox{right:12px;top:50%;margin-top:-26px}
+@media (max-width:620px){.mural{columns:2}.lb{padding:60px 10px 80px}.lb-ant,.lb-prox{top:auto;bottom:14px;margin:0}.lb-ant{left:calc(50% - 64px)}.lb-prox{right:calc(50% - 64px)}.mural{column-gap:12px}.foto{margin-bottom:12px}.foto img{border-width:4px;box-shadow:4px 4px 0 var(--tinta)}}
+#inicio{scroll-margin-top:80px}
+.hero{min-height:calc(100svh - 56px)}
+
+/* ---------- GESTÃO (visual do PDF) ---------- */
+#aba-gestao{--g-creme:#feffe1;--g-papel:#fbf4e8;--g-amarelo:#ffc83f;--g-azul:#3455d1;--g-verde:#a8cb00;--g-marinho:#22234a;--g-bordo:#350f20;--g-rosa:#f279a6;--g-salmao:#e07c6c;--g-laranja:#f29f05;--g-lilas:#b0bdfe;--g-bege:#f5deb8;--g-marca:#e9b6a3;--g-vermelho:#d91f36;
+  background:var(--g-papel);color:var(--g-bordo);font-family:Quicksand,Montserrat,sans-serif;font-weight:700}
+#aba-gestao .gw{max-width:980px;margin:0 auto;padding:0 24px}
+.g-h{font-family:Archivo,Montserrat,sans-serif;font-weight:800;line-height:.95;letter-spacing:-.01em}
+/* capa em colagem */
+.g-colagem{position:relative;aspect-ratio:1191/357;container-type:inline-size;overflow:hidden;background:var(--g-amarelo)}
+.g-colagem>*{position:absolute;margin:0}
+.g-colagem .predios{left:48.7%;top:0;width:27.4%;height:62.2%;object-fit:cover}
+.g-colagem .azul{left:76.1%;top:0;width:23.9%;height:62.2%;object-fit:cover}
+.g-colagem .ginasio{left:0;top:62.2%;width:45.5%;height:37.8%;object-fit:cover}
+.g-colagem .verde{left:45.5%;top:62.2%;right:0;bottom:0;background:var(--g-verde)}
+.g-colagem h1{left:2.2%;top:6%;font-size:7.6cqw;color:var(--g-bordo)}
+.g-colagem .ano{right:1.4%;bottom:4%;text-align:right;font-size:3.9cqw;color:#8aa600;font-family:Archivo,sans-serif;font-weight:800;line-height:.95}
+/* DCE */
+.g-dce2{background:var(--g-creme);padding:clamp(40px,6vw,72px) 0 clamp(40px,6vw,64px)}
+.g-dce2 .intro{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;margin-bottom:clamp(28px,4vw,44px)}
+.g-dce2 h2{font-size:clamp(2.2rem,5vw,3.7rem);color:var(--g-marinho);max-width:11.5ch}
+.g-dce2 .def{background:var(--g-bege);padding:12px 16px;text-align:right;font-size:clamp(.92rem,1.3vw,1.02rem);line-height:1.35;max-width:440px;justify-self:end}
+.g-dce2 .corpo p{text-align:justify;font-size:clamp(1.02rem,1.5vw,1.18rem);line-height:1.4;margin-bottom:1.15em}
+.g-dce2 mark{background:var(--g-marca);color:inherit;padding:.02em .25em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.g-mudar2{background:var(--g-amarelo);padding:clamp(28px,4vw,44px) 0}
+.g-mudar2 p{font-size:clamp(1.9rem,4.6vw,3.3rem);text-align:right;color:var(--g-bordo)}
+/* composição */
+.g-comp2{padding:clamp(48px,7vw,84px) 0 clamp(24px,4vw,40px)}
+.g-comp2 h2{font-size:clamp(2.2rem,5vw,3.8rem);color:var(--g-marinho);text-align:center;margin-bottom:28px}
+.orgao2{position:relative;display:flex;align-items:center;min-height:clamp(260px,30vw,380px);max-width:1280px;margin:0 auto}
+.orgao2 .adm{position:relative;z-index:1;background:var(--g-rosa);color:var(--g-marinho);width:48%;padding:34px 70px 34px 24px;border-radius:0 999px 999px 0;text-align:center;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.25}
+.orgao2 .adm b{display:block;font-weight:700;margin-bottom:.9em}
+.orgao2 .dir{position:absolute;z-index:2;right:0;top:0;bottom:0;width:58%;background:var(--g-vermelho);color:#fff;border-radius:50% 0 0 50% / 50% 0 0 50%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px 16px 24px 60px;font-weight:700;font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.2}
+.orgao2 .dir b{font-family:Quicksand,sans-serif;font-size:1.55em;margin-bottom:.35em}
+.orgao2 ul,.orgao2 li{list-style:none}
+.g-nota{background:var(--g-bege);color:var(--g-bordo);font-size:.92rem;line-height:1.3;max-width:300px;text-align:center;margin:14px 0 0;padding:4px 8px}
+/* pautas */
+.g-pautas2{padding:clamp(36px,5vw,60px) 0 clamp(40px,6vw,72px)}
+.g-pautas2 h2{font-size:clamp(2rem,4.6vw,3.4rem);color:var(--g-marinho)}
+.g-pautas2 .sub3{font-family:Archivo,sans-serif;font-weight:500;color:var(--g-marinho);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.15;margin-top:8px;max-width:22ch}
+.tab2{margin-top:clamp(56px,7vw,90px)}
+.tab2 .cab,.tab2 .lin{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tab2 .cab{position:relative;z-index:0;isolation:isolate;margin-bottom:-8px}
+.tab2 .cab span{position:relative;display:flex;align-items:flex-end;justify-content:center;text-align:center;font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:.9;color:var(--g-bordo);min-height:2.4em;padding-bottom:.25em}
+.tab2 .cab span::before{content:"";position:absolute;z-index:-1;left:50%;bottom:-.4em;width:min(72%,150px);aspect-ratio:1;border-radius:50%;background:var(--g-bege);transform:translateX(-50%)}
+.tab2 .lin{margin-top:12px;position:relative;z-index:1}
+.tab2 .lin>div{background:var(--c);border-radius:14px;padding:14px 12px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;transition:transform .25s}
+.tab2 .lin:hover>div{transform:translateY(-3px)}
+.tab2 .pauta{font-family:Archivo,sans-serif;font-weight:700;font-size:clamp(1.05rem,1.9vw,1.45rem);line-height:1.08}
+.tab2 .quem{font-size:clamp(.95rem,1.4vw,1.08rem);line-height:1.2}
+.tab2 .passo{font-size:clamp(.82rem,1.1vw,.9rem);line-height:1.22}
+.tab2 .rot{display:none}
+.g-cobrar2{padding:clamp(8px,2vw,16px) 0 clamp(56px,8vw,96px)}
+.g-cobrar2 p{font-size:clamp(2rem,5vw,3.6rem);line-height:.95}
+.g-cobrar2 p+p{margin-top:.55em}
+/* esse projeto */
+.g-faixa{height:clamp(56px,7vw,92px);background:url({{gfaixa}}) center/cover no-repeat}
+.g-seu2{position:relative;padding:clamp(40px,6vw,72px) 0 clamp(150px,18vw,230px);color:var(--g-marinho);overflow:hidden}
+.g-seu2 h2{font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(2rem,4.8vw,3.4rem);line-height:1}
+.g-seu2 h3{font-family:Montserrat,sans-serif;font-weight:800;font-size:clamp(1.05rem,1.8vw,1.35rem);margin:1.2em 0 .5em}
+.g-seu2 p{text-align:justify;font-size:clamp(1.02rem,1.5vw,1.18rem);line-height:1.3}
+.g-seu2 .caixa{background:var(--g-marca);border-radius:14px;padding:18px 20px 22px;margin-top:22px}
+.g-seu2 .caixa h3{margin-top:0}
+.g-seu2 .ct{margin-top:34px}
+.g-seu2 .ct,.g-seu2 .ct p,.g-seu2 .ct li{font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(1.05rem,1.6vw,1.25rem);text-align:left;list-style:none;line-height:1.35}
+.g-seu2 .ct p{margin-bottom:.4em}
+.g-seu2 .ct a{color:inherit;text-decoration:none}
+.g-seu2 .ct a:hover{text-decoration:underline}
+.g-seu2 .predios2{position:absolute;left:0;bottom:0;width:clamp(260px,40vw,520px);pointer-events:none}
+
+@media (max-width:980px){.grade{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){
+  .g-dce2 .intro{grid-template-columns:1fr}
+  .g-dce2 .def{justify-self:start;text-align:left}
+  .g-dce2 .corpo p,.g-seu2 p{text-align:left}
+  .orgao2{flex-direction:column;align-items:stretch;min-height:0}
+  .orgao2 .adm{width:88%;padding:26px 40px 26px 18px}
+  .orgao2 .dir{position:relative;width:88%;align-self:flex-end;margin-top:-8px;padding:32px 18px 32px 50px;min-height:280px}
+  .g-nota{margin-left:0}
+  .tab2 .cab{display:none}
+  .tab2 .lin{grid-template-columns:1fr;gap:6px;margin-top:22px}
+  .tab2 .lin>div{align-items:flex-start;text-align:left;padding:14px 16px}
+  .g-colagem{aspect-ratio:1191/600}
+  .g-colagem h1{font-size:9.6cqw;top:8%}
+  .g-colagem .ano{font-size:6cqw}
+  .tab2 .rot{display:block;font-family:Montserrat,sans-serif;font-weight:800;font-size:.7rem;letter-spacing:.12em;margin-bottom:4px;opacity:.75}
+}
+@media (max-width:620px){
+  .abas .wrap{gap:8px;padding:10px 14px}
+  .abas a{font-size:.64rem;letter-spacing:.08em;padding:.8em .85em}
+  .abas .rosto{width:24px}
+  .grade{grid-template-columns:1fr;gap:14px}
+  .card{padding:17% 16% 13%}
+  .card h3{font-size:clamp(1.9rem,9vw,2.4rem)}
+  .card p{font-size:1rem}
+  .hero{padding-top:72px}
+  .estampa{background-size:320px auto}
+  .voto .bloco{box-shadow:7px 7px 0 var(--tinta)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.sobe{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="abas" aria-label="Seções do site">
+  <div class="wrap">
+    <a href="#inicio" class="rosto" aria-label="Início"></a>
+    <a href="#inicio" data-aba="propostas">Propostas</a>
+    <a href="#gestao" data-aba="gestao"><span class="so-desk">Proposta de gestão</span><span class="so-mob">Gestão</span></a>
+    <a href="#galeria" data-aba="galeria">Galeria</a>
+  </div>
+</nav>
+
+<div class="aba" id="aba-gestao" hidden>
+  <header class="g-colagem">
+    <img class="predios" src="{{gpredios}}" alt="">
+    <img class="azul" src="{{gazul}}" alt="">
+    <img class="ginasio" src="{{gginasio}}" alt="">
+    <div class="verde"></div>
+    <h1 class="g-h">PROPOSTA<br>DE GESTÃO</h1>
+    <p class="ano">Gestão<br>26/2027</p>
+  </header>
+
+  <section class="g-dce2">
+    <div class="gw">
+      <div class="intro">
+        <h2 class="g-h">O que é o DCE e por que ele importa pra você?</h2>
+        <p class="def">O Diretório Central dos Estudantes (DCE) representa os estudantes da UFABC. É por meio dele que podemos reunir demandas dos dois campi, levar propostas à Reitoria e aos órgãos públicos e cobrar resposta sobre as decisões que afetam nossa rotina.</p>
+      </div>
+      <div class="corpo">
+        <p>A UFABC segue recebendo mais estudantes, <mark>e os chutes continuam.</mark> Quantas vezes você já teve que adiar uma disciplina porque ficou sem vaga? A falta de professores tem que virar pauta fixa no ConsUni, com cobrança de um plano da ProGrad pra abrir turmas onde mais faltam vagas.</p>
+        <p>As bolsas de pesquisa? <mark>Falta verba</mark> pra abrir mais vagas.</p>
+        <p><mark>O R.U. segue ficando mais caro,</mark> enquanto em outras universidades a refeição custa bem menos ou oferecem café da manhã e da tarde.</p>
+        <p>Onde você faz uma pausa entre uma aula e outra? O Elefante Branco e a sinuca funcionam bem pra parte dos estudantes, mas <mark>nem todo mundo se identifica com esses espaços.</mark> A UFABC precisa de mais opções de convivência!</p>
+        <p>E temos pela frente a conquista mais difícil, que precisamos tornar possível. Vamos lutar pela <mark>moradia estudantil</mark> na UFABC e cobrar dos representantes que ajudamos a eleger o compromisso de destinar recursos para tirar o projeto do papel.</p>
+      </div>
+    </div>
+  </section>
+  <section class="g-mudar2"><div class="gw"><p class="g-h">E ISSO TUDO<br>A GENTE PODE MUDAR</p></div></section>
+
+  <section class="g-comp2">
+    <div class="gw">
+      <h2 class="g-h">Como o DCE<br>é composto</h2>
+    </div>
+      <div class="orgao2">
+        <div class="adm"><b>Cargos<br>administrativos</b><ul><li>Presidente</li><li>Vice-presidente</li><li>Tesoureiro(a)</li><li>1º Tesoureiro(a)</li><li>Secretário-geral</li></ul></div>
+        <div class="dir"><b>Diretorias</b><ul><li>Cultural e Acadêmica</li><li>Políticas Educacionais</li><li>Comunicação</li><li>Social</li><li>Étnico-racial</li><li>LGBT</li><li>Mulheres</li></ul></div>
+      </div>
+    <div class="gw">
+      <p class="g-nota">Novas diretorias auxiliares podem ser criadas na posse da gestão, a critério da diretoria do DCE UFABC, e vinculadas às diretorias existentes.</p>
+    </div>
+  </section>
+
+  <section class="g-pautas2">
+    <div class="gw">
+      <h2 class="g-h">E POR QUE FAZER PARTE<br>DISSO?</h2>
+      <p class="sub3">Apresentação das principais pautas definidas até agora</p>
+      <div class="tab2" role="table" aria-label="Pautas">
+        <div class="cab" role="row"><span role="columnheader">PAUTA</span><span role="columnheader">QUEM<br>PUXA</span><span role="columnheader">PRIMEIRO<br>PASSO</span></div>
+        <div id="linhas" role="rowgroup"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="g-cobrar2">
+    <div class="gw">
+      <p class="g-h">É HORA DE COBRAR DE<br>QUEM DECIDE NA UFABC</p>
+      <p class="g-h">UMA RESPOSTA,<br>UM PRAZO<br>E UMA SOLUÇÃO.</p>
+    </div>
+  </section>
+
+  <div class="g-faixa" aria-hidden="true"></div>
+  <section class="g-seu2">
+    <div class="gw">
+      <h2>ESSE PROJETO<br>TAMBÉM PODE SER SEU</h2>
+      <h3>O QUE VOCÊ QUER MUDAR NA UFABC?</h3>
+      <p>Você provavelmente já pensou em algo que ainda falta neste projeto. Pode ser uma ideia nova, uma demanda do seu curso ou um jeito melhor de colocar uma proposta em prática. Traga isso pra chapa. As prioridades e o jeito de trabalhar também serão construídos com quem chegar.</p>
+      <div class="caixa">
+        <h3>COMO VAMOS DIVIDIR TAREFAS</h3>
+        <p>As diretorias vão funcionar em grupos de trabalho (GTs), com tarefas divididas, cronograma combinado e acompanhamento das entregas. A ideia é que cada pessoa saiba com o que pode contribuir e combine prazos que caibam na sua rotina de trabalho e estudo. Dá pra ajudar a melhorar a UFABC e ainda ter tempo pra viver a universidade.<br>Vem fazer parte da chapa. Conta pra gente o que você quer mudar na UFABC e em qual frente gostaria de contribuir.</p>
+      </div>
+      <div class="ct">
+        <p>CONTATOS PARA ARTICULAÇÃO</p>
+        <ul>
+          <li>ELOIZA ZANETTI · <a href="tel:+5511991915525">+55 11 99191-5525</a></li>
+          <li>LUANA MARCELLO · <a href="tel:+5511996995253">+55 11 99699-5253</a></li>
+          <li>ANA CLARA FERREIRA · <a href="tel:+5511954897685">+55 11 95489-7685</a></li>
+        </ul>
+      </div>
+    </div>
+    <img class="predios2" src="{{gpredios2}}" alt="">
+  </section>
+</div>
+
+<div class="aba" id="aba-galeria" hidden>
+  <header class="gal-topo estampa">
+    <div class="petalas" aria-hidden="true"><i class="p1"></i><i class="p2"></i><i class="p3"></i><i class="p4"></i></div>
+    <div class="wrap">
+      <span class="label">Chapa 2 · Boca no Mundo</span>
+      <h1>Galeria de ações</h1>
+      <p>A chapa nos campi, em fotos.</p>
+    </div>
+  </header>
+  <div class="gal-lista" id="gal-lista"></div>
+  <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+    <button class="lb-x" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <button class="lb-seta lb-ant" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <figure><img alt=""><figcaption class="lb-cont"></figcaption></figure>
+    <button class="lb-seta lb-prox" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<div class="aba" id="aba-propostas">
+<header class="hero hero-fachada" id="inicio">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="boil" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence id="boil-t" type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1"/><feDisplacementMap id="boil-d" in="SourceGraphic" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+  <h1 class="sr">Boca no Mundo · Chapa 2 · DCE UFABC</h1>
+  <div class="cena" id="lobo" role="button" aria-label="Fachada da UFABC com o lobo Boca no Mundo. Ativar para ver o outro campus" tabindex="0">
+    <div class="ceu" aria-hidden="true"></div>
+    <div class="camada ativa"><canvas></canvas><div class="fachada" aria-hidden="true"><div class="f-lobo"></div></div></div>
+    <div class="camada"><canvas></canvas><div class="fachada" aria-hidden="true"><div class="f-lobo f-claro"></div></div></div>
+    <span class="campus-nome" aria-live="polite">Campus Santo André</span>
+  </div>
+  <div class="hero-txt">
+    <span class="label">Chapa 2 · DCE UFABC</span>
+    <p class="sub">Dezessete propostas para a gente estudar, comer, pesquisar e viver melhor na UFABC.</p>
+    <a class="cta" href="#propostas">Ver propostas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M5 13l7 7 7-7"/></svg></a>
+    <div class="redes">
+      <a href="https://www.instagram.com/chapabocanomundo/" target="_blank" rel="noopener" aria-label="Instagram da Chapa 2 Boca no Mundo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://chat.whatsapp.com/COOhEhJGTK0Am9bG3QWmFi?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener" aria-label="Grupo da Chapa 2 no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.3A8.6 8.6 0 1 1 8 19.3z"/><path d="M9 8.6c.2-.5.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.6.7c.6 1.2 1.6 2.2 2.8 2.8l.7-.6c.2-.2.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.5c0 .3-.1.7-.6.9-.6.3-1.6.5-3-.1a9.6 9.6 0 0 1-4.6-4.6c-.6-1.4-.4-2.4-.1-3z" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+  </div>
+</header>
+
+
+<section class="eventos" id="eventos" aria-labelledby="e-t" hidden>
+  <div class="wrap">
+    <div class="ev-topo"><span class="label">Agenda da chapa</span><h2 id="e-t">Próximos eventos</h2></div>
+    <div class="ev-lista" id="ev-lista"></div>
+  </div>
+</section>
+
+<section class="manifesto" aria-labelledby="m-t">
+  <div class="rosto" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="label sobe" style="color:var(--ocre)">Por que Boca no Mundo</span>
+    <h2 id="m-t" class="sobe" style="margin-top:18px">Quem estuda aqui tem <em>voz</em>. A gente faz ela chegar longe.</h2>
+    <p class="sobe">Da fila do RU à falta de professores, da saúde mental à transparência do DCE: propostas concretas, com responsável, próximo passo e retorno para quem votou.</p>
+    <div class="numeros sobe">
+      <div><b>17</b><span>propostas</span></div>
+      <div><b>4</b><span>frentes</span></div>
+      <div><b>1</b><span>chapa</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="propostas" id="propostas" aria-labelledby="p-t">
+  <div class="wrap">
+    <div class="topo">
+      <div><span class="label">Chapa 2</span><h2 id="p-t">Propostas</h2></div>
+      <div class="filtros" role="group" aria-label="Filtrar por frente">
+        <button aria-pressed="true" data-f="todas">Todas</button>
+        <button aria-pressed="false" data-f="permanencia">Permanência</button>
+        <button aria-pressed="false" data-f="ensino">Ensino e pesquisa</button>
+        <button aria-pressed="false" data-f="direitos">Direitos</button>
+        <button aria-pressed="false" data-f="gestao">Gestão</button>
+      </div>
+    </div>
+    <div class="grade" id="grade"></div>
+  </div>
+</section>
+
+<section class="ideias" id="ideias" aria-labelledby="i-t">
+  <div class="wrap">
+    <div class="ideias-topo">
+      <div><span class="label">Ideias da galera</span><h2 id="i-t">O que você quer mudar?</h2></div>
+      <p>Manda sua ideia pra UFABC. Depois que a chapa aprovar, ela aparece aqui e a galera curte as que acha mais importantes.</p>
+    </div>
+    <form class="ideia-form estampa" id="ideia-form" novalidate>
+      <div class="petalas" aria-hidden="true"><i></i><i></i><i></i></div>
+      <label class="sr" for="ideia-texto">Sua ideia</label>
+      <textarea id="ideia-texto" name="texto" maxlength="280" rows="3" placeholder="Escreva sua ideia para a UFABC…" required></textarea>
+      <input type="text" name="site" tabindex="-1" autocomplete="off" class="isca" aria-hidden="true">
+      <div class="ideia-linha">
+        <label class="sr" for="ideia-campus">Campus</label>
+        <select id="ideia-campus" name="campus"><option value="ambos">Os dois campi</option><option value="sa">Santo André</option><option value="sbc">São Bernardo</option></select>
+        <span class="ideia-conta" id="ideia-conta" aria-live="polite">0/280</span>
+        <button class="cta" type="submit">Enviar ideia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <p class="ideia-msg" id="ideia-msg" role="status"></p>
+    </form>
+    <div class="ideias-barra" id="ideias-barra" hidden>
+      <div class="ordem" role="group" aria-label="Ordenar ideias">
+        <button type="button" data-o="curtidas" aria-pressed="true">Mais curtidas</button>
+        <button type="button" data-o="recentes" aria-pressed="false">Mais recentes</button>
+      </div>
+      <span class="ideias-total" id="ideias-total"></span>
+    </div>
+    <ol class="ideias-lista" id="ideias-lista"></ol>
+    <p class="ideias-vazio" id="ideias-vazio" hidden>Ainda não tem ideia publicada. Manda a primeira!</p>
+  </div>
+</section>
+
+<section class="em-acao" aria-labelledby="a-t">
+  <div class="wrap">
+    <div class="acao-txt sobe">
+      <span class="label">Já em ação</span>
+      <h2 id="a-t">A chapa da ação</h2>
+      <p>Pra mostrar que somos a chapa da ação: já começamos a trabalhar por uma faculdade mais unida.</p>
+      <a class="ver-galeria" href="#galeria">Ver galeria <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="acao-fotos" aria-live="off">
+      <a class="quadro q1" href="#galeria" aria-label="Foto de ação da chapa. Abrir a galeria"><img alt=""><img alt=""><span class="quadro-leg"></span></a>
+      <a class="quadro q2" href="#galeria" aria-label="Foto de ação da chapa. Abrir a galeria"><img alt=""><img alt=""><span class="quadro-leg"></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="voto" aria-labelledby="v-t">
+  <div class="bloco sobe">
+    <span class="label">Votação · 25 e 26 de novembro</span>
+    <h2 id="v-t">Vota <span>2</span></h2>
+    <div class="contagem" id="contagem" role="timer" aria-label="Tempo até a votação">
+      <div><b data-u="d">--</b><span>dias</span></div><div><b data-u="h">--</b><span>horas</span></div><div><b data-u="m">--</b><span>min</span></div><div><b data-u="s">--</b><span>seg</span></div>
+    </div>
+    <p class="contagem-aviso" id="contagem-aviso" hidden></p>
+    <p>Bota a boca no mundo com a gente. Chapa 2 para o DCE da UFABC.</p>
+  </div>
+</section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="assina"><div class="rosto" aria-hidden="true"></div><div class="wm-mini" role="img" aria-label="Boca no Mundo"></div></div>
+    <a class="rodape-sug" href="https://docs.google.com/forms/d/e/1FAIpQLSce0cAsg3NmBEHWR6_pw-FBdd_m0aXMxecYiAXPgLV0cXkHnQ/viewform" target="_blank" rel="noopener">Enviar sugestão <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>
+    <div class="redes rodape">
+      <a href="https://www.instagram.com/chapabocanomundo/" target="_blank" rel="noopener" aria-label="Instagram da Chapa 2 Boca no Mundo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://chat.whatsapp.com/COOhEhJGTK0Am9bG3QWmFi?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4&amp;iam=2" target="_blank" rel="noopener" aria-label="Grupo da Chapa 2 no WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.3A8.6 8.6 0 1 1 8 19.3z"/><path d="M9 8.6c.2-.5.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.6.7c.6 1.2 1.6 2.2 2.8 2.8l.7-.6c.2-.2.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.5c0 .3-.1.7-.6.9-.6.3-1.6.5-3-.1a9.6 9.6 0 0 1-4.6-4.6c-.6-1.4-.4-2.4-.1-3z" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+    <small>Chapa 2 · Boca no Mundo · DCE UFABC</small>
+  </div>
+</footer>
+
+<script>
+const PROPOSTAS=[
+ // primeiro as propostas novas/inovadoras, depois as pautas históricas
+ ["ensino","Ensino e pesquisa","ReSIGAA:","Criar um programa de extensão para que alunos do BC&amp;T, Dados e Computação possam reformar o SIGAA e outros sistemas digitais da UFABC."],
+ ["permanencia","Permanência","Projeto Colheita Feliz","Horta de extensão com bolsas e cestas para estudantes em insegurança alimentar, com sigilo e retirada discreta."],
+ ["ensino","Ensino e pesquisa","Engenharia no mercado:","Garantir maior integração entre o mercado e os alunos da faculdade estabelecendo parcerias com empresas para trazer vagas de estágio e treinee em primeira mão e o fortalecimento de eventos como Semana das Engenharias."],
+ ["gestao","Gestão","Transporte para competições","Negociação de Transporte para competições através da simplificação de burocracias."],
+ ["gestao","Gestão","Diretoria de Sustentabilidade","A UFABC pode ajudar o meio ambiente através de um protocolo de adaptação climática, projetos para minimizar questões prejudiciais dos alagamentos."],
+ ["ensino","Ensino e pesquisa","Biblioteca de materiais","Acervo de materiais de estudo para as disciplinas com mais de 50% de reprovação, organizado com monitores, centros acadêmicos e docentes, e disponível no site do DCE."],
+ ["direitos","Direitos","Canal de denúncias","Canal sigiloso para relatos de práticas abusivas de docentes, com encaminhamento e acompanhamento dos casos."],
+ ["permanencia","Permanência","Atendimento psicológico no campus","Articular parcerias com outras universidades para levar atendimento psicológico à UFABC."],
+ ["direitos","Direitos","Memória do ABC e educação antirracista","Mais histórias, mais vozes e uma universidade antirracista."],
+ ["gestao","Gestão","Transparência e participação estudantil","Pauta, responsável, próximo passo e retorno: acompanhamento público da gestão."],
+ ["gestao","Gestão","Articulação institucional","Diálogo com parlamentares para buscar recursos e emendas para as ações estudantis, com transparência e independência do DCE."],
+ ["permanencia","Permanência","RU que caiba no bolso!","Alimentação acessível, café da manhã e da tarde e melhores condições no RU."],
+ ["ensino","Ensino e pesquisa","Mais professores, mais vagas!","Chega de chutes na UFABC!"],
+ ["ensino","Ensino e pesquisa","Mais bolsas de pesquisa e projetos de extensão","Pesquisa e extensão com mais oportunidades para estudantes."],
+ ["direitos","Direitos","Acessibilidade não é favor","Campi, aulas e materiais acessíveis para todas as pessoas."],
+ ["permanencia","Permanência","Mais espaços de convivência","Lugares para conversar, lanchar, descansar e viver a universidade."],
+ ["permanencia","Permanência","Academia e piscina","Garantir o uso da academia e da piscina, com horários definidos e regras claras."]
+];
+const PAUTAS=[
+ ["CHUTES E FALTA DE DOCENTES","Políticas Educacionais, com a Presidência e as entidades de curso","Levantar as disciplinas com mais estudantes sem vaga. Levar os dados ao ConsUni, propor que a falta de docentes seja pauta fixa e cobrar da ProGrad um plano para abrir turmas e ampliar vagas."],
+ ["MAIS BOLSAS DE PESQUISA E PROJETOS DE EXTENSÃO","Cultural e Acadêmica, com Políticas Educacionais e Presidência","Reunir estudantes de iniciação científica, laboratórios e grupos de extensão para identificar projetos que precisam de bolsas e estimar os custos. Apresentar as propostas à Reitoria e buscar recursos e emendas com mandatos parlamentares."],
+ ["R.U. QUE CAIBA NO BOLSO","Social, com Políticas Educacionais","Pedir à Reitoria os dados de custo, subsídio e contrato. Ouvir os dois campi e comparar preços, cardápios e horários com os de outras universidades para propor melhorias e avaliar a oferta de café da manhã e da tarde."],
+ ["MAIS ESPAÇOS DE CONVIVÊNCIA","Social e Cultural e Acadêmica, com as demais diretorias","Mapear onde os estudantes passam os intervalos e o que falta em cada campus. A partir da escuta, definir quais espaços podem ser melhorados e onde vale propor novos lugares para conversar, lanchar ou descansar."],
+ ["MORADIA ESTUDANTIL","Presidência e Social, com Políticas Educacionais","Levantar a demanda por moradia e solicitar à Reitoria informações sobre áreas, projetos e opções de financiamento. Com esses dados, cobrar dos representantes que ajudamos a eleger apoio e destinação de recursos."],
+ ["CONSELHO DE ENTIDADES E CAIXA COMUM","Presidência, Secretaria-Geral e Tesouraria, com as entidades dos dois campi","Convocar CAs, DAs, coletivos, atléticas e demais grupos para definir as prioridades do Conselho e as regras do caixa comum. As entidades decidem juntas quais projetos receberão os recursos arrecadados em eventos, com prestação de contas."],
+ ["MULHERES NA PRODUÇÃO DE CONHECIMENTO E ENFRENTAMENTO À VIOLÊNCIA DE GÊNERO","Mulheres, com Cultural e Acadêmica","Reunir estudantes das tecnologias às humanidades para organizar uma feira de pesquisas, protótipos e trabalhos culturais produzidos por mulheres, com espaço para troca de contatos e novas parcerias. A diretoria também pode articular rodas sobre prevenção ao feminicídio e materiais sobre onde buscar apoio, junto à rede de atendimento do ABC."],
+ ["CONVIVÊNCIA, CUIDADO E PRODUÇÃO LGBTQIA+","LGBT, com coletivos estudantis e Cultural e Acadêmica","Construir uma programação de encontros, eventos e rodas de conversa que também dê visibilidade à produção acadêmica, artística e cultural dos estudantes. Um exemplo é um evento sobre saúde da comunidade LGBTQIA+, com profissionais convidados para conversar sobre cuidado e acesso a serviços."],
+ ["MEMÓRIA DO ABC E EDUCAÇÃO ANTIRRACISTA","Étnico-racial, com estudantes, coletivos e docentes","Começar por um monumento do ABC e pesquisar quem ele homenageia e quais histórias ficaram de fora, em diálogo com comunidades indígenas, quilombolas e outros povos tradicionais ligados ao território. A pesquisa pode virar material para escolas, uma visita comentada ou uma proposta ao município de incluir outras perspectivas na sinalização do local."],
+ ["ACESSIBILIDADE NOS CAMPI E NAS AULAS","Social e Políticas Educacionais, com apoio da Comunicação","Abrir um canal no DCE para registrar barreiras físicas e pedagógicas, encaminhar os relatos aos setores responsáveis e divulgar prazos e respostas sem identificar os estudantes. Com base nas demandas, propor à ProGrad que os materiais sejam acessíveis desde o início do quadrimestre, com textos compatíveis com leitores de tela e vídeos legendados, e defender a ampliação da monitoria inclusiva para apoiar a adaptação dos materiais."],
+ ["INOVAÇÃO E SUSTENTABILIDADE","Inovação e Sustentabilidade, como diretoria auxiliar proposta","Mapear o que os grupos de tecnologia, pesquisa e extensão já fazem e escolher, com eles, um projeto para testar no campus, como redução do desperdício de alimentos ou melhoria na gestão de resíduos."],
+ ["ACOMPANHAMENTO PÚBLICO DA GESTÃO","Comunicação e Secretaria-Geral, com todas as diretorias","Publicar uma agenda com a pauta, a diretoria responsável, o próximo passo e o retorno recebido. Divulgar também os eventos, os materiais e os trabalhos produzidos pelos estudantes."]
+];
+const CORES=['--g-rosa','--g-salmao','--g-verde','--g-laranja','--g-amarelo','--g-lilas'];
+document.getElementById('linhas').innerHTML=PAUTAS.map(([p,q,s],i)=>`
+ <div class="lin" role="row" style="--c:var(${CORES[(i+4)%6]})">
+  <div role="cell" class="pauta">${p}</div>
+  <div role="cell" class="quem"><span class="rot">QUEM PUXA</span>${q}</div>
+  <div role="cell" class="passo"><span class="rot">PRIMEIRO PASSO</span>${s}</div>
+ </div>`).join('');
+
+// abas por endereço (#gestao)
+function abaAtual(){return location.hash==='#gestao'?'gestao':location.hash==='#galeria'?'galeria':'propostas'}
+function mostraAba(){
+  const g=abaAtual();
+  ['gestao','galeria','propostas'].forEach(n=>document.getElementById('aba-'+n).hidden=n!==g);
+  document.querySelectorAll('.abas a[data-aba]').forEach(a=>a.toggleAttribute('aria-current',a.dataset.aba===g));
+  document.querySelectorAll('.abas a[aria-current]').forEach(a=>a.setAttribute('aria-current','page'));
+}
+let ultimaG=null;
+window.addEventListener('hashchange',()=>{const g=abaAtual();mostraAba();if(g!==ultimaG&&(g!=='propostas'||location.hash==='#inicio'))scrollTo(0,0);ultimaG=g});
+mostraAba();ultimaG=abaAtual();
+
+const grade=document.getElementById('grade');
+const grito='<svg class="grito" viewBox="0 0 60 60" aria-hidden="true"><g stroke="#fff" stroke-width="6" stroke-linecap="round"><path d="M14 30 24 6"/><path d="M26 38 46 16"/><path d="M30 52 54 40"/></g></svg>';
+grade.innerHTML=PROPOSTAS.map(([f,tema,t,d],i)=>`
+ <article class="card estampa sobe" data-f="${f}" tabindex="0">
+  <div class="petalas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>${grito}
+  <span class="label top">${String(i+1).padStart(2,'0')} · ${tema}</span>
+  <h3>${t}</h3><p>${d}</p>
+  <div class="mini" aria-hidden="true"></div>
+  <a class="compartilha" target="_blank" rel="noopener" aria-label="Compartilhar esta proposta no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" d="M3.6 20.4l1.3-4.3A8.6 8.6 0 1 1 8 19.3z"/><path fill="currentColor" d="M9 8.6c.2-.5.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.6.7c.6 1.2 1.6 2.2 2.8 2.8l.7-.6c.2-.2.4-.2.6-.1l1.7.7c.3.1.4.3.4.5v.5c0 .3-.1.7-.6.9-.6.3-1.6.5-3-.1a9.6 9.6 0 0 1-4.6-4.6c-.6-1.4-.4-2.4-.1-3z"/></svg></a>
+ </article>`).join('');
+// link de compartilhar de cada proposta
+grade.querySelectorAll('.card').forEach(c=>{const tt=c.querySelector('h3').textContent.trim(),dd=c.querySelector('p').textContent.trim();
+  const a=c.querySelector('.compartilha');a.href='https://wa.me/?text='+encodeURIComponent('Chapa 2 · Boca no Mundo\n\n'+tt+' '+dd+'\n\nVeja todas as propostas: https://boca-no-mundo.vercel.app/#propostas');
+  a.setAttribute('aria-label','Compartilhar a proposta '+tt+' no WhatsApp');a.addEventListener('click',e=>e.stopPropagation())});
+
+// filtros
+document.querySelectorAll('.filtros button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.filtros button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const f=b.dataset.f;
+  grade.querySelectorAll('.card').forEach(c=>{const ok=f==='todas'||c.dataset.f===f;c.classList.toggle('some',!ok);if(ok)c.classList.add('ok')});
+}));
+
+// toque no celular acende o grito
+grade.addEventListener('click',e=>{const c=e.target.closest('.card');if(!c)return;c.classList.add('ativo');setTimeout(()=>c.classList.remove('ativo'),1400)});
+
+// entrada suave
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('ok');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.sobe').forEach(el=>io.observe(el));
+
+// uivo sintetizado
+let ac;
+function uivo(){
+  try{
+    ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+    const t=ac.currentTime, out=ac.createGain();
+    out.gain.setValueAtTime(0,t);out.gain.linearRampToValueAtTime(.16,t+.25);out.gain.setValueAtTime(.16,t+1.2);out.gain.exponentialRampToValueAtTime(.0001,t+1.9);
+    const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1800;out.connect(lp).connect(ac.destination);
+    const lfo=ac.createOscillator(),lg=ac.createGain();lfo.frequency.value=5.5;lg.gain.value=9;lfo.connect(lg);
+    [[1,'sine',1],[2,'triangle',.25]].forEach(([m,type,v])=>{
+      const o=ac.createOscillator(),g=ac.createGain();o.type=type;g.gain.value=v;
+      o.frequency.setValueAtTime(330*m,t);o.frequency.exponentialRampToValueAtTime(640*m,t+.45);o.frequency.setValueAtTime(640*m,t+.9);o.frequency.exponentialRampToValueAtTime(410*m,t+1.9);
+      lg.connect(o.frequency);o.connect(g).connect(out);o.start(t);o.stop(t+2);
+    });
+    lfo.start(t);lfo.stop(t+2);
+  }catch(e){}
+}
+// ---------- abertura: campi retramados na resolução da tela ----------
+(function(){
+  const hero=document.querySelector('.hero-fachada'), cena=document.getElementById('lobo');
+  const camadas=[...cena.querySelectorAll('.camada')], nome=cena.querySelector('.campus-nome');
+  const LARANJA=[229,128,58], TINTA=[26,10,6];
+  // cada campus: imagem de tons, área útil (para enquadrar) e encaixe do lobo
+  const CAMPI=[
+    {nome:'Campus Santo André', src:'{{predio}}', w:1374, h:773,
+     util:{x0:7,x1:1366,base:760,topo:40}, foco:.575, tom:[.1,.82],
+     lobo:{w:559,h:760,cx:294.3,cy:395.7,tx:786.3,ty:349.6,sx:.436,sy:.453,rot:4.5}},
+    {nome:'Campus São Bernardo do Campo', src:'{{campus2}}', w:1500, h:700,
+     util:{x0:0,x1:1500,base:700,topo:0}, foco:.27, tom:[.1,.86],
+     lobo:{w:559,h:760,cx:294.3,cy:395.7,tx:352,ty:212,sx:.29,sy:.29,rot:0}}
+  ];
+  let atual=0, carregados=0;
+  CAMPI.forEach((c,i)=>{const im=new Image();im.onload=()=>{const k=document.createElement('canvas');k.width=c.w;k.height=c.h;const x=k.getContext('2d');x.drawImage(im,0,0);
+      const d=x.getImageData(0,0,c.w,c.h).data;c.lum=new Uint8Array(c.w*c.h);c.alfa=new Uint8Array(c.w*c.h);
+      for(let j=0;j<c.w*c.h;j++){c.lum[j]=d[j*4];c.alfa[j]=d[j*4+3]}
+      c.cache={};desenha(i);if(++carregados===1||i===0)requestAnimationFrame(()=>hero.classList.add('pronto'));};
+    im.src=c.src;});
+
+  const mobile=()=>innerWidth<760;
+  function tamanhoCena(){
+    const u=CAMPI[0].util;
+    const h=mobile()?Math.min(innerWidth*1.02,520):innerWidth/(u.x1-u.x0)*(u.base-u.topo);
+    cena.style.setProperty('--cena-h',Math.round(h)+'px');
+  }
+  // enquadramento "cover" ancorado na base, focando no lobo no celular
+  function enquadra(c,cw,ch){
+    const u=c.util, uw=u.x1-u.x0, uh=u.base-u.topo;
+    const s=Math.max(cw/uw, ch/uh);
+    let ox=mobile()?cw/2-c.foco*c.w*s:(cw-uw*s)/2-u.x0*s;
+    ox=Math.min(-u.x0*s,Math.max(cw-u.x1*s,ox));     // nunca mostra borda vazia
+    return {s,ox,oy:ch-u.base*s};
+  }
+  function posiciona(el,o,f){
+    const k=f.s; el.style.width=o.w+'px';el.style.height=o.h+'px';
+    el.style.transform=`translate(${f.ox+o.tx*k}px,${f.oy+o.ty*k}px) rotate(${o.rot}deg) scale(${o.sx*k},${o.sy*k}) translate(${-o.cx}px,${-o.cy}px)`;
+  }
+  function desenha(i){
+    const c=CAMPI[i];if(!c.lum)return;tamanhoCena();
+    const cam=camadas[i], cv=cam.querySelector('canvas');
+    const cw=cena.clientWidth, ch=cena.clientHeight, dpr=Math.min(devicePixelRatio||1,2);
+    const W=Math.round(cw*dpr), H=Math.round(ch*dpr);
+    if(!W||!H)return;   // aba escondida: desenha quando voltar
+    if(c.cache.W===W&&c.cache.H===H)return;c.cache={W,H};
+    cv.width=W;cv.height=H;const x=cv.getContext('2d');const out=x.createImageData(W,H),o=out.data;
+    const f=enquadra(c,cw,ch), inv=1/(f.s*dpr), per=3*dpr, a=Math.PI*2/per, c45=Math.SQRT1_2;
+    const lo=c.tom[0], esc=1/(c.tom[1]-c.tom[0]);
+    for(let Y=0;Y<H;Y++){const v=Math.floor((Y-f.oy*dpr)*inv);if(v<0||v>=c.h)continue;
+      for(let X=0;X<W;X++){const u=Math.floor((X-f.ox*dpr)*inv);if(u<0||u>=c.w)continue;
+        const j=v*c.w+u;if(c.alfa[j]<128)continue;
+        let t=(c.lum[j]/255-lo)*esc;t=t<0?0:t>1?1:t;
+        const rx=(X+Y)*c45, ry=(X-Y)*c45, scr=(Math.cos(rx*a)*Math.cos(ry*a)+1)/2;   // retícula de pontos a 45°
+        const k=(Y*W+X)*4, cor=t>scr*.96+.02?LARANJA:TINTA;
+        o[k]=cor[0];o[k+1]=cor[1];o[k+2]=cor[2];o[k+3]=255;}}
+    x.putImageData(out,0,0);
+    posiciona(cam.querySelector('.f-lobo'),c.lobo,f);
+  }
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>CAMPI.forEach((_,i)=>desenha(i)),120)});
+  addEventListener('hashchange',()=>setTimeout(()=>CAMPI.forEach((_,i)=>desenha(i)),30));
+
+  // tremor de desenho à mão (boil)
+  const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const turb=document.getElementById('boil-t'), disp=document.getElementById('boil-d');
+  let forte=0;
+  if(reduz){disp.setAttribute('scale','0')}
+  else{let s=1;setInterval(()=>{s=s%9+1;turb.setAttribute('seed',s);disp.setAttribute('scale',(2.6+forte).toFixed(1));forte*=.82},110)}
+
+  // clique no prédio: troca de campus com retícula que cresce a partir do ponto clicado
+  const tr=document.createElement('canvas');tr.className='transicao';tr.setAttribute('aria-hidden','true');cena.insertBefore(tr,nome);
+  let trocando=false;
+  function trocar(px,py){
+    if(trocando||!CAMPI[1-atual].lum)return;
+    const velho=camadas[atual]; atual=1-atual; const novo=camadas[atual];
+    nome.textContent=CAMPI[atual].nome;
+    hero.classList.toggle('campus-2',atual===1);
+    forte=6;
+    const cvV=velho.querySelector('canvas'), cvN=novo.querySelector('canvas');
+    if(reduz||!cvV.width||cvV.width!==cvN.width||cvV.height!==cvN.height){
+      velho.classList.remove('ativa');novo.classList.add('ativa');return;}
+    trocando=true;
+    const r=cena.getBoundingClientRect(), dpr=cvN.width/r.width;
+    const ox=(px==null?r.width/2:px-r.left)*dpr, oy=(py==null?r.height/2:py-r.top)*dpr;
+    tr.width=cvN.width;tr.height=cvN.height;const x=tr.getContext('2d');
+    tr.style.display='block';
+    velho.classList.add('saindo');velho.classList.remove('ativa');novo.classList.add('ativa','entrando');
+    const passo=20*dpr, meio=passo/2, raioMax=passo*.75;
+    const maxD=Math.max(Math.hypot(ox,oy),Math.hypot(tr.width-ox,oy),Math.hypot(ox,tr.height-oy),Math.hypot(tr.width-ox,tr.height-oy));
+    const DUR=1150, t0=performance.now();
+    const suave=v=>v<0?0:v>1?1:v*v*(3-2*v);
+    function quadro(now){
+      const t=Math.min(1,(now-t0)/DUR);
+      x.fillStyle='#90002e';x.fillRect(0,0,tr.width,tr.height);x.drawImage(cvV,0,0);
+      x.save();x.beginPath();
+      for(let cy=meio;cy<tr.height+passo;cy+=passo){const linha=Math.round(cy/passo)%2?meio:0;   // grade em quincôncio, como retícula
+        for(let cx=meio+linha;cx<tr.width+passo;cx+=passo){
+          const d=Math.hypot(cx-ox,cy-oy)/maxD, lp=suave((t-d*.55)/.45);
+          if(lp<=0)continue;const rr=lp*raioMax;x.moveTo(cx+rr,cy);x.arc(cx,cy,rr,0,Math.PI*2);}}
+      x.clip();x.fillRect(0,0,tr.width,tr.height);x.drawImage(cvN,0,0);x.restore();
+      if(t>.62)novo.classList.remove('entrando');
+      if(t<1)requestAnimationFrame(quadro);
+      else{tr.style.display='none';velho.classList.remove('saindo');trocando=false;}
+    }
+    requestAnimationFrame(quadro);
+  }
+  let mexeu=false;
+  cena.addEventListener('click',e=>{mexeu=true;trocar(e.clientX,e.clientY)});
+  // primeira visita: depois de alguns segundos parado no topo, mostra o outro campus e volta
+  (function(){
+    let viu=false;try{viu=localStorage.getItem('cb2-campus')==='1'}catch(e){}
+    if(viu||reduz)return;
+    const pronto=()=>CAMPI.every(c=>c.lum)&&!document.getElementById('aba-propostas').hidden&&scrollY<cena.clientHeight*.4;
+    setTimeout(function tenta(){
+      if(mexeu)return;
+      if(!pronto()){setTimeout(tenta,1500);return}
+      const r=cena.getBoundingClientRect();trocar(r.left+r.width*.62,r.top+r.height*.42);
+      try{localStorage.setItem('cb2-campus','1')}catch(e){}
+      setTimeout(()=>{if(!mexeu&&atual===1){const q=cena.getBoundingClientRect();trocar(q.left+q.width*.3,q.top+q.height*.5)}},4200);
+    },6500);
+  })();
+  cena.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();trocar()}});
+})();
+
+
+// ---------- olhos de guaraná que piscam ----------
+(function(){
+  const voto=document.querySelector('.voto');if(!voto)return;
+  const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const url=(getComputedStyle(voto).backgroundImage.match(/url\("?(.*?)"?\)/)||[])[1];if(!url||reduz)return;
+  const cv=document.createElement('canvas');cv.className='olhos';cv.setAttribute('aria-hidden','true');voto.prepend(cv);
+  const x=cv.getContext('2d',{willReadFrequently:true});
+  const TILE=560; // mesma largura da estampa no CSS
+  let img=new Image(), orig=null, quadro=null, olhos=[], tampa=[140,0,40], W=0, H=0, vivo=false;
+
+  function montar(){
+    const dpr=Math.min(devicePixelRatio||1,1.5);
+    W=Math.round(voto.clientWidth*dpr);H=Math.round(voto.clientHeight*dpr);if(!W||!H)return;
+    cv.width=W;cv.height=H;
+    const tw=TILE*dpr, th=tw*img.height/img.width;
+    for(let y=0;y<H;y+=th)for(let xx=0;xx<W;xx+=tw)x.drawImage(img,xx,y,tw,th);
+    quadro=x.getImageData(0,0,W,H);orig=new Uint8ClampedArray(quadro.data);
+    // cor da pálpebra = vermelho médio da estampa
+    const d=orig;let sr=0,sg=0,sb=0,n=0;
+    const verm=i=>d[i]>100&&d[i+1]<70&&d[i+2]<90;
+    for(let i=0;i<d.length;i+=40)if(verm(i)){sr+=d[i];sg+=d[i+1];sb+=d[i+2];n++}
+    if(n)tampa=[sr/n|0,sg/n|0,sb/n|0];
+    // componentes não vermelhos; olho = componente com pupila escura
+    const vis=new Uint8Array(W*H);olhos=[];const pilha=[];
+    for(let s=0;s<W*H;s++){if(vis[s]||verm(s*4))continue;
+      const pix=[];let esc=0,mx=0,my=0;pilha.push(s);vis[s]=1;
+      while(pilha.length){const q=pilha.pop();pix.push(q);const k=q*4;if(d[k]+d[k+1]+d[k+2]<150)esc++;const qx=q%W,qy=(q/W)|0;mx+=qx;my+=qy;
+        if(qx>0){const r=q-1;if(!vis[r]&&!verm(r*4)){vis[r]=1;pilha.push(r)}}
+        if(qx<W-1){const r=q+1;if(!vis[r]&&!verm(r*4)){vis[r]=1;pilha.push(r)}}
+        if(qy>0){const r=q-W;if(!vis[r]&&!verm(r*4)){vis[r]=1;pilha.push(r)}}
+        if(qy<H-1){const r=q+W;if(!vis[r]&&!verm(r*4)){vis[r]=1;pilha.push(r)}}}
+      if(pix.length<120*dpr*dpr||esc<pix.length*.12)continue;
+      const cx=mx/pix.length, cy=my/pix.length;let a=0,b=0,c=0;
+      for(const q of pix){const dx=q%W-cx,dy=((q/W)|0)-cy;a+=dx*dx;b+=dy*dy;c+=dx*dy}
+      a/=pix.length;b/=pix.length;c/=pix.length;
+      const ang=.5*Math.atan2(2*c,a-b); // eixo maior
+      const nx=-Math.sin(ang), ny=Math.cos(ang); // eixo menor (direção da pálpebra)
+      let meia=0;const dist=new Float32Array(pix.length);
+      pix.forEach((q,i)=>{const v=(q%W-cx)*nx+(((q/W)|0)-cy)*ny;dist[i]=v;meia=Math.max(meia,Math.abs(v))});
+      for(let i=0;i<dist.length;i++)dist[i]=Math.abs(dist[i])/(meia||1);
+      olhos.push({pix:Int32Array.from(pix),dist,cx,prox:performance.now()+800+Math.random()*6000,ini:0,p:0});
+    }
+  }
+  const DUR=260;
+  const curva=t=>t<.38?t/.38:t<.55?1:1-(t-.55)/.45;   // fecha rápido, segura, abre
+  function pinta(o,p){
+    const d=quadro.data,lim=1-p;
+    for(let i=0;i<o.pix.length;i++){const k=o.pix[i]*4;
+      if(p>.82&&o.dist[i]<.09){d[k]=26;d[k+1]=10;d[k+2]=6}   // risco do olho fechado
+      else if(o.dist[i]>=lim&&p>0){d[k]=tampa[0];d[k+1]=tampa[1];d[k+2]=tampa[2]}
+      else{d[k]=orig[k];d[k+1]=orig[k+1];d[k+2]=orig[k+2]}}
+  }
+  function loop(now){
+    if(!vivo)return;let mudou=false;
+    for(const o of olhos){
+      if(!o.ini&&now>=o.prox)o.ini=now;
+      if(o.ini){const t=(now-o.ini)/DUR;const p=t>=1?0:curva(t);
+        if(p!==o.p){pinta(o,p);o.p=p;mudou=true}
+        if(t>=1){o.ini=0;o.prox=now+2500+Math.random()*7000;if(Math.random()<.18)o.prox=now+180}} // às vezes pisca duas vezes
+    }
+    if(mudou)x.putImageData(quadro,0,0);
+    requestAnimationFrame(loop);
+  }
+  // clique na estampa: todos piscam em onda, da esquerda para a direita
+  voto.addEventListener('click',e=>{if(e.target.closest('.bloco'))return;const now=performance.now();
+    for(const o of olhos){o.ini=0;o.prox=now+o.cx/W*450}});
+  new IntersectionObserver(es=>{const v=es[0].isIntersecting;if(v&&!vivo){vivo=true;requestAnimationFrame(loop)}else if(!v)vivo=false},{threshold:.05}).observe(voto);
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(montar,200)});
+  addEventListener('hashchange',()=>setTimeout(()=>{if(voto.clientWidth&&Math.round(voto.clientWidth*Math.min(devicePixelRatio||1,1.5))!==W)montar()},40));
+  img.onload=montar;img.src=url;
+})();
+
+// ---------- cronômetro até a votação (25 e 26/11/2026, horário de Brasília) ----------
+(function(){
+  const box=document.getElementById('contagem'), aviso=document.getElementById('contagem-aviso');if(!box)return;
+  const INICIO=Date.UTC(2026,10,25,3,0,0), FIM=Date.UTC(2026,10,27,3,0,0);
+  const el={};box.querySelectorAll('b').forEach(b=>el[b.dataset.u]=b);
+  const pad=n=>String(n).padStart(2,'0');
+  function tic(){
+    const agora=Date.now();
+    if(agora>=INICIO){box.hidden=true;aviso.hidden=false;
+      aviso.textContent=agora<FIM?'A votação está aberta: vote 2!':'Obrigado a todo mundo que votou!';return false}
+    let s=Math.floor((INICIO-agora)/1000);const v={d:Math.floor(s/86400),h:Math.floor(s%86400/3600),m:Math.floor(s%3600/60),s:s%60};
+    for(const k in v){const txt=pad(v[k]);if(el[k].textContent!==txt){el[k].textContent=txt;if(k!=='s'||!matchMedia('(prefers-reduced-motion: reduce)').matches){el[k].classList.remove('vira');void el[k].offsetWidth;el[k].classList.add('vira')}}}
+    return true;
+  }
+  if(tic()){const id=setInterval(()=>{if(!tic())clearInterval(id)},1000)}
+})();
+
+// ---------- galeria de ações (para incluir uma ação nova, acrescente um item em ACOES) ----------
+(function(){
+  const ACOES=[
+    {titulo:'São Brejada',data:'13/11',local:'',prefixo:'brejada',
+     fotos:[['04',640,360],['72',640,360],['73',640,360],['79',640,360],['01',360,640],['02',360,640],['03',360,640],['05',360,640],['06',360,640],['07',360,640],['08',360,640],['09',360,640],['10',360,640],['11',360,640],['12',360,640],['13',360,640],['14',360,640],['15',360,640],['16',360,640],['17',360,640],['18',360,640],['19',360,640],['20',360,640],['21',360,640],['22',360,640],['23',360,640],['24',360,640],['25',360,640],['26',360,640],['27',360,640],['28',360,640],['29',360,640],['30',360,640],['31',360,640],['32',360,640],['33',360,640],['34',360,640],['35',360,640],['36',360,640],['37',360,640],['38',360,640],['39',360,640],['40',360,640],['41',360,640],['42',360,640],['43',360,640],['44',360,640],['45',360,640],['46',360,640],['47',360,640],['48',360,640],['49',360,640],['50',360,640],['51',360,640],['52',360,640],['53',360,640],['54',360,640],['55',360,640],['56',360,640],['57',360,640],['58',360,640],['59',360,640],['60',360,640],['61',360,640],['62',360,640],['63',360,640],['64',360,640],['65',360,640],['66',360,640],['67',360,640],['68',360,640],['69',360,640],['70',360,640],['71',360,640],['74',360,640],['75',360,640],['76',360,640],['77',360,640],['78',360,640],['80',360,640],['81',360,640],['82',360,640],['83',360,640],['84',360,640],['85',360,640],['86',360,640],['87',360,640]]},
+    {titulo:'Silkagem',data:'11/11',local:'Campus São Bernardo do Campo',prefixo:'silk',
+     fotos:[['09',640,480],['10',640,480],['07',480,640],['12',640,480],['18',640,480],['03',296,640],['14',480,640],['19',640,480],['08',640,480],['11',640,480],['13',480,640],['15',480,640],['02',296,640],['06',480,640],['16',480,640],['17',480,640],['04',296,640],['05',296,640],['01',296,640]]}
+  ];
+  const lista=document.getElementById('gal-lista');if(!lista)return;
+  const todas=[];
+  lista.innerHTML=ACOES.map((a,ia)=>{
+    const itens=a.fotos.map(([n,w,hh],i)=>{const idx=todas.push({src:'galeria/'+a.prefixo+'-'+n+'.webp',cap:a.titulo+' · '+a.data+' · foto '+(i+1)+' de '+a.fotos.length})-1;
+      const r=((i*37)%7-3)*.35;
+      return '<button class="foto" style="--r:'+r.toFixed(2)+'deg" data-i="'+idx+'" aria-label="Ampliar foto '+(i+1)+' de '+a.titulo+'"><img src="galeria/'+a.prefixo+'-'+n+'-p.webp" width="'+w+'" height="'+hh+'" loading="lazy" decoding="async" alt="'+a.titulo+(a.local?' no '+a.local:'')+', foto '+(i+1)+'"></button>'}).join('');
+    return '<article class="acao"><div class="acao-cab"><div><span class="label">'+a.data+(a.local?' · '+a.local:'')+'</span><h2>'+a.titulo+'</h2></div><span class="n">'+a.fotos.length+' fotos</span></div><div class="mural">'+itens+'</div></article>';
+  }).join('');
+  lista.querySelectorAll('img').forEach(im=>{const ok=()=>im.classList.add('ok');if(im.complete)ok();else im.addEventListener('load',ok)});
+
+  // visualizador
+  const lb=document.getElementById('lb'), img=lb.querySelector('img'), cap=lb.querySelector('.lb-cont');
+  let atual=0, origem=null;
+  const mostra=i=>{atual=(i+todas.length)%todas.length;img.src=todas[atual].src;img.alt=todas[atual].cap;cap.textContent=todas[atual].cap;
+    const pre=new Image();pre.src=todas[(atual+1)%todas.length].src;};
+  const abre=(i,btn)=>{origem=btn;mostra(i);lb.hidden=false;document.body.style.overflow='hidden';lb.querySelector('.lb-x').focus()};
+  const fecha=()=>{lb.hidden=true;document.body.style.overflow='';if(origem)origem.focus()};
+  lista.addEventListener('click',e=>{const b=e.target.closest('.foto');if(b)abre(+b.dataset.i,b)});
+  lb.querySelector('.lb-x').addEventListener('click',fecha);
+  lb.querySelector('.lb-ant').addEventListener('click',()=>mostra(atual-1));
+  lb.querySelector('.lb-prox').addEventListener('click',()=>mostra(atual+1));
+  lb.addEventListener('click',e=>{if(e.target===lb)fecha()});
+  document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')fecha();if(e.key==='ArrowLeft')mostra(atual-1);if(e.key==='ArrowRight')mostra(atual+1);
+    if(e.key==='Tab'){const f=[...lb.querySelectorAll('button')];const i=f.indexOf(document.activeElement);e.preventDefault();f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus()}});
+  let x0=null;lb.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>45)mostra(atual+(dx<0?1:-1));x0=null});
+  addEventListener('hashchange',()=>{if(!lb.hidden&&location.hash!=='#galeria')fecha()});
+})();
+
+// ---------- "A chapa da ação": 2 fotos da galeria trocando a cada 10 s ----------
+(function(){
+  const sec=document.querySelector('.em-acao');if(!sec)return;
+  const fotos=[...document.querySelectorAll('#gal-lista .foto img')].map(i=>({src:i.getAttribute('src'),leg:(i.closest('.acao').querySelector('h2')||{}).textContent||''}));
+  if(fotos.length<2)return;
+  const quadros=[...sec.querySelectorAll('.quadro')].map(q=>({el:q,imgs:[...q.querySelectorAll('img')],vez:0,atual:-1,leg:q.querySelector('.quadro-leg')}));
+  const embaralha=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+  let fila=embaralha([...fotos.keys()]);
+  const proxima=evita=>{for(let k=0;k<fila.length;k++){if(!evita.includes(fila[k]))return fila.splice(k,1)[0]}fila=embaralha([...fotos.keys()]);return proxima(evita)};
+  function troca(q){
+    const outro=quadros.find(o=>o!==q);const i=proxima([q.atual,outro.atual]);
+    const vai=q.imgs[q.vez^1], sai=q.imgs[q.vez];
+    const pronto=()=>{vai.classList.add('on');sai.classList.remove('on');q.vez^=1;q.atual=i;q.leg.textContent=fotos[i].leg};
+    vai.onload=pronto;vai.src=fotos[i].src;if(vai.complete&&vai.naturalWidth)pronto();
+  }
+  quadros.forEach(troca);
+  let visivel=false,timer=null;
+  const ciclo=()=>{if(document.hidden||!visivel)return;troca(quadros[0]);setTimeout(()=>troca(quadros[1]),700)};
+  new IntersectionObserver(es=>{visivel=es[0].isIntersecting;if(visivel&&!timer)timer=setInterval(ciclo,10000);else if(!visivel&&timer){clearInterval(timer);timer=null}},{threshold:.15}).observe(sec);
+})();
+
+// ---------- próximos eventos (some sozinho depois que o evento passa) ----------
+(function(){
+  // para incluir um evento novo, acrescente um item aqui (fim = quando ele some do site, horário de Brasília)
+  const EVENTOS=[
+    {titulo:'Marmitaço',dia:16,mes:11,ano:2026,onde:'Nos dois campi',
+     horas:[['Almoço','a partir das 11h'],['Janta','a partir das 17h30']],
+     desc:'Entrega de marmitas, com <strong>opção vegetariana</strong>. Até nossos estoques acabarem!',
+     zap:'Marmitaço da Chapa 2 · Boca no Mundo\n16/11, nos dois campi\nAlmoço a partir das 11h · Janta a partir das 17h30\nEntrega de marmitas, com opção vegetariana. Até os estoques acabarem!',
+     icone:'marmita'},
+    {titulo:'Silkagem',dia:17,mes:11,ano:2026,onde:'Nos dois campi',
+     horas:[['São Bernardo','a partir de 12:00'],['Santo André','a partir das 19h']],
+     desc:'',
+     zap:'Silkagem da Chapa 2 · Boca no Mundo\n17/11\nSão Bernardo: a partir de 12:00\nSanto André: a partir das 19h',
+     icone:'camiseta'},
+    {titulo:'Culto ao Giba',dia:18,mes:11,ano:2026,onde:'Bar Bonsucesso',
+     horas:[['Quarta','21h']],
+     desc:'',
+     zap:'Culto ao Giba · Chapa 2 Boca no Mundo\nQuarta, 18/11, 21h\nBar Bonsucesso',
+     icone:'musica'},
+    {titulo:'Agacaiu com Chapa 2 + Convidados',dia:19,mes:11,ano:2026,onde:'Ponto do Fretado',
+     horas:[['Quinta pré-feriado','23h']],
+     desc:'',
+     zap:'Agacaiu com Chapa 2 + Convidados\nQuinta pré-feriado, 19/11, 23h\nPonto do Fretado',
+     icone:'musica'}
+  ];
+  const sec=document.getElementById('eventos'), lista=document.getElementById('ev-lista');if(!sec)return;
+  const MESES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'], SEMANA=['dom','seg','ter','qua','qui','sex','sáb'];
+  const ICONES={marmita:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="vapor" d="M24 14c-2-3 2-5 0-8"/><path class="vapor" d="M32 14c-2-3 2-5 0-8"/><path class="vapor" d="M40 14c-2-3 2-5 0-8"/><rect x="8" y="26" width="48" height="26" rx="6"/><path d="M8 34h48M4 30h4M56 30h4M22 20h20a4 4 0 0 1 4 4v2H18v-2a4 4 0 0 1 4-4z"/></svg>',
+    camiseta:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 8l-15 8 6 12 6-3v31h24V25l6 3 6-12-15-8c-1 4-5 7-9 7s-8-3-9-7z"/></svg><span class="ev-lobo"></span>',
+    musica:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 28h30v24a4 4 0 0 1-4 4H13a4 4 0 0 1-4-4z"/><path d="M39 32h5a6 6 0 0 1 6 6v6a6 6 0 0 1-6 6h-5"/><path d="M8 28c-2-6 3-10 8-8 2-5 10-5 12 0 4-3 11 0 10 8"/><path d="M17 36v12M24 36v12M31 36v12"/><g class="vapor"><path d="M54 4v14"/><path d="M54 4l6 2"/><circle cx="50.5" cy="18" r="3.5" fill="currentColor"/></g></svg>'};
+  const zapIco='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.3A8.6 8.6 0 1 1 8 19.3z"/></svg>';
+  // "agora" no fuso de Brasília (UTC-3)
+  const hojeBR=()=>{const d=new Date(Date.now()-3*3600e3);return {a:d.getUTCFullYear(),m:d.getUTCMonth()+1,d:d.getUTCDate()}};
+  const n=o=>o.a*10000+o.m*100+o.d;
+  const h=hojeBR(), hoje=n(h);
+  const ativos=EVENTOS.filter(e=>n({a:e.ano,m:e.mes,d:e.dia})>=hoje).sort((a,b)=>n({a:a.ano,m:a.mes,d:a.dia})-n({a:b.ano,m:b.mes,d:b.dia}));
+  if(!ativos.length)return;
+  lista.innerHTML=ativos.map(e=>{
+    const dt=new Date(Date.UTC(e.ano,e.mes-1,e.dia,12)), eHoje=n({a:e.ano,m:e.mes,d:e.dia})===hoje;
+    return '<article class="evento"><div class="ev-data" aria-label="'+e.dia+' de '+MESES[e.mes-1]+'"><b>'+e.dia+'</b><span>'+MESES[e.mes-1]+' · '+SEMANA[dt.getUTCDay()]+'</span></div>'+
+      '<div class="ev-corpo"><h3>'+e.titulo+(eHoje?' <span class="ev-hoje">É hoje</span>':'')+'</h3><p class="ev-onde">'+e.onde+'</p>'+
+      '<div class="ev-horas">'+e.horas.map(([q,v])=>'<span><small>'+q+'</small>'+v+'</span>').join('')+'</div>'+
+      (e.desc?'<p class="ev-desc">'+e.desc+'</p>':'')+'<a class="ev-avisar" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(e.zap+'\n\nhttps://boca-no-mundo.vercel.app/#eventos')+'" aria-label="Avisar a galera sobre o '+e.titulo+' no WhatsApp">'+zapIco+'Avisar a galera</a></div>'+(ICONES[e.icone]?'<div class="ev-icone">'+ICONES[e.icone]+'</div>':'')+
+      '</article>';
+  }).join('');
+  sec.hidden=false;
+})();
+
+// ---------- ideias da galera: enviar (vai para aprovação) e curtir ----------
+(function(){
+  const sec=document.getElementById('ideias');if(!sec)return;
+  const form=document.getElementById('ideia-form'), txt=document.getElementById('ideia-texto'), conta=document.getElementById('ideia-conta'), msg=document.getElementById('ideia-msg');
+  const lista=document.getElementById('ideias-lista'), vazio=document.getElementById('ideias-vazio'), barra=document.getElementById('ideias-barra'), total=document.getElementById('ideias-total');
+  const CAMPI={ambos:'Os dois campi',sa:'Santo André',sbc:'São Bernardo'};
+  const ler=(k,p)=>{try{return JSON.parse(localStorage.getItem(k))??p}catch(e){return p}}, grava=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+  let cliente=ler('cb2-cliente','');if(!cliente){cliente=(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)).toLowerCase();grava('cb2-cliente',cliente)}
+  let curti=new Set(ler('cb2-curti',[])), ideias=[], ordem='curtidas';
+  const coracao='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7.5-4.6-9.3-9.2C1.4 7.4 3.6 4 7 4c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 15.4 12 20 12 20z"/></svg>';
+  const quando=ms=>{const d=Math.round((Date.now()-ms)/86400000);return d<=0?'hoje':d===1?'ontem':'há '+d+' dias'};
+
+  function desenha(){
+    barra.hidden=!ideias.length;vazio.hidden=!!ideias.length;
+    total.textContent=ideias.length+(ideias.length===1?' ideia':' ideias');
+    const ord=[...ideias].sort(ordem==='curtidas'?(a,b)=>b.curtidas-a.curtidas||b.criada-a.criada:(a,b)=>b.criada-a.criada);
+    const max=Math.max(0,...ideias.map(i=>i.curtidas));
+    lista.innerHTML='';
+    ord.forEach(i=>{
+      const li=document.createElement('li');li.className='ideia'+(ordem==='curtidas'&&i.curtidas>0&&i.curtidas===max?' top':'');
+      if(ordem==='curtidas'&&i.curtidas>0&&i.curtidas===max){const s=document.createElement('span');s.className='selo';s.textContent='Mais curtida';li.append(s)}
+      const p=document.createElement('p');p.textContent=i.texto;
+      const rod=document.createElement('div');rod.className='ideia-rodape';
+      const m=document.createElement('span');m.className='ideia-meta';m.textContent=(CAMPI[i.campus]||'')+' · '+quando(i.criada);
+      const b=document.createElement('button');b.type='button';b.className='curtir';const on=curti.has(i.id);b.setAttribute('aria-pressed',on);
+      b.setAttribute('aria-label',(on?'Descurtir':'Curtir')+' esta ideia ('+i.curtidas+' curtidas)');b.innerHTML=coracao+'<span>'+i.curtidas+'</span>';
+      b.addEventListener('click',()=>curtir(i,b));
+      rod.append(m,b);li.append(p,rod);lista.append(li);
+    });
+  }
+  async function carrega(){
+    try{const r=await fetch('/api/ideias',{cache:'no-store'});const j=await r.json();if(!r.ok)throw new Error(j.erro);ideias=j.ideias||[];desenha()}
+    catch(e){barra.hidden=true;vazio.hidden=false;vazio.textContent='As ideias publicadas aparecem aqui em breve.'}
+  }
+  async function curtir(i,b){
+    const vai=!curti.has(i.id);
+    // resposta imediata na tela; o servidor confirma em seguida
+    vai?curti.add(i.id):curti.delete(i.id);i.curtidas=Math.max(0,i.curtidas+(vai?1:-1));grava('cb2-curti',[...curti]);
+    b.setAttribute('aria-pressed',vai);b.querySelector('span').textContent=i.curtidas;b.classList.remove('pula');void b.offsetWidth;if(vai)b.classList.add('pula');
+    try{const r=await fetch('/api/curtir',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:i.id,cliente,acao:vai?'curtir':'descurtir'})});
+      const j=await r.json();if(!r.ok)throw new Error(j.erro);i.curtidas=j.curtidas;b.querySelector('span').textContent=i.curtidas}
+    catch(e){vai?curti.delete(i.id):curti.add(i.id);i.curtidas=Math.max(0,i.curtidas+(vai?-1:1));grava('cb2-curti',[...curti]);b.setAttribute('aria-pressed',!vai);b.querySelector('span').textContent=i.curtidas}
+  }
+  sec.querySelectorAll('.ordem button').forEach(b=>b.addEventListener('click',()=>{ordem=b.dataset.o;sec.querySelectorAll('.ordem button').forEach(x=>x.setAttribute('aria-pressed',x===b));desenha()}));
+  txt.addEventListener('input',()=>{conta.textContent=txt.value.length+'/280'});
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();const texto=txt.value.trim();
+    if(texto.length<10){msg.textContent='Escreve um pouco mais (mínimo de 10 letras).';txt.focus();return}
+    const btn=form.querySelector('button[type=submit]');btn.disabled=true;msg.textContent='Enviando…';
+    try{const r=await fetch('/api/ideias',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({texto,campus:form.campus.value,site:form.site.value})});
+      const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.erro||'Não deu para enviar agora. Tente de novo.');
+      txt.value='';conta.textContent='0/280';msg.textContent='Valeu! Sua ideia foi enviada e aparece aqui depois que a chapa aprovar.'}
+    catch(err){msg.textContent=err.message}
+    finally{btn.disabled=false}
+  });
+  // só busca quando a seção chega perto da tela
+  new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();carrega()}},{rootMargin:'400px'}).observe(sec);
+})();
+</script>
+</body>
+</html>
