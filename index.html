@@ -345,6 +345,19 @@ footer .redes{margin:0}
 .foto img{display:block;width:100%;height:auto;border:7px solid #fff;box-shadow:7px 7px 0 var(--tinta);background:#e9dfd0;opacity:0;transition:opacity .5s ease}
 .foto img.ok{opacity:1}
 .foto:hover,.foto:focus-visible{transform:rotate(0) translateY(-4px)}
+.capa{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.capa-foto{position:relative;aspect-ratio:1;padding:0;border:7px solid #fff;box-shadow:7px 7px 0 var(--tinta);background:#e9dfd0;cursor:zoom-in;overflow:hidden;transform:rotate(var(--r,0deg));transition:transform .3s cubic-bezier(.3,.7,.3,1)}
+.capa-foto:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.capa-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease}
+.capa-foto img.on{opacity:1}
+.capa-foto:hover,.capa-foto:focus-visible{transform:rotate(0) translateY(-4px)}
+.mais-wrap{display:flex;justify-content:center;margin-top:36px}
+.ver-mais{display:inline-flex;align-items:center;gap:.6em;padding:15px 26px;border:3px solid var(--vinho);border-radius:999px;color:var(--vinho);font:800 .8rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;transition:background .2s,color .2s}
+.ver-mais svg{width:1.1em;height:1.1em;transition:transform .25s}
+.ver-mais[aria-expanded="true"] svg{transform:rotate(180deg)}
+.ver-mais:hover,.ver-mais:focus-visible{background:var(--vinho);color:#fff}
+.acao .mural{margin-top:36px}
+.mural[hidden]{display:none}
 .lb{position:fixed;inset:0;z-index:50;background:rgba(26,6,12,.95);display:flex;align-items:center;justify-content:center;padding:56px 70px}
 .lb[hidden]{display:none}
 .lb figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:100%;max-height:100%}
@@ -356,7 +369,7 @@ footer .redes{margin:0}
 .lb-x{top:14px;right:14px}
 .lb-ant{left:12px;top:50%;margin-top:-26px}
 .lb-prox{right:12px;top:50%;margin-top:-26px}
-@media (max-width:620px){.mural{columns:2}.lb{padding:60px 10px 80px}.lb-ant,.lb-prox{top:auto;bottom:14px;margin:0}.lb-ant{left:calc(50% - 64px)}.lb-prox{right:calc(50% - 64px)}.mural{column-gap:12px}.foto{margin-bottom:12px}.foto img{border-width:4px;box-shadow:4px 4px 0 var(--tinta)}}
+@media (max-width:620px){.capa{grid-template-columns:1fr 1fr;gap:12px}.capa-foto{border-width:4px;box-shadow:4px 4px 0 var(--tinta)}.capa-foto:first-child{grid-row:auto;aspect-ratio:1}.mais-wrap{margin-top:26px}.mural{columns:2}.lb{padding:60px 10px 80px}.lb-ant,.lb-prox{top:auto;bottom:14px;margin:0}.lb-ant{left:calc(50% - 64px)}.lb-prox{right:calc(50% - 64px)}.mural{column-gap:12px}.foto{margin-bottom:12px}.foto img{border-width:4px;box-shadow:4px 4px 0 var(--tinta)}}
 #inicio{scroll-margin-top:80px}
 .hero{min-height:calc(100svh - 56px)}
 
@@ -1023,14 +1036,69 @@ function uivo(){
      fotos:[['09',640,480],['10',640,480],['07',480,640],['12',640,480],['18',640,480],['03',296,640],['14',480,640],['19',640,480],['08',640,480],['11',640,480],['13',480,640],['15',480,640],['02',296,640],['06',480,640],['16',480,640],['17',480,640],['04',296,640],['05',296,640],['01',296,640]]}
   ];
   const lista=document.getElementById('gal-lista');if(!lista)return;
+  const CAPA=5, TROCA_MS=3000;   // fotos de capa por ação e intervalo da troca
   const todas=[];
-  lista.innerHTML=ACOES.map((a,ia)=>{
-    const itens=a.fotos.map(([n,w,hh],i)=>{const idx=todas.push({src:'galeria/'+a.prefixo+'-'+n+'.webp',cap:a.titulo+' · '+a.data+' · foto '+(i+1)+' de '+a.fotos.length})-1;
-      const r=((i*37)%7-3)*.35;
-      return '<button class="foto" style="--r:'+r.toFixed(2)+'deg" data-i="'+idx+'" aria-label="Ampliar foto '+(i+1)+' de '+a.titulo+'"><img src="galeria/'+a.prefixo+'-'+n+'-p.webp" width="'+w+'" height="'+hh+'" loading="lazy" decoding="async" alt="'+a.titulo+(a.local?' no '+a.local:'')+', foto '+(i+1)+'"></button>'}).join('');
-    return '<article class="acao"><div class="acao-cab"><div><span class="label">'+a.data+(a.local?' · '+a.local:'')+'</span><h2>'+a.titulo+'</h2></div><span class="n">'+a.fotos.length+' fotos</span></div><div class="mural">'+itens+'</div></article>';
+  const blocos=ACOES.map(a=>{
+    const ini=todas.length;
+    a.fotos.forEach(([n,w,hh],i)=>todas.push({src:'galeria/'+a.prefixo+'-'+n+'.webp',p:'galeria/'+a.prefixo+'-'+n+'-p.webp',w,h:hh,n:i,leg:a.titulo,
+      cap:a.titulo+' · '+a.data+' · foto '+(i+1)+' de '+a.fotos.length,alt:a.titulo+(a.local?' no '+a.local:'')+', foto '+(i+1)}));
+    return {ini,fim:todas.length};
+  });
+  window.GAL_FOTOS=todas.map(f=>({src:f.p,leg:f.leg}));   // usado por "A chapa da ação"
+  const giro=i=>(((i*37)%7-3)*.35).toFixed(2);
+  const seta='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  lista.innerHTML=ACOES.map((a,ib)=>{
+    const {ini,fim}=blocos[ib], n=fim-ini, k=Math.min(CAPA,n);
+    let capa='';for(let j=0;j<k;j++)capa+='<button class="capa-foto" style="--r:'+giro(j+ib)+'deg"><img alt=""><img alt=""></button>';
+    return '<article class="acao" data-b="'+ib+'"><div class="acao-cab"><div><span class="label">'+a.data+(a.local?' · '+a.local:'')+'</span><h2>'+a.titulo+'</h2></div><span class="n">'+n+' fotos</span></div>'
+      +'<div class="capa">'+capa+'</div>'
+      +(n>k?'<div class="mais-wrap"><button class="ver-mais" aria-expanded="false"><span>Ver mais fotos</span> '+seta+'</button></div><div class="mural" hidden></div>':'')+'</article>';
   }).join('');
-  lista.querySelectorAll('img').forEach(im=>{const ok=()=>im.classList.add('ok');if(im.complete)ok();else im.addEventListener('load',ok)});
+
+  // capa: as fotos trocam sozinhas, uma de cada vez em sequência, a cada TROCA_MS
+  const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const embaralha=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+  lista.querySelectorAll('.acao').forEach(art=>{
+    const {ini,fim}=blocos[+art.dataset.b];
+    const slots=[...art.querySelectorAll('.capa-foto')].map(el=>({el,imgs:[...el.querySelectorAll('img')],vez:0,i:-1}));
+    const poe=(s,i)=>{
+      const f=todas[i], vai=s.imgs[s.vez^1], sai=s.imgs[s.vez];let feito=false;
+      const pronto=()=>{if(feito)return;feito=true;vai.onload=null;vai.classList.add('on');sai.classList.remove('on');vai.alt=f.alt;sai.alt='';s.vez^=1;s.i=i;
+        s.el.dataset.i=i;s.el.setAttribute('aria-label','Ampliar foto '+(f.n+1)+' de '+f.leg)};
+      vai.onload=pronto;vai.src=f.p;if(vai.complete&&vai.naturalWidth)pronto();
+    };
+    slots.forEach((s,j)=>poe(s,ini+j));
+    if(reduz||fim-ini<=slots.length)return;
+    let fila=[];
+    const proxima=()=>{const na_tela=slots.map(s=>s.i);
+      for(let tent=0;tent<2;tent++){if(!fila.length)fila=embaralha([...Array(fim-ini).keys()].map(k=>ini+k));
+        const k=fila.findIndex(i=>!na_tela.includes(i));if(k>=0)return fila.splice(k,1)[0];fila=[]}
+      return -1};
+    let vez=0, visivel=false;
+    setInterval(()=>{
+      if(!visivel||document.hidden||!document.getElementById('lb').hidden)return;
+      const s=slots[vez++%slots.length];
+      if(s.el.matches(':hover,:focus-visible'))return;
+      const i=proxima();if(i>=0)poe(s,i);
+    },TROCA_MS/slots.length);
+    new IntersectionObserver(es=>{visivel=es[0].isIntersecting},{threshold:.2}).observe(art.querySelector('.capa'));
+
+    // "Ver mais fotos": abre o mural completo (as fotos só carregam quando ele abre)
+    const btn=art.querySelector('.ver-mais'), mural=art.querySelector('.mural');
+    if(!btn)return;
+    btn.addEventListener('click',()=>{
+      const abrir=mural.hidden;
+      if(abrir&&!mural.childElementCount){
+        let h='';for(let i=ini;i<fim;i++){const f=todas[i];
+          h+='<button class="foto" style="--r:'+giro(f.n)+'deg" data-i="'+i+'" aria-label="Ampliar foto '+(f.n+1)+' de '+f.leg+'"><img src="'+f.p+'" width="'+f.w+'" height="'+f.h+'" loading="lazy" decoding="async" alt="'+f.alt+'"></button>'}
+        mural.innerHTML=h;
+        mural.querySelectorAll('img').forEach(im=>{const ok=()=>im.classList.add('ok');if(im.complete)ok();else im.addEventListener('load',ok)});
+      }
+      mural.hidden=!abrir;btn.setAttribute('aria-expanded',abrir);
+      btn.querySelector('span').textContent=abrir?'Ver menos':'Ver mais fotos';
+      if(!abrir)btn.scrollIntoView({block:'nearest',behavior:'smooth'});
+    });
+  });
 
   // visualizador
   const lb=document.getElementById('lb'), img=lb.querySelector('img'), cap=lb.querySelector('.lb-cont');
@@ -1039,7 +1107,7 @@ function uivo(){
     const pre=new Image();pre.src=todas[(atual+1)%todas.length].src;};
   const abre=(i,btn)=>{origem=btn;mostra(i);lb.hidden=false;document.body.style.overflow='hidden';lb.querySelector('.lb-x').focus()};
   const fecha=()=>{lb.hidden=true;document.body.style.overflow='';if(origem)origem.focus()};
-  lista.addEventListener('click',e=>{const b=e.target.closest('.foto');if(b)abre(+b.dataset.i,b)});
+  lista.addEventListener('click',e=>{const b=e.target.closest('.foto,.capa-foto');if(b&&b.dataset.i)abre(+b.dataset.i,b)});
   lb.querySelector('.lb-x').addEventListener('click',fecha);
   lb.querySelector('.lb-ant').addEventListener('click',()=>mostra(atual-1));
   lb.querySelector('.lb-prox').addEventListener('click',()=>mostra(atual+1));
@@ -1054,7 +1122,7 @@ function uivo(){
 // ---------- "A chapa da ação": 2 fotos da galeria trocando a cada 10 s ----------
 (function(){
   const sec=document.querySelector('.em-acao');if(!sec)return;
-  const fotos=[...document.querySelectorAll('#gal-lista .foto img')].map(i=>({src:i.getAttribute('src'),leg:(i.closest('.acao').querySelector('h2')||{}).textContent||''}));
+  const fotos=window.GAL_FOTOS||[];
   if(fotos.length<2)return;
   const quadros=[...sec.querySelectorAll('.quadro')].map(q=>({el:q,imgs:[...q.querySelectorAll('img')],vez:0,atual:-1,leg:q.querySelector('.quadro-leg')}));
   const embaralha=a=>{for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
