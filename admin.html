@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ideias da galera · área da chapa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--vinho:#90002e;--laranja:#c75d01;--ocre:#e28e1b;--creme:#fbf6ec;--tinta:#141414}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--creme);color:var(--vinho);font:600 16px/1.45 Montserrat,system-ui,sans-serif;min-height:100vh}
+header{background:var(--vinho);color:#fff;padding:22px 20px}
+header .w{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font:400 clamp(1.8rem,5vw,2.6rem)/1 "Lilita One",sans-serif}
+.label{font:800 .72rem/1 Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--ocre)}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+button{font:inherit;cursor:pointer;border:0}
+.btn{font:800 .75rem/1 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:.85em 1.1em;border-radius:999px;border:2px solid var(--vinho);background:#fff;color:var(--vinho)}
+.btn.cheio{background:var(--vinho);color:#fff}
+.btn.ok{background:#2f7a3a;border-color:#2f7a3a;color:#fff}
+.btn:hover{filter:brightness(1.08)}
+.entrar{max-width:380px;margin:40px auto;display:grid;gap:12px;background:#fff;border:3px solid var(--vinho);border-radius:12px;padding:24px;box-shadow:8px 8px 0 var(--vinho)}
+.entrar input{font:inherit;padding:.8em 1em;border:2px solid var(--vinho);border-radius:10px}
+h2{font:400 1.7rem/1 "Lilita One",sans-serif;margin:28px 0 12px;display:flex;align-items:center;gap:10px}
+h2 small{font:800 .7rem/1 Montserrat,sans-serif;letter-spacing:.14em;background:var(--laranja);color:#fff;padding:.5em .7em;border-radius:999px}
+.item{background:#fff;border:2px solid var(--vinho);border-radius:10px;padding:16px;margin-bottom:12px;display:grid;gap:10px}
+.item p{font-size:1.05rem;color:#3a0a18;white-space:pre-wrap;word-break:break-word}
+.meta{font:800 .7rem/1.3 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--laranja)}
+.acoes{display:flex;gap:8px;flex-wrap:wrap}
+.vazio{color:#7a3a4a;font-weight:700}
+.msg{min-height:1.4em;font-weight:700;color:var(--laranja)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="w"><div><span class="label">Chapa 2 · área da chapa</span><h1>Ideias da galera</h1></div><button class="btn" id="sair" hidden>Sair</button></div></header>
+<main>
+  <form class="entrar" id="entrar">
+    <label for="senha"><strong>Senha da chapa</strong></label>
+    <input id="senha" type="password" autocomplete="current-password" required>
+    <button class="btn cheio" type="submit">Entrar</button>
+    <p class="msg" id="msg-entrar" role="alert"></p>
+  </form>
+  <section id="painel" hidden>
+    <p class="msg" id="msg" role="status"></p>
+    <h2>Esperando aprovação <small id="n-pend">0</small></h2>
+    <div id="pendentes"></div>
+    <h2>No site <small id="n-apr">0</small></h2>
+    <div id="aprovadas"></div>
+  </section>
+</main>
+<script>
+const CAMPI={ambos:'Os dois campi',sa:'Santo André',sbc:'São Bernardo'};
+let senha='';try{senha=sessionStorage.getItem('cb2-adm')||''}catch(e){}
+const $=id=>document.getElementById(id);
+async function api(metodo,dados){
+  const r=await fetch('/api/admin',{method:metodo,headers:{'Content-Type':'application/json','x-senha':senha},body:dados?JSON.stringify(dados):undefined});
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(new Error(j.erro||'Erro'),{status:r.status});return j;
+}
+function item(i,tipo){
+  const el=document.createElement('div');el.className='item';
+  const p=document.createElement('p');p.textContent=i.texto;
+  const m=document.createElement('span');m.className='meta';m.textContent=(CAMPI[i.campus]||'')+' · '+new Date(i.criada).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})+(tipo==='apr'?' · '+i.curtidas+' curtida'+(i.curtidas===1?'':'s'):'');
+  const a=document.createElement('div');a.className='acoes';
+  const botoes=tipo==='pend'?[['Aprovar','aprovar','ok'],['Recusar','recusar','']]:[['Tirar do site','remover','']];
+  botoes.forEach(([t,acao,cl])=>{const b=document.createElement('button');b.className='btn '+cl;b.textContent=t;
+    b.onclick=async()=>{if(acao!=='aprovar'&&!confirm(acao==='remover'?'Tirar esta ideia do site? Ela e as curtidas serão apagadas.':'Recusar e apagar esta ideia?'))return;
+      b.disabled=true;try{await api('POST',{id:i.id,acao});$('msg').textContent=acao==='aprovar'?'Aprovada: já aparece no site.':acao==='recusar'?'Ideia recusada.':'Ideia tirada do site.';carrega()}catch(e){$('msg').textContent=e.message;b.disabled=false}};a.append(b)});
+  el.append(p,m,a);return el;
+}
+async function carrega(){
+  try{const d=await api('GET');
+    $('entrar').hidden=true;$('painel').hidden=false;$('sair').hidden=false;
+    $('n-pend').textContent=d.pendentes.length;$('n-apr').textContent=d.aprovadas.length;
+    for(const [k,lista,tipo] of [['pendentes',d.pendentes,'pend'],['aprovadas',d.aprovadas,'apr']]){
+      const box=$(k);box.innerHTML='';
+      if(!lista.length){const v=document.createElement('p');v.className='vazio';v.textContent=tipo==='pend'?'Nenhuma ideia esperando.':'Nenhuma ideia publicada ainda.';box.append(v)}
+      lista.forEach(i=>box.append(item(i,tipo)));}
+  }catch(e){
+    if(e.status===401||e.status===429){senha='';try{sessionStorage.removeItem('cb2-adm')}catch(_){};$('entrar').hidden=false;$('painel').hidden=true;$('sair').hidden=true}
+    $('msg-entrar').textContent=e.message;
+  }
+}
+$('entrar').addEventListener('submit',e=>{e.preventDefault();senha=$('senha').value;try{sessionStorage.setItem('cb2-adm',senha)}catch(_){};$('senha').value='';$('msg-entrar').textContent='';carrega()});
+$('sair').onclick=()=>{senha='';try{sessionStorage.removeItem('cb2-adm')}catch(_){};location.reload()};
+if(senha)carrega();
+</script>
+</body>
+</html>
