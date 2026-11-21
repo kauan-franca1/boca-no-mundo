@@ -33,7 +33,10 @@ const banco = {
   },
   async moderar(id, acao) { return !!(await rpc('cb2_moderar', { p_id: id, p_acao: acao })); },
   async adminEspera(conexao) { return Number(await rpc('cb2_admin_espera', { p_conexao: conexao }) || 0); },
-  async adminTentativa(conexao, ok) { return Number(await rpc('cb2_admin_tentativa', { p_conexao: conexao, p_ok: ok }) || 0); }
+  async adminTentativa(conexao, ok) { return Number(await rpc('cb2_admin_tentativa', { p_conexao: conexao, p_ok: ok }) || 0); },
+  // torneio de FIFA (supabase/004-torneio.sql)
+  async torneioLer() { return (await rpc('cb2_torneio_ler', {})) || {}; },
+  async torneioSalvar(dados) { await rpc('cb2_torneio_salvar', { p_dados: dados }); }
 };
 
 // Teste local: o servidor de testes troca o banco por um de memória (ver tools/banco-memoria.js).

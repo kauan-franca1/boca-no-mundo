@@ -10,7 +10,7 @@ process.env.ADMIN_SENHA=fs.readFileSync(arqSenha,'utf8').trim();
 // cabeçalhos do vercel.json (localmente o iframe de teste é permitido)
 const CAB=JSON.parse(fs.readFileSync('vercel.json','utf8')).headers[0].headers.map(h=>[h.key,h.value.replace("frame-ancestors 'none'","frame-ancestors 'self'").replace(/^DENY$/,'SAMEORIGIN')]);
 const aplica=r=>CAB.forEach(([k,v])=>r.setHeader(k,v));
-const ROTAS={'/api/ideias':'ideias','/api/curtir':'curtir','/api/admin':'admin'};
+const ROTAS={'/api/ideias':'ideias','/api/curtir':'curtir','/api/admin':'admin','/api/torneio':'torneio'};
 
 http.createServer((q,r)=>{
   let u=decodeURIComponent(q.url.split('?')[0]);

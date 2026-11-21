@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Ideias da galera · área da chapa</title>
+<title>Área da chapa · Boca no Mundo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
@@ -33,10 +33,32 @@ h2 small{font:800 .7rem/1 Montserrat,sans-serif;letter-spacing:.14em;background:
 .vazio{color:#7a3a4a;font-weight:700}
 .msg{min-height:1.4em;font-weight:700;color:var(--laranja)}
 [hidden]{display:none!important}
+.menu{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.menu a{font:800 .72rem/1 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--vinho);text-decoration:none;border:2px solid var(--vinho);border-radius:999px;padding:.7em 1em}
+.menu a:hover{background:var(--vinho);color:#fff}
+.t-box{background:#fff;border:2px solid var(--vinho);border-radius:10px;padding:16px;margin-bottom:14px;display:grid;gap:10px}
+.t-box h3{font:400 1.25rem/1 "Lilita One",sans-serif}
+.t-box p.ajuda{font-size:.9rem;color:#5c1a2c}
+textarea{font:600 1rem/1.5 Montserrat,sans-serif;color:#3a0a18;border:2px solid var(--vinho);border-radius:10px;padding:.7em .9em;min-height:300px;resize:vertical;width:100%}
+.conta{font:800 .72rem/1 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--laranja)}
+.sorteados{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+.sorteados li{border:2px solid #ead7cd;border-radius:8px;padding:6px 8px;font-weight:800;font-size:.92rem}
+.sorteados b{color:#fff;background:var(--vinho);border-radius:5px;padding:2px 6px;margin-right:6px;font:400 .9rem/1 "Lilita One",sans-serif}
+.jogo{border:2px solid #ead7cd;border-radius:10px;padding:10px;display:grid;gap:8px}
+.jogo.feito{border-color:#2f7a3a;background:#f3faf3}
+.jogo .cab{font:800 .68rem/1.2 Montserrat,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--laranja)}
+.jogo .lados{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.jogo .lados button{font:700 .92rem/1.2 Montserrat,sans-serif;text-align:left;padding:.6em .75em;border-radius:8px;border:2px solid var(--vinho);background:#fff;color:var(--vinho)}
+.jogo .lados button[aria-pressed=true]{background:#2f7a3a;border-color:#2f7a3a;color:#fff}
+.jogo .lados button:disabled{opacity:.45;cursor:not-allowed}
+.jogo .linha{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.jogo input{font:700 .9rem Montserrat,sans-serif;border:2px solid #d9b9c4;border-radius:8px;padding:.5em .7em;width:180px}
+.btn.perigo{border-color:#a01c1c;color:#a01c1c}
+@media (max-width:520px){.jogo .lados{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header><div class="w"><div><span class="label">Chapa 2 · área da chapa</span><h1>Ideias da galera</h1></div><button class="btn" id="sair" hidden>Sair</button></div></header>
+<header><div class="w"><div><span class="label">Chapa 2 · área da chapa</span><h1>Área da chapa</h1></div><button class="btn" id="sair" hidden>Sair</button></div></header>
 <main>
   <form class="entrar" id="entrar">
     <label for="senha"><strong>Senha da chapa</strong></label>
@@ -45,11 +67,32 @@ h2 small{font:800 .7rem/1 Montserrat,sans-serif;letter-spacing:.14em;background:
     <p class="msg" id="msg-entrar" role="alert"></p>
   </form>
   <section id="painel" hidden>
+    <nav class="menu"><a href="#ideias-adm">Ideias da galera</a><a href="#torneio-adm">Torneio de FIFA</a></nav>
     <p class="msg" id="msg" role="status"></p>
-    <h2>Esperando aprovação <small id="n-pend">0</small></h2>
+    <h2 id="ideias-adm">Esperando aprovação <small id="n-pend">0</small></h2>
     <div id="pendentes"></div>
     <h2>No site <small id="n-apr">0</small></h2>
     <div id="aprovadas"></div>
+
+    <h2 id="torneio-adm">Torneio de FIFA</h2>
+    <p class="msg" id="t-msg" role="status"></p>
+    <div class="t-box" id="t-part">
+      <h3>1 · Participantes <span class="conta" id="t-conta"></span></h3>
+      <p class="ajuda">Um nome por linha, até 20, <strong>na ordem de inscrição</strong> (os 8 últimos jogam a preliminar). Aparece na hora no site. Depois do sorteio, os nomes ficam travados.</p>
+      <textarea id="t-nomes" spellcheck="false" placeholder="Ana Souza&#10;Bruno Lima&#10;..."></textarea>
+      <div class="acoes"><button class="btn cheio" id="t-salvar" type="button">Salvar participantes</button></div>
+    </div>
+    <div class="t-box" id="t-sort">
+      <h3>2 · Sorteio</h3>
+      <p class="ajuda" id="t-sort-ajuda"></p>
+      <ol class="sorteados" id="t-sorteados"></ol>
+      <div class="acoes"><button class="btn ok" id="t-sortear" type="button">Sortear agora</button><button class="btn perigo" id="t-desfazer" type="button" hidden>Desfazer sorteio</button></div>
+    </div>
+    <div class="t-box" id="t-res">
+      <h3>3 · Resultados</h3>
+      <p class="ajuda">Toque em quem venceu e, se quiser, escreva o placar (ex.: 2 x 1 ou 1 x 1 (pên. 4 x 3)). O vencedor avança sozinho na chave do site.</p>
+      <div id="t-jogos" style="display:grid;gap:10px"></div>
+    </div>
   </section>
 </main>
 <script>
@@ -79,6 +122,7 @@ async function carrega(){
       const box=$(k);box.innerHTML='';
       if(!lista.length){const v=document.createElement('p');v.className='vazio';v.textContent=tipo==='pend'?'Nenhuma ideia esperando.':'Nenhuma ideia publicada ainda.';box.append(v)}
       lista.forEach(i=>box.append(item(i,tipo)));}
+    carregaTorneio();
   }catch(e){
     if(e.status===401||e.status===429){senha='';try{sessionStorage.removeItem('cb2-adm')}catch(_){};$('entrar').hidden=false;$('painel').hidden=true;$('sair').hidden=true}
     $('msg-entrar').textContent=e.message;
@@ -86,6 +130,56 @@ async function carrega(){
 }
 $('entrar').addEventListener('submit',e=>{e.preventDefault();senha=$('senha').value;try{sessionStorage.setItem('cb2-adm',senha)}catch(_){};$('senha').value='';$('msg-entrar').textContent='';carrega()});
 $('sair').onclick=()=>{senha='';try{sessionStorage.removeItem('cb2-adm')}catch(_){};location.reload()};
+// ---------- torneio ----------
+const JOGOS=[['P1',23,'17:15','J13','J14'],['P2',23,'17:23','J15','J16'],['P3',23,'17:31','J17','J18'],['P4',23,'17:39','J19','J20'],
+ ['O1',23,'17:47','J1','J2'],['O2',23,'17:55','J3','J4'],['O3',23,'18:03','J5','J6'],['O4',23,'18:11','J7','J8'],['O5',23,'18:19','J9','P1'],['O6',23,'18:27','J10','P2'],['O7',23,'18:35','J11','P3'],['O8',23,'18:43','J12','P4'],
+ ['Q1',24,'17:15','O1','O2'],['Q2',24,'17:27','O3','O4'],['Q3',24,'17:39','O5','O6'],['Q4',24,'17:51','O7','O8'],['S1',24,'18:10','Q1','Q2'],['S2',24,'18:25','Q3','Q4'],['F',25,'17:30','S1','S2']];
+const JJ=Object.fromEntries(JOGOS.map(j=>[j[0],j]));
+let T={participantes:[],sorteio:null,resultados:{}};
+async function apiT(dados){
+  const r=await fetch('/api/torneio',{method:dados?'POST':'GET',headers:{'Content-Type':'application/json','x-senha':senha},body:dados?JSON.stringify(dados):undefined});
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(new Error(j.erro||'Erro'),{status:r.status});return j;
+}
+function quem(ref){ // nome de quem ocupa a vaga, ou '' se ainda não definido
+  if(/^J\d+$/.test(ref))return (T.sorteio||{})[ref]?(T.sorteio[ref]+' ('+ref+')'):'';
+  const r=T.resultados[ref];if(!r||!r.v)return '';
+  return quem(JJ[ref][r.v==='a'?3:4]);
+}
+const rotulo=ref=>/^J/.test(ref)?ref:'Venc. '+ref;
+function desenhaT(){
+  const n=T.participantes.length, travado=!!T.sorteio;
+  $('t-conta').textContent=n+' de 20';
+  if(document.activeElement!==$('t-nomes'))$('t-nomes').value=T.participantes.join('\n');
+  $('t-nomes').disabled=travado;$('t-salvar').disabled=travado;
+  $('t-sortear').hidden=travado;$('t-desfazer').hidden=!travado;$('t-sortear').disabled=n!==20;
+  $('t-sort-ajuda').textContent=travado?'Sorteio feito em '+new Date(T.sorteadoEm).toLocaleString('pt-BR')+'. Já aparece no site.'
+    :(n===20?'Tudo pronto. Ao clicar, o sorteio roda uma vez só e aparece animado, ao vivo, para quem estiver no site. Os 12 primeiros da lista ficam com J1–J12 (oitavas) e os 8 últimos com J13–J20 (preliminar). Mantenha a lista na ordem de inscrição.':'Para sortear, salve exatamente 20 participantes (agora são '+n+').');
+  $('t-sorteados').innerHTML='';
+  if(travado)for(let i=1;i<=20;i++){if(i===1||i===13){const h=document.createElement('li');h.style.cssText='grid-column:1/-1;border:0;padding:4px 0 0;color:var(--laranja)';h.textContent=i===1?'Direto nas oitavas (12 primeiros inscritos)':'Preliminar (8 últimos inscritos)';$('t-sorteados').append(h)}const li=document.createElement('li');const b=document.createElement('b');b.textContent='J'+i;li.append(b,document.createTextNode(T.sorteio['J'+i]));$('t-sorteados').append(li)}
+  const box=$('t-jogos');box.innerHTML='';
+  if(!travado){const p=document.createElement('p');p.className='vazio';p.textContent='Os jogos aparecem aqui depois do sorteio.';box.append(p);return}
+  JOGOS.forEach(([id,dia,hora,a,b])=>{
+    const r=T.resultados[id]||{}, qa=quem(a), qb=quem(b);
+    const el=document.createElement('div');el.className='jogo'+(r.v?' feito':'');
+    const cab=document.createElement('div');cab.className='cab';cab.textContent=(id==='F'?'Final':id)+' · '+dia+'/11 · '+hora;
+    const lados=document.createElement('div');lados.className='lados';
+    [['a',qa,a],['b',qb,b]].forEach(([k,nome,ref])=>{const bt=document.createElement('button');bt.type='button';bt.textContent=nome||rotulo(ref)+' (aguardando)';bt.disabled=!qa||!qb;
+      bt.setAttribute('aria-pressed',r.v===k);bt.onclick=()=>salvaRes(id,k,el.querySelector('input').value);lados.append(bt)});
+    const ln=document.createElement('div');ln.className='linha';
+    const inp=document.createElement('input');inp.placeholder='Placar (opcional)';inp.value=r.placar||'';inp.maxLength=30;
+    const ok=document.createElement('button');ok.className='btn';ok.type='button';ok.textContent='Salvar placar';ok.disabled=!r.v;ok.onclick=()=>salvaRes(id,r.v,inp.value);
+    const lp=document.createElement('button');lp.className='btn';lp.type='button';lp.textContent='Limpar';lp.hidden=!r.v;lp.onclick=()=>{if(confirm('Apagar o resultado de '+id+'?'))salvaRes(id,'','')};
+    ln.append(inp,ok,lp);el.append(cab,lados,ln);box.append(el);
+  });
+}
+async function carregaTorneio(){try{T=await apiT();desenhaT()}catch(e){$('t-msg').textContent=e.status===503?'O torneio ainda não foi ativado no banco.':e.message}}
+async function faz(dados,msgOk){try{T=await apiT(dados);desenhaT();$('t-msg').textContent=msgOk}catch(e){$('t-msg').textContent=e.message;if(e.status===401||e.status===429)location.reload()}}
+const salvaRes=(jogo,v,placar)=>faz({acao:'resultado',jogo,v,placar},v?'Resultado de '+jogo+' salvo: já aparece no site.':'Resultado de '+jogo+' apagado.');
+$('t-nomes').addEventListener('input',()=>{const n=$('t-nomes').value.split('\n').map(s=>s.trim()).filter(Boolean).length;$('t-conta').textContent=n+' de 20'});
+$('t-salvar').onclick=()=>faz({acao:'participantes',lista:$('t-nomes').value.split('\n')},'Participantes salvos: já aparecem no site.');
+$('t-sortear').onclick=()=>{if(confirm('Sortear agora? O resultado aparece na hora no site, animado, para todo mundo.'))faz({acao:'sortear'},'Sorteio feito! Já está no site.')};
+$('t-desfazer').onclick=()=>{if(confirm('Desfazer o sorteio? Os números e TODOS os resultados lançados serão apagados.')&&confirm('Tem certeza? Isso não pode ser desfeito.'))faz({acao:'desfazer'},'Sorteio desfeito.')};
+
 if(senha)carrega();
 </script>
 </body>

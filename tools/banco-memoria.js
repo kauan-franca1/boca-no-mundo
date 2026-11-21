@@ -1,7 +1,8 @@
 // Banco de memória que imita as funções do Supabase (supabase/*.sql) para testes locais.
 const ideias = new Map();      // id -> {id,texto,campus,criada,status}
 const curtidas = new Map();    // id -> Map(cliente -> conexao)
-const limites = new Map();     // chave -> {n, expira}
+const limites = new Map();
+let torneio = {};     // chave -> {n, expira}
 
 const contaLimite = (chave, segundos) => {
   const agora = Date.now(); let l = limites.get(chave);
@@ -42,7 +43,9 @@ module.exports = {
     limites.set('admin-espera:' + conexao, { n: 1, expira: Date.now() + espera * 1000 });
     return espera;
   },
+  async torneioLer() { return JSON.parse(JSON.stringify(torneio)); },
+  async torneioSalvar(d) { torneio = JSON.parse(JSON.stringify(d)); },
   // só para o teste: zera tudo e põe ideias de exemplo já aprovadas
-  _reset() { ideias.clear(); curtidas.clear(); limites.clear(); },
+  _reset() { ideias.clear(); curtidas.clear(); limites.clear(); torneio = {}; },
   _exemplos(lista) { lista.forEach(([id, texto, campus, n, dias]) => { ideias.set(id, { id, texto, campus, criada: Date.now() - dias * 864e5, status: 'aprovada' }); curtidas.set(id, new Map(Array.from({ length: n }, (_, k) => ['exemplo-cliente-' + k, 'rede-exemplo-' + k]))); }); }
 };
