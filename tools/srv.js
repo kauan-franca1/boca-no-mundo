@@ -20,6 +20,7 @@ http.createServer((q,r)=>{
   if(ROTAS[u]){let b='';q.on('data',d=>b+=d);q.on('end',()=>{q.body=b;delete require.cache[require.resolve('../api/'+ROTAS[u]+'.js')];require('../api/'+ROTAS[u]+'.js')(q,r)});return;}
   if(u==='/admin.html'){aplica(r);r.setHeader('Content-Type','text/html');return fs.createReadStream('admin.html').pipe(r)}
   if(q.method==='POST'){let b='';q.on('data',d=>b+=d);q.on('end',()=>{const {name,data}=JSON.parse(b);fs.writeFileSync(path.join(OUT,name),Buffer.from(data.split(',')[1],'base64'));r.end('ok')});return;}
+  if(u==='/regulamento-fifa.pdf'){r.setHeader('Content-Type','application/pdf');return fs.createReadStream('regulamento-fifa.pdf').pipe(r)}
   if(u.startsWith('/galeria/')){const g=path.join(process.cwd(),u.slice(1));if(!fs.existsSync(g)){r.statusCode=404;return r.end()}r.setHeader('Content-Type','image/webp');return fs.createReadStream(g).pipe(r)}
   if(u==='/site'){aplica(r);r.setHeader('Content-Type','text/html');return fs.createReadStream('index.html').pipe(r)}
   let f=u.startsWith('/img/')?path.join(IMG,u.slice(5)):u.startsWith('/out/')?path.join(OUT,u.slice(5)):path.join(TOOL,u==='/'?'crop.html':u.slice(1));
