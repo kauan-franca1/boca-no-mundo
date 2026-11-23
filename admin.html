@@ -53,6 +53,7 @@ textarea{font:600 1rem/1.5 Montserrat,sans-serif;color:#3a0a18;border:2px solid 
 .jogo .lados button:disabled{opacity:.45;cursor:not-allowed}
 .jogo .linha{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .jogo input{font:700 .9rem Montserrat,sans-serif;border:2px solid #d9b9c4;border-radius:8px;padding:.5em .7em;width:180px}
+.times-linha{justify-content:space-between;background:#fff7ef;border-radius:8px;padding:6px 8px}.times-txt{font-weight:800;font-size:.9rem;color:var(--vinho)}
 .btn.perigo{border-color:#a01c1c;color:#a01c1c}
 @media (max-width:520px){.jogo .lados{grid-template-columns:1fr}}
 </style>
@@ -78,7 +79,7 @@ textarea{font:600 1rem/1.5 Montserrat,sans-serif;color:#3a0a18;border:2px solid 
     <p class="msg" id="t-msg" role="status"></p>
     <div class="t-box" id="t-part">
       <h3>1 · Participantes <span class="conta" id="t-conta"></span></h3>
-      <p class="ajuda">Um nome por linha, até 20, <strong>na ordem de inscrição</strong> (os 8 últimos jogam a preliminar). Aparece na hora no site. Depois do sorteio, os nomes ficam travados.</p>
+      <p class="ajuda">Um nome por linha, até 16. Aparece na hora no site. Depois do sorteio, os nomes ficam travados.<br><strong>Pedidos:</strong> escreva <code>Nome | 1º jogo</code> para fixar quem abre o torneio (até 2 pessoas) e <code>Nome | após 18:00</code> para quem só pode jogar a partir de um horário. O sorteio respeita os dois.</p>
       <textarea id="t-nomes" spellcheck="false" placeholder="Ana Souza&#10;Bruno Lima&#10;..."></textarea>
       <div class="acoes"><button class="btn cheio" id="t-salvar" type="button">Salvar participantes</button></div>
     </div>
@@ -131,8 +132,7 @@ async function carrega(){
 $('entrar').addEventListener('submit',e=>{e.preventDefault();senha=$('senha').value;try{sessionStorage.setItem('cb2-adm',senha)}catch(_){};$('senha').value='';$('msg-entrar').textContent='';carrega()});
 $('sair').onclick=()=>{senha='';try{sessionStorage.removeItem('cb2-adm')}catch(_){};location.reload()};
 // ---------- torneio ----------
-const JOGOS=[['P1',23,'17:15','J13','J14'],['P2',23,'17:23','J15','J16'],['P3',23,'17:31','J17','J18'],['P4',23,'17:39','J19','J20'],
- ['O1',23,'17:47','J1','J2'],['O2',23,'17:55','J3','J4'],['O3',23,'18:03','J5','J6'],['O4',23,'18:11','J7','J8'],['O5',23,'18:19','J9','P1'],['O6',23,'18:27','J10','P2'],['O7',23,'18:35','J11','P3'],['O8',23,'18:43','J12','P4'],
+const JOGOS=[['O1',23,'17:15','J1','J2'],['O2',23,'17:23','J3','J4'],['O3',23,'17:31','J5','J6'],['O4',23,'17:39','J7','J8'],['O5',23,'17:47','J9','J10'],['O6',23,'17:55','J11','J12'],['O7',23,'18:03','J13','J14'],['O8',23,'18:11','J15','J16'],
  ['Q1',24,'17:15','O1','O2'],['Q2',24,'17:27','O3','O4'],['Q3',24,'17:39','O5','O6'],['Q4',24,'17:51','O7','O8'],['S1',24,'18:10','Q1','Q2'],['S2',24,'18:25','Q3','Q4'],['F',25,'17:30','S1','S2']];
 const JJ=Object.fromEntries(JOGOS.map(j=>[j[0],j]));
 let T={participantes:[],sorteio:null,resultados:{}};
@@ -148,14 +148,15 @@ function quem(ref){ // nome de quem ocupa a vaga, ou '' se ainda não definido
 const rotulo=ref=>/^J/.test(ref)?ref:'Venc. '+ref;
 function desenhaT(){
   const n=T.participantes.length, travado=!!T.sorteio;
-  $('t-conta').textContent=n+' de 20';
-  if(document.activeElement!==$('t-nomes'))$('t-nomes').value=T.participantes.join('\n');
+  $('t-conta').textContent=n+' de 16';
+  const pf=T.preferencias||{}, hm=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+  if(document.activeElement!==$('t-nomes'))$('t-nomes').value=T.participantes.map(n=>n+(pf[n]&&pf[n].primeiro?' | 1º jogo':'')+(pf[n]&&pf[n].apos?' | após '+hm(pf[n].apos):'')).join('\n');
   $('t-nomes').disabled=travado;$('t-salvar').disabled=travado;
-  $('t-sortear').hidden=travado;$('t-desfazer').hidden=!travado;$('t-sortear').disabled=n!==20;
+  $('t-sortear').hidden=travado;$('t-desfazer').hidden=!travado;$('t-sortear').disabled=n!==16;
   $('t-sort-ajuda').textContent=travado?'Sorteio feito em '+new Date(T.sorteadoEm).toLocaleString('pt-BR')+'. Já aparece no site.'
-    :(n===20?'Tudo pronto. Ao clicar, o sorteio roda uma vez só e aparece animado, ao vivo, para quem estiver no site. Os 12 primeiros da lista ficam com J1–J12 (oitavas) e os 8 últimos com J13–J20 (preliminar). Mantenha a lista na ordem de inscrição.':'Para sortear, salve exatamente 20 participantes (agora são '+n+').');
+    :(n===16?'Tudo pronto. Ao clicar, o sorteio roda uma vez só e aparece animado, ao vivo, para quem estiver no site. Nas oitavas, J1 enfrenta J2, J3 enfrenta J4, e assim por diante.':'Para sortear, salve exatamente 16 participantes (agora são '+n+').');
   $('t-sorteados').innerHTML='';
-  if(travado)for(let i=1;i<=20;i++){if(i===1||i===13){const h=document.createElement('li');h.style.cssText='grid-column:1/-1;border:0;padding:4px 0 0;color:var(--laranja)';h.textContent=i===1?'Direto nas oitavas (12 primeiros inscritos)':'Preliminar (8 últimos inscritos)';$('t-sorteados').append(h)}const li=document.createElement('li');const b=document.createElement('b');b.textContent='J'+i;li.append(b,document.createTextNode(T.sorteio['J'+i]));$('t-sorteados').append(li)}
+  if(travado)for(let i=1;i<=16;i++){const li=document.createElement('li');const b=document.createElement('b');b.textContent='J'+i;li.append(b,document.createTextNode(T.sorteio['J'+i]));$('t-sorteados').append(li)}
   const box=$('t-jogos');box.innerHTML='';
   if(!travado){const p=document.createElement('p');p.className='vazio';p.textContent='Os jogos aparecem aqui depois do sorteio.';box.append(p);return}
   JOGOS.forEach(([id,dia,hora,a,b])=>{
@@ -169,13 +170,18 @@ function desenhaT(){
     const inp=document.createElement('input');inp.placeholder='Placar (opcional)';inp.value=r.placar||'';inp.maxLength=30;
     const ok=document.createElement('button');ok.className='btn';ok.type='button';ok.textContent='Salvar placar';ok.disabled=!r.v;ok.onclick=()=>salvaRes(id,r.v,inp.value);
     const lp=document.createElement('button');lp.className='btn';lp.type='button';lp.textContent='Limpar';lp.hidden=!r.v;lp.onclick=()=>{if(confirm('Apagar o resultado de '+id+'?'))salvaRes(id,'','')};
-    ln.append(inp,ok,lp);el.append(cab,lados,ln);box.append(el);
+    ln.append(inp,ok,lp);
+    const tm=(T.times||{})[id], lt=document.createElement('div');lt.className='linha times-linha';
+    const tx=document.createElement('span');tx.className='times-txt';tx.textContent=tm?'Times: '+tm.a+' × '+tm.b:'Times ainda não sorteados';
+    const bt=document.createElement('button');bt.type='button';bt.className='btn '+(tm?'':'ok');bt.textContent=tm?'Sortear de novo':'Sortear times';bt.disabled=!qa||!qb;
+    bt.onclick=()=>{if(tm&&!confirm('Sortear os times de '+id+' de novo? O sorteio anterior será trocado.'))return;faz({acao:'times',jogo:id,refazer:!!tm},'Times de '+id+' sorteados: já aparecem no site.')};
+    lt.append(tx,bt);el.append(cab,lados,lt,ln);box.append(el);
   });
 }
 async function carregaTorneio(){try{T=await apiT();desenhaT()}catch(e){$('t-msg').textContent=e.status===503?'O torneio ainda não foi ativado no banco.':e.message}}
 async function faz(dados,msgOk){try{T=await apiT(dados);desenhaT();$('t-msg').textContent=msgOk}catch(e){$('t-msg').textContent=e.message;if(e.status===401||e.status===429)location.reload()}}
 const salvaRes=(jogo,v,placar)=>faz({acao:'resultado',jogo,v,placar},v?'Resultado de '+jogo+' salvo: já aparece no site.':'Resultado de '+jogo+' apagado.');
-$('t-nomes').addEventListener('input',()=>{const n=$('t-nomes').value.split('\n').map(s=>s.trim()).filter(Boolean).length;$('t-conta').textContent=n+' de 20'});
+$('t-nomes').addEventListener('input',()=>{const n=$('t-nomes').value.split('\n').map(s=>s.trim()).filter(Boolean).length;$('t-conta').textContent=n+' de 16'});
 $('t-salvar').onclick=()=>faz({acao:'participantes',lista:$('t-nomes').value.split('\n')},'Participantes salvos: já aparecem no site.');
 $('t-sortear').onclick=()=>{if(confirm('Sortear agora? O resultado aparece na hora no site, animado, para todo mundo.'))faz({acao:'sortear'},'Sorteio feito! Já está no site.')};
 $('t-desfazer').onclick=()=>{if(confirm('Desfazer o sorteio? Os números e TODOS os resultados lançados serão apagados.')&&confirm('Tem certeza? Isso não pode ser desfeito.'))faz({acao:'desfazer'},'Sorteio desfeito.')};

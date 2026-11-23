@@ -744,6 +744,26 @@ footer .redes{margin:0}
 @media (max-width:620px){.t-tabelas{grid-template-columns:1fr}.t-tabelas .t-tab:last-child{grid-column:auto}.t-abas{width:100%}.t-abas button{flex:1;padding:.8em .4em}.t-abas button small{display:block;margin:4px 0 0}.t-gf{grid-template-columns:1fr}.t-gf-vs{text-align:center}.fifa-dias{gap:6px}.fifa-dias li{padding:10px 8px}#aba-torneio .t-sorteio,#aba-torneio .t-formato,#aba-torneio .t-chave-sec,#aba-torneio .t-tabela-box,#aba-torneio .t-regras-box{box-shadow:6px 6px 0 var(--vinho)}}
 @media (max-width:400px){.t-slots{grid-template-columns:1fr}.t-infos-grade{grid-template-columns:1fr}.fifa-h1{font-size:2.5rem}.fifa-dias b{font-size:1.35rem}.fifa-dias small{font-size:.68rem}.fifa-dias span{font-size:.54rem;letter-spacing:.1em}.fifa-txt{min-width:0}}
 @media (prefers-reduced-motion:reduce){#aba-torneio *,#aba-torneio *::before,#aba-torneio *::after,.ev-fifa-selo{animation:none!important}.fifa-cartaz{transition:none}}
+/* ---------- times sorteados ---------- */
+.t-time{display:inline-block;margin-left:.45em;font:800 .58rem/1 Montserrat,sans-serif;font-style:normal;letter-spacing:.08em;text-transform:uppercase;background:var(--vinho);color:#fff;padding:.35em .55em;border-radius:4px;vertical-align:middle}
+.t-tile.times{grid-column:1/-1}
+.t-tile.times ul{list-style:none;margin:4px 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.t-tile.times li{font:400 1.05rem/1 "Lilita One",sans-serif;background:var(--creme);border:2px solid var(--vinho);border-radius:999px;padding:.45em .8em}
+.t-tile.times li.livre{background:var(--ocre);border-color:var(--ocre);color:var(--tinta-quente)}
+.t-tile.times strong{color:var(--laranja)}
+.t-times-show{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:rgba(43,6,16,.72);animation:aparece .25s ease}
+.t-times-show[hidden]{display:none}
+@keyframes aparece{from{opacity:0}}
+.tts-card{position:relative;width:min(640px,100%);background:var(--vinho) var(--pattern) 0 0/420px auto;background-blend-mode:multiply;border:4px solid #fff;border-radius:14px;box-shadow:12px 12px 0 var(--ocre);padding:clamp(20px,4vw,34px);text-align:center;color:#fff;animation:saiu .5s cubic-bezier(.3,1.6,.5,1)}
+.tts-tag{display:inline-block;font:800 .7rem/1 Montserrat,sans-serif;letter-spacing:.16em;text-transform:uppercase;background:var(--ocre);color:var(--tinta-quente);padding:.6em .9em;border-radius:6px;transform:rotate(-3deg);margin-bottom:18px}
+.tts-lados{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px}
+.tts-lados i{font:400 2.2rem/1 "Lilita One",sans-serif;color:var(--ocre);font-style:normal}
+.tts-lado{display:grid;gap:10px}
+.tts-lado b{font:400 clamp(1.2rem,3vw,1.7rem)/1.05 "Lilita One",sans-serif;word-break:break-word}
+.tts-time{display:block;background:#fff;color:var(--vinho);border-radius:10px;padding:14px 8px;font:400 clamp(1.1rem,3vw,1.6rem)/1.1 "Lilita One",sans-serif;min-height:2.6em;display:grid;place-items:center;box-shadow:5px 5px 0 var(--tinta)}
+.tts-time.ok{background:var(--ocre);color:var(--tinta-quente);animation:saiu .45s cubic-bezier(.3,1.6,.5,1)}
+.tts-x{position:absolute;top:8px;right:10px;width:36px;height:36px;border-radius:50%;background:#fff;color:var(--vinho);font:800 1.3rem/1 Montserrat,sans-serif}
+@media (max-width:520px){.tts-lados{grid-template-columns:1fr}.tts-lados i{display:none}}
 /* ---------- regulamento do torneio ---------- */
 #aba-torneio .t-regul{background:#fff;border:3px solid var(--vinho);border-radius:12px;padding:clamp(18px,3vw,30px);box-shadow:10px 10px 0 var(--vinho)}
 .t-regul-topo{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 30px;flex-wrap:wrap;margin-bottom:18px}
@@ -927,7 +947,7 @@ footer .redes{margin:0}
         <h1 class="fifa-h1"><span class="w" style="--i:0">Campeonato</span> <span class="w" style="--i:1">de</span> <span class="w laranja" style="--i:2">FIFA</span></h1>
         <p class="fifa-status" id="fifa-status"><i></i><span>Inscrições abertas</span></p>
         <ol class="fifa-dias">
-          <li style="--i:0"><span>Preliminar e oitavas</span><b>23/11</b><small>seg · 17h às 19h</small></li>
+          <li style="--i:0"><span>Oitavas</span><b>23/11</b><small>seg · 17h às 19h</small></li>
           <li style="--i:1"><span>Quartas e semis</span><b>24/11</b><small>ter · 17h às 19h</small></li>
           <li class="final" style="--i:2"><span>Final</span><b>25/11</b><small>qua · 17:30 às 18:30</small></li>
         </ol>
@@ -941,17 +961,19 @@ footer .redes{margin:0}
       <div class="fifa-palco" id="fifa-palco"><img class="fifa-cartaz" src="{{fifacartaz}}" alt="Cartaz do Campeonato de FIFA: 23 e 24/11 das 17h às 19h, 25/11 das 17:30 às 18:30, inscrição R$ 22,50" width="760" height="760" decoding="async"></div>
     </div>
   </header>
-  <div class="fifa-faixa" aria-hidden="true"><div class="trilho"><span>Campeonato de FIFA ★ Chapa 2 ★ Boca no Mundo ★ 23 · 24 · 25/11 ★ Mata-mata · 4 min ★ Em frente ao Bloco A ★ GTA VI ou R$ 450 no PIX ★&nbsp;</span><span>Campeonato de FIFA ★ Chapa 2 ★ Boca no Mundo ★ 23 · 24 · 25/11 ★ Mata-mata · 4 min ★ Em frente ao Bloco A ★ GTA VI ou R$ 450 no PIX ★&nbsp;</span></div></div>
+  <div class="fifa-faixa" aria-hidden="true"><div class="trilho"><span>Campeonato de FIFA ★ Chapa 2 ★ Boca no Mundo ★ 23 · 24 · 25/11 ★ 16 jogadores · mata-mata ★ Em frente ao Bloco A ★ GTA VI ou R$ 450 no PIX ★&nbsp;</span><span>Campeonato de FIFA ★ Chapa 2 ★ Boca no Mundo ★ 23 · 24 · 25/11 ★ 16 jogadores · mata-mata ★ Em frente ao Bloco A ★ GTA VI ou R$ 450 no PIX ★&nbsp;</span></div></div>
 
+  <div class="t-times-show" id="t-times-show" role="status" aria-live="polite" hidden></div>
   <section class="torneio" id="t-sec" aria-label="Torneio de FIFA">
     <div class="wrap">
 
       <div class="t-infos sobe">
         <h2 class="t-infos-tit">Infos<span>:</span></h2>
         <div class="t-infos-grade">
-          <div class="t-tile"><span>Inscrições</span><b>20</b><small>por ordem de chegada</small></div>
+          <div class="t-tile"><span>Inscrições</span><b>16</b><small>vagas, por ordem de chegada</small></div>
           <div class="t-tile"><span>Valor</span><b>R$ 22,50</b><small>por jogador</small></div>
           <div class="t-tile"><span>Console</span><b>Livre</b><small>antes do início do torneio</small></div>
+          <div class="t-tile times"><span>Times sorteados a cada partida</span><ul><li>Real Madrid</li><li>Manchester City</li><li>Barcelona</li><li>Bayern de Munique</li><li>Liverpool</li><li>Arsenal</li><li>PSG</li><li class="livre">Seleção livre</li></ul><small>Os dois jogadores nunca ficam com o mesmo time. Quem tirar <strong>Seleção livre</strong> escolhe qualquer seleção.</small></div>
           <div class="t-tile premio"><span>Prêmio do campeão</span><b>GTA VI <em>ou</em> R$ 450</b><small>o valor arrecadado vai para o vencedor, que escolhe: o jogo ou R$ 450,00 no PIX</small></div>
           <div class="t-tile contato"><span>Inscrição e pagamento</span><a class="t-fone" href="https://wa.me/5511939381120?text=Oi!%20Quero%20me%20inscrever%20no%20Campeonato%20de%20FIFA%20da%20Chapa%202%20%C2%B7%20Boca%20no%20Mundo." target="_blank" rel="noopener"><b>(11) 93938-1120</b><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.3A8.6 8.6 0 1 1 8 19.3z"/></svg> Kauan · chamar no WhatsApp</small></a><a class="t-fone" href="https://wa.me/5511915299352?text=Oi!%20Quero%20me%20inscrever%20no%20Campeonato%20de%20FIFA%20da%20Chapa%202%20%C2%B7%20Boca%20no%20Mundo." target="_blank" rel="noopener"><b>(11) 91529-9352</b><small><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 20.4l1.3-4.3A8.6 8.6 0 1 1 8 19.3z"/></svg> Guilherme · chamar no WhatsApp</small></a></div>
         </div>
@@ -966,11 +988,11 @@ footer .redes{margin:0}
       <div class="t-formato sobe">
         <h3>Como funciona</h3>
         <ol class="t-fluxo">
-          <li><span class="n">1</span><b>Dia 1 · 23/11</b><p>Os 8 últimos inscritos jogam a preliminar e os 4 vencedores se juntam aos 12 primeiros nas oitavas.</p><em>20 → 8</em></li>
+          <li><span class="n">1</span><b>Dia 1 · 23/11</b><p>Os 16 jogadores fazem as oitavas de final. Quem vence volta na terça.</p><em>16 → 8</em></li>
           <li><span class="n">2</span><b>Dia 2 · 24/11</b><p>Os 8 classificados jogam as quartas e as semifinais.</p><em>8 → 2</em></li>
           <li class="gf"><span class="n">★</span><b>Final · 25/11</b><p>Os 2 vencedores das semis decidem o campeão, que leva o prêmio.</p><em>2 → 1</em></li>
         </ol>
-        <p class="t-fluxo-nota">Mata-mata direto, jogo único: quem perde sai. <strong>Os 12 primeiros inscritos</strong> começam nas oitavas e <strong>os 8 últimos</strong> jogam a preliminar. O sorteio define os confrontos.</p>
+        <p class="t-fluxo-nota">Mata-mata direto, jogo único: quem perde sai. O sorteio define os confrontos das oitavas e, antes de cada partida, <strong>o time de cada jogador</strong> (Real Madrid, Manchester City, Barcelona, Bayern de Munique, Liverpool, Arsenal, PSG e Seleção livre).</p>
       </div>
 
       <div class="t-chave-sec sobe">
@@ -998,7 +1020,7 @@ footer .redes{margin:0}
           <li><strong>Tempo:</strong> 4 minutos, jogo único.</li>
           <li><strong>Empate:</strong> prorrogação e, se necessário, pênaltis.</li>
           <li><strong>Lesões:</strong> desligadas · <strong>Velocidade:</strong> normal.</li>
-          <li><strong>Times:</strong> sorteados antes de cada partida (não vale o mesmo time do adversário).</li>
+          <li><strong>Times:</strong> sorteados antes de cada partida entre Real Madrid, Manchester City, Barcelona, Bayern de Munique, Liverpool, Arsenal, PSG e Seleção livre. Quem tirar Seleção livre escolhe qualquer seleção. Os dois jogadores nunca ficam com o mesmo time.</li>
           <li><strong>Console:</strong> Xbox Series S · EA SPORTS FC 26 · só alunos da UFABC.</li>
           <li><strong>Atraso de mais de 5 minutos</strong> depois de ser chamado é W.O.</li>
           <li>Console livre antes do início do torneio. Os dois próximos jogadores esperam ao lado do console.</li>
@@ -1012,8 +1034,8 @@ footer .redes{margin:0}
         </div>
         <div class="t-ementa">
           <details><summary><span>1</span>Do objetivo</summary><ul><li>Promover a integração, a competitividade saudável e o entretenimento entre os participantes, por meio de disputas individuais no jogo EA SPORTS FIFA/EA SPORTS FC.</li></ul></details>
-          <details open><summary><span>2</span>Do formato da competição</summary><ul><li>20 participantes, em eliminação simples (mata-mata): quem perde está eliminado e o vencedor avança.</li><li>Chaveamento definido por sorteio.</li><li>Os oito últimos inscritos disputam uma fase preliminar; os quatro vencedores avançam para as oitavas de final.</li><li>Depois das oitavas vêm as quartas de final, as semifinais e a grande final.</li><li>Inscrição mediante o pagamento de R$ 22,50.</li><li>Apenas alunos da UFABC podem participar.</li><li>O campeonato ocorre em um console Xbox Series S.</li></ul></details>
-          <details><summary><span>3</span>Das partidas</summary><ul><li>Todas as partidas são 1 contra 1, em jogo único.</li><li>Os times são sorteados antes do início de cada partida, e não é permitido escolher o mesmo time que o adversário.</li><li>As configurações de jogo são padronizadas para todos os confrontos.</li><li>Empate no tempo regulamentar: prorrogação tradicional e, se necessário, pênaltis.</li><li>Em caso de problemas técnicos, a partida é interrompida, o placar é mantido e a continuação ocorre em outro dia, com data a ser definida.</li></ul></details>
+          <details open><summary><span>2</span>Do formato da competição</summary><ul><li>16 participantes, em eliminação simples (mata-mata): quem perde está eliminado e o vencedor avança.</li><li>Chaveamento definido por sorteio.</li><li>O torneio começa nas oitavas de final; depois vêm as quartas, as semifinais e a grande final.</li><li>Inscrição mediante o pagamento de R$ 22,50.</li><li>Apenas alunos da UFABC podem participar.</li><li>O campeonato ocorre em um console Xbox Series S.</li></ul></details>
+          <details><summary><span>3</span>Das partidas</summary><ul><li>Todas as partidas são 1 contra 1, em jogo único.</li><li>Os times são sorteados antes do início de cada partida, entre Real Madrid, Manchester City, Barcelona, Bayern de Munique, Liverpool, Arsenal, PSG e Seleção livre, e não é permitido o mesmo time que o adversário.</li><li>As configurações de jogo são padronizadas para todos os confrontos.</li><li>Empate no tempo regulamentar: prorrogação tradicional e, se necessário, pênaltis.</li><li>Em caso de problemas técnicos, a partida é interrompida, o placar é mantido e a continuação ocorre em outro dia, com data a ser definida.</li></ul></details>
           <details><summary><span>4</span>Das regras de conduta</summary><ul><li>Respeito aos adversários e à organização.</li><li>Não são tolerados insultos, provocações excessivas ou atitudes antidesportivas.</li><li>Não é permitido interromper propositalmente uma partida.</li><li>Em caso de desconexão ou problema técnico, a organização decide sobre a continuidade ou a repetição da partida.</li><li>Atrasos superiores a 5 minutos podem resultar em W.O., conforme decisão da organização.</li></ul></details>
           <details><summary><span>5</span>Da organização</summary><ul><li>A organização faz o sorteio dos confrontos e conduz as partidas.</li><li>Os participantes devem estar presentes quando forem convocados para jogar.</li><li>Como há apenas um console, as partidas são realizadas em sequência.</li><li>A organização tem a palavra final sobre situações não previstas no regulamento.</li></ul></details>
           <details><summary><span>6</span>Da premiação</summary><ul><li>Premiação em dinheiro via PIX, no valor de R$ 450,00.</li></ul></details>
@@ -1697,24 +1719,23 @@ function uivo(){
 })();
 
 // ---------- torneio de FIFA ----------
-// Formato: chave única de 20 jogadores. Os 8 últimos inscritos jogam a preliminar (P1–P4); os 4 vencedores
-// se juntam aos 12 primeiros nas oitavas. Dia 1: preliminar e oitavas · Dia 2: quartas e semis · Dia 3: final.
+// Formato: 16 jogadores, mata-mata. Dia 1: oitavas · Dia 2: quartas e semis · Dia 3: final.
+// Antes de cada partida, a organização sorteia os times no painel (8 opções, sem repetir o do adversário).
 // Participantes, sorteio e resultados vêm do painel da chapa (admin.html) por /api/torneio e se atualizam sozinhos.
 (function(){
   const aba=document.getElementById('aba-torneio');if(!aba)return;
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   // [id, dia do mês, hora, lado A, lado B, fase]
   const JOGOS=[
-    ['P1',23,'17:15','J13','J14','Preliminar'],['P2',23,'17:23','J15','J16','Preliminar'],['P3',23,'17:31','J17','J18','Preliminar'],['P4',23,'17:39','J19','J20','Preliminar'],
-    ['O1',23,'17:47','J1','J2','Oitavas'],['O2',23,'17:55','J3','J4','Oitavas'],['O3',23,'18:03','J5','J6','Oitavas'],['O4',23,'18:11','J7','J8','Oitavas'],
-    ['O5',23,'18:19','J9','P1','Oitavas'],['O6',23,'18:27','J10','P2','Oitavas'],['O7',23,'18:35','J11','P3','Oitavas'],['O8',23,'18:43','J12','P4','Oitavas'],
+    ['O1',23,'17:15','J1','J2','Oitavas'],['O2',23,'17:23','J3','J4','Oitavas'],['O3',23,'17:31','J5','J6','Oitavas'],['O4',23,'17:39','J7','J8','Oitavas'],
+    ['O5',23,'17:47','J9','J10','Oitavas'],['O6',23,'17:55','J11','J12','Oitavas'],['O7',23,'18:03','J13','J14','Oitavas'],['O8',23,'18:11','J15','J16','Oitavas'],
     ['Q1',24,'17:15','O1','O2','Quartas'],['Q2',24,'17:27','O3','O4','Quartas'],['Q3',24,'17:39','O5','O6','Quartas'],['Q4',24,'17:51','O7','O8','Quartas'],
     ['S1',24,'18:10','Q1','Q2','Semifinal'],['S2',24,'18:25','Q3','Q4','Semifinal'],
     ['F',25,'17:30','S1','S2','Final']
   ];
   const J=Object.fromEntries(JOGOS.map(j=>[j[0],j]));
   const DURA={Final:15};
-  let T={participantes:[],sorteio:null,sorteadoEm:null,resultados:{}};
+  let T={participantes:[],sorteio:null,sorteadoEm:null,resultados:{},times:{}};
   const nomeJ=x=>((T.sorteio||{})[x]||'').trim();
   const rotulo=id=>'Venc. '+id;
   function lado(ref){
@@ -1736,17 +1757,17 @@ function uivo(){
   function cartao(id,cls,estilo,i){
     const j=J[id], r=T.resultados[id]||{}, la=lado(j[3]), lb=lado(j[4]), pl=String(r.placar||'').split(/\s*x\s*/i);
     const g=pl.length===2&&/^\d+$/.test(pl[0])&&/^\d+/.test(pl[1]);
-    const ln=(l,k,gol)=>'<div class="t-lado'+(r.v?(r.v===k?' venceu':' perdeu'):'')+'"><span class="nome">'+l[0]+'</span>'+(gol?'<span class="gols">'+esc(gol)+'</span>':'')+'</div>';
+    const tm=T.times[id]||{};
+    const ln=(l,k,gol)=>'<div class="t-lado'+(r.v?(r.v===k?' venceu':' perdeu'):'')+'"><span class="nome">'+l[0]+(tm[k]?'<em class="t-time">'+esc(tm[k])+'</em>':'')+'</span>'+(gol?'<span class="gols">'+esc(gol)+'</span>':'')+'</div>';
     const est=estado(j), DS={23:'seg',24:'ter',25:'qua'};
     return '<div class="t-jogo '+cls+(est==='agora'?' agora':'')+'" style="'+estilo+';--i:'+i+'"><div class="t-cab"><span>'+(id==='F'?'Final':id)+'</span><span>'+DS[j[1]]+' · '+j[2]+'</span></div>'+ln(la,'a',g?pl[0]:'')+ln(lb,'b',g?pl[1].replace(/\D.*$/,''):'')+'</div>';
   }
-  // colunas mostradas: 1 = preliminar+oitavas, 2 = quartas+semis, 4 = chave completa
+  // colunas mostradas: 1 = oitavas, 2 = quartas+semis, 4 = chave completa
   function chave(modo){
-    const COLS=modo===1?['Preliminar','Oitavas']:modo===2?['Quartas','Semifinal']:['Preliminar','Oitavas','Quartas','Semifinal','Final'];
+    const COLS=modo===1?['Oitavas']:modo===2?['Quartas','Semifinal']:['Oitavas','Quartas','Semifinal','Final'];
     const col=n=>COLS.indexOf(n)+1;let h='',i=0;
     COLS.forEach((x,c)=>h+='<div class="t-col-tit" style="grid-column:'+(c+1)+';grid-row:1">'+x+'</div>');
     const ult=n=>col(n)===COLS.length?' ultimo':'';
-    if(col('Preliminar'))['P1','P2','P3','P4'].forEach((id,k)=>h+=cartao(id,ult('Preliminar'),'grid-column:'+col('Preliminar')+';grid-row:'+(6+k),i++));
     if(col('Oitavas'))['O1','O2','O3','O4','O5','O6','O7','O8'].forEach((id,k)=>h+=cartao(id,ult('Oitavas'),'grid-column:'+col('Oitavas')+';grid-row:'+(2+k),i++));
     if(col('Quartas'))['Q1','Q2','Q3','Q4'].forEach((id,k)=>h+=cartao(id,ult('Quartas'),'grid-column:'+col('Quartas')+';grid-row:'+(2+k*2)+' / span 2',i++));
     if(col('Semifinal'))['S1','S2'].forEach((id,k)=>h+=cartao(id,ult('Semifinal'),'grid-column:'+col('Semifinal')+';grid-row:'+(2+k*4)+' / span 4',i++));
@@ -1776,7 +1797,7 @@ function uivo(){
   function desenhaTabelas(){
     const linha=j=>{const e=estado(j);return '<tr class="'+(e==='feito'||e==='passou'?'passou':e)+'"><td>'+j[2]+'</td><td>'+(j[0]==='F'?'Final':j[5]+' '+j[0])+'</td><td>'+lado(j[3])[0]+'<span class="x">×</span>'+lado(j[4])[0]+'</td></tr>'};
     const extra=(h,t)=>'<tr class="extra"><td>'+h+'</td><td colspan="2">'+t+'</td></tr>';
-    dias.innerHTML=[[23,'Dia 1 · segunda 23/11 · preliminar e oitavas'],[24,'Dia 2 · terça 24/11 · quartas e semis'],[25,'Dia 3 · quarta 25/11 · final']].map(([d,tt])=>
+    dias.innerHTML=[[23,'Dia 1 · segunda 23/11 · oitavas'],[24,'Dia 2 · terça 24/11 · quartas e semis'],[25,'Dia 3 · quarta 25/11 · final']].map(([d,tt])=>
       '<table class="t-tab"><caption>'+tt+'</caption><thead><tr><th>Hora</th><th>Jogo</th><th>Quem joga</th></tr></thead><tbody>'+
       (d===23?extra('17:00','Console livre e chamada dos jogadores'):d===24?extra('17:00','Console livre'):'')+JOGOS.filter(j=>j[1]===d).map(linha).join('')+
       (d===25?extra('17:45','Pódio e premiação'):'')+'</tbody></table>').join('');
@@ -1786,20 +1807,20 @@ function uivo(){
   const quadro=document.getElementById('t-sorteio'), grupos=document.getElementById('t-slots'), tit=document.getElementById('t-sort-tit'), sub=document.getElementById('t-sort-sub'), nota=document.getElementById('t-sort-nota'), rever=document.getElementById('t-rever');
   let animando=false;
   const grupoHTML=(len,rot,ini,f)=>'<div class="t-grupo"><h4>'+rot+'</h4><ol class="t-slots">'+Array.from({length:len},(_,k)=>f(ini+k)).join('')+'</ol></div>';
-  const G1='Direto nas oitavas · 12 primeiros inscritos', G2='Preliminar · 8 últimos inscritos';
+  const G1='Os 16 jogadores';
   function desenhaQuadro(){
     if(animando)return;
     const ps=T.participantes;
     if(T.sorteio){
       tit.textContent='Sorteio';sub.textContent='Feito';sub.className='t-selo-breve ok';rever.hidden=false;
-      nota.textContent='J1 a J12 começam nas oitavas. J13 a J20 jogam a preliminar na segunda, a partir das 17:15. Os confrontos já estão na chave e nos horários.';
-      grupos.innerHTML=grupoHTML(12,G1,1,n=>'<li><b>J'+n+'</b><span>'+esc(T.sorteio['J'+n]||'')+'</span></li>')+grupoHTML(8,G2,13,n=>'<li><b>J'+n+'</b><span>'+esc(T.sorteio['J'+n]||'')+'</span></li>');
+      nota.textContent='J1 enfrenta J2, J3 enfrenta J4, e assim por diante, nas oitavas de segunda a partir das 17:15. Os times de cada partida são sorteados na hora do jogo.';
+      grupos.innerHTML=grupoHTML(16,G1,1,n=>'<li><b>J'+n+'</b><span>'+esc(T.sorteio['J'+n]||'')+'</span></li>');
     }else{
-      tit.textContent=ps.length?'Inscritos · '+ps.length+' de 20':'Sorteio';sub.textContent=ps.length?'Sorteio em breve':'Em breve';sub.className='t-selo-breve';rever.hidden=true;
-      nota.textContent='Os 12 primeiros inscritos vão direto para as oitavas e os 8 últimos jogam a preliminar. O sorteio define os confrontos de cada grupo e acontece ao vivo aqui no site.';
+      tit.textContent=ps.length?'Inscritos · '+ps.length+' de 16':'Sorteio';sub.textContent=ps.length?'Sorteio em breve':'Em breve';sub.className='t-selo-breve';rever.hidden=true;
+      nota.textContent='O sorteio define os confrontos das oitavas (J1 × J2, J3 × J4…) e acontece ao vivo aqui no site.';
       if(ps.length){let k=0;const f=()=>{const n=ps[k++];return n?'<li><b>'+k+'</b><span>'+esc(n)+'</span></li>':'<li class="vazio"><b>'+k+'</b><span>vaga aberta</span></li>'};
-        grupos.innerHTML='<div class="t-grupo"><h4>'+G1+'</h4><ol class="t-slots">'+Array.from({length:12},f).join('')+'</ol></div><div class="t-grupo"><h4>'+G2+'</h4><ol class="t-slots">'+Array.from({length:8},f).join('')+'</ol></div>';}
-      else grupos.innerHTML=grupoHTML(12,G1,1,n=>'<li class="espera"><b>J'+n+'</b><span>?</span></li>')+grupoHTML(8,G2,13,n=>'<li class="espera"><b>J'+n+'</b><span>?</span></li>');
+        grupos.innerHTML='<div class="t-grupo"><h4>'+G1+'</h4><ol class="t-slots">'+Array.from({length:16},f).join('')+'</ol></div>';}
+      else grupos.innerHTML=grupoHTML(16,G1,1,n=>'<li class="espera"><b>J'+n+'</b><span>?</span></li>');
     }
   }
   const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1807,19 +1828,43 @@ function uivo(){
     if(!T.sorteio||animando)return;
     if(reduz){desenhaQuadro();desenhaTudo();return}
     animando=true;quadro.classList.add('rolando');tit.textContent='Sorteando';sub.textContent='Ao vivo';sub.className='t-selo-breve';rever.hidden=true;
-    nota.textContent='Cada inscrito está recebendo um número de J1 a J20.';
+    nota.textContent='Cada inscrito está recebendo um número de J1 a J16.';
     const nomes=Object.values(T.sorteio);
-    grupos.innerHTML=grupoHTML(12,G1,1,n=>'<li class="girando"><b>J'+n+'</b><span></span></li>')+grupoHTML(8,G2,13,n=>'<li class="girando"><b>J'+n+'</b><span></span></li>');
+    grupos.innerHTML=grupoHTML(16,G1,1,n=>'<li class="girando"><b>J'+n+'</b><span></span></li>');
     const lis=[...grupos.querySelectorAll('li')];let k=0;
     const gira=setInterval(()=>lis.forEach((li,i)=>{if(i>=k)li.lastChild.textContent=nomes[(Math.random()*nomes.length)|0]}),70);
     const revela=()=>{const li=lis[k];li.className='saiu';li.lastChild.textContent=T.sorteio['J'+(k+1)];k++;
-      if(k<20)setTimeout(revela,420);else{clearInterval(gira);setTimeout(()=>{animando=false;quadro.classList.remove('rolando');desenhaQuadro();desenhaTudo()},900)}};
+      if(k<16)setTimeout(revela,420);else{clearInterval(gira);setTimeout(()=>{animando=false;quadro.classList.remove('rolando');desenhaQuadro();desenhaTudo()},900)}};
     setTimeout(revela,900);
   }
   rever.addEventListener('click',()=>{quadro.scrollIntoView({block:'start',behavior:reduz?'auto':'smooth'});anima()});
 
+  // ---------- sorteio de times (feito no painel antes de cada partida) ----------
+  const TIMES=["Real Madrid","Manchester City","Barcelona","Bayern de Munique","Liverpool","Arsenal","PSG","Seleção livre"];
+  const show=document.getElementById('t-times-show');
+  let fila=[],mostrando=false;
+  function novosTimes(antes){
+    Object.entries(T.times).forEach(([id,tm])=>{const v=(antes||{})[id];if(tm&&tm.em&&(!v||v.em!==tm.em)&&Date.now()-Date.parse(tm.em)<10*60e3)fila.push(id)});
+    if(!mostrando)proximoShow();
+  }
+  function proximoShow(){
+    const id=fila.shift();if(!id){mostrando=false;return}mostrando=true;
+    const j=J[id], tm=T.times[id], nomes=[lado(j[3]),lado(j[4])].map(l=>l[1]?nomeLimpo(l[0]):l[0]);
+    show.innerHTML='<div class="tts-card"><span class="tts-tag">Sorteio de times · '+(id==='F'?'Final':id)+'</span><div class="tts-lados">'+
+      [0,1].map(k=>'<div class="tts-lado"><b>'+nomes[k]+'</b><span class="tts-time" data-k="'+k+'">?</span></div>').join('<i>×</i>')+'</div><button type="button" class="tts-x" aria-label="Fechar">×</button></div>';
+    show.hidden=false;
+    const els=[...show.querySelectorAll('.tts-time')], fim=[tm.a,tm.b];let n=0;
+    const fecha=()=>{show.hidden=true;setTimeout(proximoShow,400)};
+    show.querySelector('.tts-x').onclick=fecha;
+    if(reduz){els.forEach((e,k)=>{e.textContent=fim[k];e.classList.add('ok')});setTimeout(fecha,6000);return}
+    const gira=setInterval(()=>{els.forEach((e,k)=>{if(!e.classList.contains('ok'))e.textContent=TIMES[(Math.random()*TIMES.length)|0]});n++;
+      if(n===18){els[0].textContent=fim[0];els[0].classList.add('ok')}
+      if(n===30){els[1].textContent=fim[1];els[1].classList.add('ok');clearInterval(gira);setTimeout(fecha,6500)}},80);
+  }
+  show.addEventListener('click',e=>{if(e.target===show){show.hidden=true;setTimeout(proximoShow,400)}});
+
   // ---------- status no topo (ao vivo / contagem até o próximo dia) ----------
-  const status=document.getElementById('fifa-status'), JAN=[[23,17*60,19*60,'Preliminar e oitavas'],[24,17*60,19*60,'Quartas e semis'],[25,17*60+30,18*60+30,'Final']];
+  const status=document.getElementById('fifa-status'), JAN=[[23,17*60,19*60,'Oitavas'],[24,17*60,19*60,'Quartas e semis'],[25,17*60+30,18*60+30,'Final']];
   const diasCards=[...aba.querySelectorAll('.fifa-dias li')];
   function desenhaStatus(){
     const a=agoraBR();diasCards.forEach((li,k)=>li.classList.toggle('hoje',a.dia===JAN[k][0]));
@@ -1847,7 +1892,8 @@ function uivo(){
   async function busca(){
     try{
       const r=await fetch('/api/torneio',{cache:'no-store'});if(!r.ok)throw 0;const d=await r.json();
-      const antes=T.sorteadoEm;T={participantes:d.participantes||[],sorteio:d.sorteio||null,sorteadoEm:d.sorteadoEm||null,resultados:d.resultados||{}};
+      const antes=T.sorteadoEm, timesAntes=T.times;T={participantes:d.participantes||[],sorteio:d.sorteio||null,sorteadoEm:d.sorteadoEm||null,resultados:d.resultados||{},times:d.times||{}};
+      if(!primeira)novosTimes(timesAntes);
       let visto='';try{visto=localStorage.getItem(CHAVE)||''}catch(e){}
       const novo=T.sorteadoEm&&T.sorteadoEm!==visto&&(Date.now()-Date.parse(T.sorteadoEm)<2*3600e3||(!primeira&&T.sorteadoEm!==antes));
       if(novo){try{localStorage.setItem(CHAVE,T.sorteadoEm)}catch(e){};anima()}
@@ -1933,7 +1979,7 @@ function uivo(){
     // card de destaque: fica na agenda de 23 a 25/11 (some depois da grande final)
     {titulo:'Campeonato de FIFA',especial:'fifa',inicio:23,dia:25,mes:11,ano:2026,onde:'Em frente ao Bloco A · Santo André',
      horas:[],desc:'',
-     zap:'Campeonato de FIFA · Chapa 2 Boca no Mundo\nEm frente ao Bloco A, Santo André\nSegunda 23/11, 17h às 19h: preliminar e oitavas\nTerça 24/11, 17h às 19h: quartas e semis\nQuarta 25/11, 17:30: final\n20 vagas por ordem de chegada · inscrição R$ 22,50\nInscrição e pagamento (WhatsApp): Kauan (11) 93938-1120 ou Guilherme (11) 91529-9352\nPrêmio: o campeão escolhe entre o GTA VI ou R$ 450,00 no PIX'},
+     zap:'Campeonato de FIFA · Chapa 2 Boca no Mundo\nEm frente ao Bloco A, Santo André\nSegunda 23/11, 17h às 19h: oitavas\nTerça 24/11, 17h às 19h: quartas e semis\nQuarta 25/11, 17:30: final\n16 vagas por ordem de chegada · inscrição R$ 22,50\nInscrição e pagamento (WhatsApp): Kauan (11) 93938-1120 ou Guilherme (11) 91529-9352\nPrêmio: o campeão escolhe entre o GTA VI ou R$ 450,00 no PIX'},
     {titulo:'Votação · Vote 2',dia:25,mes:11,ano:2026,onde:'Eleições do DCE UFABC',voto:true,
      horas:[],
      desc:'Primeiro dia de votação.',
@@ -1974,12 +2020,12 @@ function uivo(){
   }
   if(!ativos.length&&!passados.length)return;
   lista.hidden=!ativos.length;
-  const FIFA_DIAS=[[23,'Preliminar e oitavas','seg · 17h às 19h'],[24,'Quartas e semis','ter · 17h às 19h'],[25,'Final','qua · 17:30 às 18:30']];
+  const FIFA_DIAS=[[23,'Oitavas','seg · 17h às 19h'],[24,'Quartas e semis','ter · 17h às 19h'],[25,'Final','qua · 17:30 às 18:30']];
   const cardFifa=e=>'<article class="evento ev-fifa estampa"><div class="petalas" aria-hidden="true"><i></i><i></i><i></i></div>'+
     '<img class="ev-fifa-selo" src="{{fifaselo}}" alt="" width="208" height="208">'+
     '<div class="ev-corpo"><span class="label">Torneio da chapa · 23 a 25/11</span><h3>Campeonato de FIFA</h3><p class="ev-onde">'+e.onde+'</p>'+
     '<ol class="ev-fifa-dias">'+FIFA_DIAS.map(([d,r,hr],k)=>'<li class="'+(k===2?'final':'')+(d===h.d&&h.m===11?' hoje':'')+'"><b>'+d+'/11</b><span>'+r+'</span><small>'+hr+'</small></li>').join('')+'</ol>'+
-    '<ul class="ev-fifa-chips"><li>20 vagas, por ordem de chegada</li><li>Inscrição R$ 22,50</li><li>Prêmio: GTA VI ou R$ 450 no PIX</li><li>Console livre antes do início</li><li>Inscrição: Kauan (11) 93938-1120 ou Guilherme (11) 91529-9352</li></ul>'+
+    '<ul class="ev-fifa-chips"><li>16 vagas, por ordem de chegada</li><li>Inscrição R$ 22,50</li><li>Prêmio: GTA VI ou R$ 450 no PIX</li><li>Console livre antes do início</li><li>Inscrição: Kauan (11) 93938-1120 ou Guilherme (11) 91529-9352</li></ul>'+
     '<div class="ev-fifa-btns"><a class="ev-fifa-cta" href="#torneio">Ver o torneio</a><a class="ev-fifa-zap" href="https://wa.me/5511939381120?text=Oi!%20Quero%20me%20inscrever%20no%20Campeonato%20de%20FIFA%20da%20Chapa%202%20%C2%B7%20Boca%20no%20Mundo." target="_blank" rel="noopener">'+zapIco+'Kauan</a><a class="ev-fifa-zap" href="https://wa.me/5511915299352?text=Oi!%20Quero%20me%20inscrever%20no%20Campeonato%20de%20FIFA%20da%20Chapa%202%20%C2%B7%20Boca%20no%20Mundo." target="_blank" rel="noopener">'+zapIco+'Guilherme</a>'+
     '<a class="ev-avisar" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(e.zap+'\n\nhttps://boca-no-mundo.vercel.app/#torneio')+'" aria-label="Avisar a galera sobre o Campeonato de FIFA no WhatsApp">'+zapIco+'Avisar a galera</a></div></div></article>';
   lista.innerHTML=ativos.map(e=>{
