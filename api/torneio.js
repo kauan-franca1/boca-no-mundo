@@ -104,7 +104,9 @@ module.exports = (req, res) => protege(res, async () => {
     if (!JOGOS.includes(jogo) || !['a', 'b', ''].includes(v)) return erro(res, 400, 'Pedido inválido');
     if (!d.sorteio) return erro(res, 409, 'Faça o sorteio antes de lançar resultados.');
     const placar = String(b.placar || '').replace(/[^0-9xX ().,pênaPÊNA:-]/g, '').replace(/\s+/g, ' ').trim().slice(0, 30);
-    if (v) d.resultados[jogo] = placar ? { v, placar } : { v }; else delete d.resultados[jogo];
+    // mantém a vaga cedida (resultados[jogo].cedeu) se o vencedor continuar o mesmo
+    const antes = d.resultados[jogo], cedeu = antes && antes.v === v && antes.cedeu;
+    if (v) d.resultados[jogo] = Object.assign(placar ? { v, placar } : { v }, cedeu ? { cedeu } : {}); else delete d.resultados[jogo];
   } else {
     return erro(res, 400, 'Ação inválida');
   }
