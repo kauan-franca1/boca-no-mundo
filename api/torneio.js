@@ -4,6 +4,7 @@
 //   acao 'participantes' { lista:[nomes] }   (até 20, só antes do sorteio)
 //   acao 'sortear'                            (precisa de 16 nomes; sorteia J1–J16 uma vez)
 //   acao 'times' { jogo, refazer }            (sorteia o time de cada lado da partida, sem repetir)
+//   acao 'lados' { jogo, a, b }               (ajuste manual de quem joga; '' = pela chave)
 //   acao 'desfazer'                           (apaga o sorteio e os resultados)
 //   acao 'resultado' { jogo, v:'a'|'b'|'', placar }
 const crypto = require('crypto');
@@ -26,6 +27,7 @@ const arruma = d => ({
   sorteadoEm: (d && d.sorteadoEm) || null,
   resultados: (d && d.resultados && typeof d.resultados === 'object') ? d.resultados : {},
   times: (d && d.times && typeof d.times === 'object') ? d.times : {},
+  lados: (d && d.lados && typeof d.lados === 'object') ? d.lados : {},
   preferencias: (d && d.preferencias && typeof d.preferencias === 'object') ? d.preferencias : {}
 });
 // horário de cada vaga nas oitavas (J1/J2 jogam a O1 às 17:15, J3/J4 a O2 às 17:23…)
@@ -88,9 +90,16 @@ module.exports = (req, res) => protege(res, async () => {
     if (!nomes) return erro(res, 400, 'Não deu para respeitar todos os horários pedidos. Revise os "após" na lista.');
     d.sorteio = Object.fromEntries(nomes.map((n, i) => ['J' + (i + 1), n]));
     d.sorteadoEm = new Date().toISOString();
-    d.resultados = {}; d.times = {};
+    d.resultados = {}; d.times = {}; d.lados = {};
   } else if (b.acao === 'desfazer') {
-    d.sorteio = null; d.sorteadoEm = null; d.resultados = {}; d.times = {};
+    d.sorteio = null; d.sorteadoEm = null; d.resultados = {}; d.times = {}; d.lados = {};
+  } else if (b.acao === 'lados') {
+    const jogo = String(b.jogo || ''), la = String(b.a || ''), lb = String(b.b || '');
+    if (!JOGOS.includes(jogo)) return erro(res, 400, 'Pedido inválido');
+    if (!d.sorteio) return erro(res, 409, 'Faça o sorteio dos jogadores antes.');
+    if ([la, lb].some(n => n && !d.participantes.includes(n))) return erro(res, 400, 'Escolha um participante da lista.');
+    if (la && la === lb) return erro(res, 400, 'Os dois lados não podem ser a mesma pessoa.');
+    if (la || lb) d.lados[jogo] = Object.assign({}, la ? { a: la } : {}, lb ? { b: lb } : {}); else delete d.lados[jogo];
   } else if (b.acao === 'times') {
     // sorteia o time de cada lado da partida: 2 times diferentes entre os 8
     const jogo = String(b.jogo || '');

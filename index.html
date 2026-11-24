@@ -1742,9 +1742,11 @@ function uivo(){
     if(/^J\d+$/.test(ref)){const n=nomeJ(ref);return [n?esc(n)+' <span class="ref">'+ref+'</span>':ref,!!n]}
     const r=T.resultados[ref];
     if(r&&r.cedeu)return [esc(r.cedeu)+' <span class="ref">vaga cedida</span>',true];
-    if(r&&(r.v==='a'||r.v==='b')){const q=lado(J[ref][r.v==='a'?3:4]);if(q[1])return q}
+    if(r&&(r.v==='a'||r.v==='b')){const q=ladoDe(ref,r.v);if(q[1])return q}
     return [rotulo(ref),false];
   }
+  // ajuste manual do painel (T.lados[jogo].a/.b) vale por cima da chave
+  const ladoDe=(id,k)=>{const o=(T.lados||{})[id]||{};return o[k]?[esc(o[k]),true]:lado(J[id][k==='a'?3:4])};
   const nomeLimpo=html=>html.replace(/ <span.*$/,'');
   // horário de Brasília
   const agoraBR=()=>{const d=new Date(Date.now()-3*3600e3);return {dia:d.getUTCDate()+(d.getUTCMonth()===10&&d.getUTCFullYear()===2026?0:(d<new Date(Date.UTC(2026,10,1))?-100:100)),min:d.getUTCHours()*60+d.getUTCMinutes()}};
@@ -1756,7 +1758,7 @@ function uivo(){
   const painel=document.getElementById('t-painel'), dica=document.getElementById('t-dica'), abas=[...aba.querySelectorAll('.t-abas button')];
   let diaVisto=(()=>{const a=agoraBR();return a.dia>=25?3:a.dia===24?2:1})();
   function cartao(id,cls,estilo,i){
-    const j=J[id], r=T.resultados[id]||{}, la=lado(j[3]), lb=lado(j[4]), pl=String(r.placar||'').split(/\s*x\s*/i);
+    const j=J[id], r=T.resultados[id]||{}, la=ladoDe(id,'a'), lb=ladoDe(id,'b'), pl=String(r.placar||'').split(/\s*x\s*/i);
     const g=pl.length===2&&/^\d+$/.test(pl[0])&&/^\d+/.test(pl[1]);
     const tm=T.times[id]||{};
     const ln=(l,k,gol)=>'<div class="t-lado'+(r.v?(r.v===k?' venceu':' perdeu'):'')+'"><span class="nome">'+l[0]+(tm[k]?'<em class="t-time">'+esc(tm[k])+'</em>':'')+'</span>'+(gol?'<span class="gols">'+esc(gol)+'</span>':'')+'</div>';
@@ -1777,9 +1779,9 @@ function uivo(){
     return '<div class="t-dia-grade" style="grid-template-columns:repeat('+COLS.length+',minmax(190px,1fr));min-width:'+(COLS.length*222)+'px;grid-template-rows:auto repeat(8,auto)">'+h+nota+'</div>';
   }
   function final(){
-    const r=T.resultados.F||{}, a=lado('S1'), b=lado('S2'), pl=String(r.placar||'').split(/\s*x\s*/i), g=pl.length===2&&/^\d+$/.test(pl[0]);
+    const r=T.resultados.F||{}, a=ladoDe('F','a'), b=ladoDe('F','b'), pl=String(r.placar||'').split(/\s*x\s*/i), g=pl.length===2&&/^\d+$/.test(pl[0]);
     const ld=(l,k,n,gol)=>'<div class="t-gf-lado'+(r.v===k?' venceu':'')+'"><span>Vencedor da semi '+n+'</span><b class="'+(l[1]?'':'espera')+'">'+(l[1]?nomeLimpo(l[0]):'A definir')+'</b>'+(gol?'<span class="gols">'+esc(gol)+'</span>':'')+'</div>';
-    const camp=r.v?lado(J.F[r.v==='a'?3:4]):null;
+    const camp=r.v?ladoDe('F',r.v):null;
     return '<div class="t-gf">'+ld(a,'a',1,g?pl[0]:'')+'<div class="t-gf-vs" aria-label="contra">VS</div>'+ld(b,'b',2,g?pl[1].replace(/\D.*$/,''):'')+
       '<p class="t-gf-info"><span><b>Terça 24/11 · 18:45</b></span><span>Jogo único de 4 min</span><span>Empate: prorrogação e pênaltis</span><span>Prêmio: <b>GTA VI ou R$ 450 no PIX</b></span></p>'+
       (camp&&camp[1]?'<p class="t-gf-campeao"><small>Campeão do Campeonato de FIFA</small>★ '+nomeLimpo(camp[0])+' ★</p>':'')+'</div>';
@@ -1796,7 +1798,7 @@ function uivo(){
   // ---------- horários ----------
   const dias=document.getElementById('t-dias');
   function desenhaTabelas(){
-    const linha=j=>{const e=estado(j);return '<tr class="'+(e==='feito'||e==='passou'?'passou':e)+'"><td>'+j[2]+'</td><td>'+(j[0]==='F'?'Final':j[5]+' '+j[0])+'</td><td>'+lado(j[3])[0]+'<span class="x">×</span>'+lado(j[4])[0]+'</td></tr>'};
+    const linha=j=>{const e=estado(j);return '<tr class="'+(e==='feito'||e==='passou'?'passou':e)+'"><td>'+j[2]+'</td><td>'+(j[0]==='F'?'Final':j[5]+' '+j[0])+'</td><td>'+ladoDe(j[0],'a')[0]+'<span class="x">×</span>'+ladoDe(j[0],'b')[0]+'</td></tr>'};
     const extra=(h,t)=>'<tr class="extra"><td>'+h+'</td><td colspan="2">'+t+'</td></tr>';
     dias.innerHTML=[[23,'Dia 1 · segunda 23/11 · oitavas'],[24,'Dia 2 · terça 24/11 · quartas, semis e final']].map(([d,tt])=>
       '<table class="t-tab"><caption>'+tt+'</caption><thead><tr><th>Hora</th><th>Jogo</th><th>Quem joga</th></tr></thead><tbody>'+
@@ -1850,7 +1852,7 @@ function uivo(){
   }
   function proximoShow(){
     const id=fila.shift();if(!id){mostrando=false;return}mostrando=true;
-    const j=J[id], tm=T.times[id], nomes=[lado(j[3]),lado(j[4])].map(l=>l[1]?nomeLimpo(l[0]):l[0]);
+    const j=J[id], tm=T.times[id], nomes=[ladoDe(id,'a'),ladoDe(id,'b')].map(l=>l[1]?nomeLimpo(l[0]):l[0]);
     show.innerHTML='<div class="tts-card"><span class="tts-tag">Sorteio de times · '+(id==='F'?'Final':id)+'</span><div class="tts-lados">'+
       [0,1].map(k=>'<div class="tts-lado"><b>'+nomes[k]+'</b><span class="tts-time" data-k="'+k+'">?</span></div>').join('<i>×</i>')+'</div><button type="button" class="tts-x" aria-label="Fechar">×</button></div>';
     show.hidden=false;
@@ -1893,7 +1895,7 @@ function uivo(){
   async function busca(){
     try{
       const r=await fetch('/api/torneio',{cache:'no-store'});if(!r.ok)throw 0;const d=await r.json();
-      const antes=T.sorteadoEm, timesAntes=T.times;T={participantes:d.participantes||[],sorteio:d.sorteio||null,sorteadoEm:d.sorteadoEm||null,resultados:d.resultados||{},times:d.times||{}};
+      const antes=T.sorteadoEm, timesAntes=T.times;T={participantes:d.participantes||[],sorteio:d.sorteio||null,sorteadoEm:d.sorteadoEm||null,resultados:d.resultados||{},times:d.times||{},lados:d.lados||{}};
       if(!primeira)novosTimes(timesAntes);
       let visto='';try{visto=localStorage.getItem(CHAVE)||''}catch(e){}
       const novo=T.sorteadoEm&&T.sorteadoEm!==visto&&(Date.now()-Date.parse(T.sorteadoEm)<2*3600e3||(!primeira&&T.sorteadoEm!==antes));

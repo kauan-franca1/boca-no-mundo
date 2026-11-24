@@ -54,6 +54,8 @@ textarea{font:600 1rem/1.5 Montserrat,sans-serif;color:#3a0a18;border:2px solid 
 .jogo .linha{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .jogo input{font:700 .9rem Montserrat,sans-serif;border:2px solid #d9b9c4;border-radius:8px;padding:.5em .7em;width:180px}
 .times-linha{justify-content:space-between;background:#fff7ef;border-radius:8px;padding:6px 8px}.times-txt{font-weight:800;font-size:.9rem;color:var(--vinho)}
+.ajuste summary{cursor:pointer;font-weight:800;font-size:.85rem;color:var(--vinho);padding:4px 0}
+.ajuste select{font:700 .88rem Montserrat,sans-serif;border:2px solid #d9b9c4;border-radius:8px;padding:.45em .6em;max-width:100%;flex:1 1 180px}
 .btn.perigo{border-color:#a01c1c;color:#a01c1c}
 @media (max-width:520px){.jogo .lados{grid-template-columns:1fr}}
 </style>
@@ -144,8 +146,10 @@ function quem(ref){ // nome de quem ocupa a vaga, ou '' se ainda não definido
   if(/^J\d+$/.test(ref))return (T.sorteio||{})[ref]?(T.sorteio[ref]+' ('+ref+')'):'';
   const r=T.resultados[ref];if(!r||!r.v)return '';
   if(r.cedeu)return r.cedeu+' (vaga cedida)';
-  return quem(JJ[ref][r.v==='a'?3:4]);
+  return quemDe(ref,r.v);
 }
+// quem joga do lado k da partida: o ajuste manual vale por cima da chave
+function quemDe(id,k){const o=(T.lados||{})[id]||{};return o[k]?o[k]+' (ajustado)':quem(JJ[id][k==='a'?3:4])}
 const rotulo=ref=>/^J/.test(ref)?ref:'Venc. '+ref;
 function desenhaT(){
   const n=T.participantes.length, travado=!!T.sorteio;
@@ -161,7 +165,7 @@ function desenhaT(){
   const box=$('t-jogos');box.innerHTML='';
   if(!travado){const p=document.createElement('p');p.className='vazio';p.textContent='Os jogos aparecem aqui depois do sorteio.';box.append(p);return}
   JOGOS.forEach(([id,dia,hora,a,b])=>{
-    const r=T.resultados[id]||{}, qa=quem(a), qb=quem(b);
+    const r=T.resultados[id]||{}, qa=quemDe(id,'a'), qb=quemDe(id,'b');
     const el=document.createElement('div');el.className='jogo'+(r.v?' feito':'');
     const cab=document.createElement('div');cab.className='cab';cab.textContent=(id==='F'?'Final':id)+' · '+dia+'/11 · '+hora;
     const lados=document.createElement('div');lados.className='lados';
@@ -176,7 +180,18 @@ function desenhaT(){
     const tx=document.createElement('span');tx.className='times-txt';tx.textContent=tm?'Times: '+tm.a+' × '+tm.b:'Times ainda não sorteados';
     const bt=document.createElement('button');bt.type='button';bt.className='btn '+(tm?'':'ok');bt.textContent=tm?'Sortear de novo':'Sortear times';bt.disabled=!qa||!qb;
     bt.onclick=()=>{if(tm&&!confirm('Sortear os times de '+id+' de novo? O sorteio anterior será trocado.'))return;faz({acao:'times',jogo:id,refazer:!!tm},'Times de '+id+' sorteados: já aparecem no site.')};
-    lt.append(tx,bt);el.append(cab,lados,lt,ln);box.append(el);
+    lt.append(tx,bt);
+    // ajuste manual: escolher quem joga de cada lado (troca de última hora, W.O., vaga cedida)
+    const aj=document.createElement('details');aj.className='ajuste';const o=(T.lados||{})[id]||{};aj.open=!!(o.a||o.b);
+    const sm=document.createElement('summary');sm.textContent=(o.a||o.b)?'Ajustado à mão · mudar':'Ajustar quem joga (troca, W.O., vaga cedida)';
+    const sel=(k,ref)=>{const s=document.createElement('select');s.setAttribute('aria-label','Lado '+k.toUpperCase()+' de '+id);
+      const op0=document.createElement('option');op0.value='';op0.textContent='Pela chave: '+(quem(ref)||rotulo(ref));s.append(op0);
+      T.participantes.forEach(n=>{const op=document.createElement('option');op.value=n;op.textContent=n;if(o[k]===n)op.selected=true;s.append(op)});return s};
+    const sa=sel('a',a), sb=sel('b',b), la=document.createElement('div');la.className='linha';
+    const sv=document.createElement('button');sv.type='button';sv.className='btn ok';sv.textContent='Salvar quem joga';
+    sv.onclick=()=>faz({acao:'lados',jogo:id,a:sa.value,b:sb.value},'Confronto de '+id+' ajustado: já aparece no site.');
+    la.append(sa,document.createTextNode('×'),sb,sv);aj.append(sm,la);
+    el.append(cab,lados,lt,ln,aj);box.append(el);
   });
 }
 async function carregaTorneio(){try{T=await apiT();desenhaT()}catch(e){$('t-msg').textContent=e.status===503?'O torneio ainda não foi ativado no banco.':e.message}}
